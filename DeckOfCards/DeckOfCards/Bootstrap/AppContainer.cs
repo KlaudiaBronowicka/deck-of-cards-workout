@@ -19,10 +19,7 @@ namespace DeckOfCards.Bootstrap
             builder.RegisterType<MenuViewModel>();
             builder.RegisterType<WorkoutViewModel>();
             builder.RegisterType<EditDeckViewModel>();
-
-            //services - data
-            builder.RegisterType<MockDataStore>();
-
+            
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DeckDataService>().As<IDeckDataService>();

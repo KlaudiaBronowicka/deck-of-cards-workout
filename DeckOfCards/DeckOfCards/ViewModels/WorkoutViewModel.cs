@@ -18,11 +18,6 @@ namespace DeckOfCards.ViewModels
             }
         }
 
-        public WorkoutViewModel(INavigationService navigationService, IDeckDataService deckDataService) : base(navigationService, deckDataService)
-        {
-          
-        }
-
         public override Task InitializeAsync(object data)
         {
             Cards = new ObservableCollection<CardItem>(_deckDataService.GetFullDeck());

@@ -29,8 +29,6 @@ namespace DeckOfCards.ViewModels
             return Task.FromResult(false);
         }
 
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-
         bool isBusy = false;
         public bool IsBusy
         {

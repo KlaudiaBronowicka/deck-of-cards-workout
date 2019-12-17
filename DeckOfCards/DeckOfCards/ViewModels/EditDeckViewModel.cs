@@ -1,9 +1,5 @@
-﻿using DeckOfCards.Contracts.Services;
-using DeckOfCards.Models;
-using System;
-using System.Collections.Generic;
+﻿using DeckOfCards.Models;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DeckOfCards.ViewModels
@@ -23,7 +19,7 @@ namespace DeckOfCards.ViewModels
 
         public override Task InitializeAsync(object data)
         {
-            Exercises = _deckDataService.GetExercises();
+            Exercises = new ObservableCollection<ExerciseItem>(_deckDataService.GetExercises());
 
             return Task.FromResult(true);
         }

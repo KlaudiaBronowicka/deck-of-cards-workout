@@ -1,10 +1,5 @@
-﻿using DeckOfCards.Contracts.Services;
-using DeckOfCards.Models;
-using System;
-using System.Collections.Generic;
+﻿using DeckOfCards.Models;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -25,7 +20,7 @@ namespace DeckOfCards.ViewModels
             }
         }
 
-        public MenuViewModel(INavigationService navigationService) : base(navigationService)
+        public MenuViewModel()
         {
             MenuItems = new ObservableCollection<HomeMenuItem>()
             {

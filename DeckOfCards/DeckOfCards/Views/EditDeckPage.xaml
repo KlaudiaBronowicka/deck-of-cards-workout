@@ -9,7 +9,7 @@
              utility:ViewModelLocator.AutoWireViewModel="True">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Edit deck page"
+            <Label Text="{Binding Exercises[0].Name}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
