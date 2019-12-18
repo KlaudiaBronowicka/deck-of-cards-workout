@@ -8,10 +8,92 @@
               xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding Cards[0]}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            BackgroundColor="DarkCyan"
+            Padding="16"
+            Spacing="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    HorizontalTextAlignment="Start"
+                    Text="{Binding CurrentCardIndex}"
+                    FontSize="28"
+                    TextColor="White">
+                    
+                </Label>
+                <Label
+                    HorizontalTextAlignment="End"
+                    Grid.Column="1"
+                    Text="{Binding Seconds}"
+                    FontSize="28"
+                    TextColor="White">
+                </Label>
+            </Grid>
+            <Grid
+                BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="300"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    BackgroundColor="Gray"
+                    Grid.Row="0"
+                    Grid.Column="0" >
+                </Image>
+                <Image
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    BackgroundColor="Gray"
+                    Grid.Row="0"
+                    Grid.Column="2" >
+                </Image>
+                <Image
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    BackgroundColor="Gray"
+                    Grid.Row="2"
+                    Grid.Column="0" >
+                </Image>
+                <Image
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    BackgroundColor="Gray"
+                    Grid.Row="2"
+                    Grid.Column="2" >
+
+                </Image>
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontSize="36"
+                    Text="{Binding CurrentCard.Exercise}" />
+            </Grid>
+            <Button
+                Text="START"
+                HorizontalOptions="Center"
+                WidthRequest="180"
+                Command="{Binding ButtonPressedCommand}">
+                
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

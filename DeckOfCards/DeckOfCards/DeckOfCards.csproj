@@ -6,9 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\spade.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\spade.png" />
   </ItemGroup>
 
   <ItemGroup>
