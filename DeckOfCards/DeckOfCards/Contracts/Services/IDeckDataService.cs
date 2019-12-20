@@ -12,5 +12,7 @@ namespace DeckOfCards.Contracts.Services
         List<ExerciseItem> GetExercises();
 
         string GetExerciseForCardSymbol(CardSymbol symbol);
+
+        int GetNumberOfCardsInDeck();
     }
 }

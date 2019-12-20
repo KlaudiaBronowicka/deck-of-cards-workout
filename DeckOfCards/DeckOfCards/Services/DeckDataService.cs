@@ -10,10 +10,12 @@ namespace DeckOfCards.Services
     public class DeckDataService : IDeckDataService
     {
         List<ExerciseItem> _exercises;
+        List<CardItem> _deck;
 
         public DeckDataService()
         {
             InitiateExerciseData();
+            InitiateDeckData();
         }
 
         public string GetExerciseForCardSymbol(CardSymbol symbol)
@@ -28,9 +30,26 @@ namespace DeckOfCards.Services
 
         public List<CardItem> GetFullDeck()
         {
+            var cards = new List<CardItem>();
+
+            foreach (var card in _deck)
+            {
+                cards.Add(new CardItem(card.Symbol, card.Value, GetExerciseForCardSymbol(card.Symbol)));
+            }
+            
+            return cards;
+        }
+
+        public int GetNumberOfCardsInDeck()
+        {
+            return _deck?.Count ?? 0;
+        }
+
+        private void InitiateDeckData()
+        {
             // use rules like if we should return Joker or not
             var jokerExercise = GetExerciseForCardSymbol(CardSymbol.Joker);
-            var cards = new List<CardItem>()
+            _deck = new List<CardItem>()
             {
                 new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise),
                 new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise)
@@ -39,13 +58,11 @@ namespace DeckOfCards.Services
             for (int i = 0; i < 4; i++)
             {
                 var exerciseName = GetExerciseForCardSymbol((CardSymbol)i);
-                for (int j = 0; j < 12; j++)
+                for (int j = 0; j < 13; j++)
                 {
-                    cards.Add(new CardItem((CardSymbol)i, (CardValue)j, exerciseName));
+                    _deck.Add(new CardItem((CardSymbol)i, (CardValue)j, exerciseName));
                 }
             }
-
-            return cards;
         }
 
         private void InitiateExerciseData()
