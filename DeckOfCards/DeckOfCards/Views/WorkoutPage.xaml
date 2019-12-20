@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
             <converters:CardNumberConverter x:Key="cardNumberConvert" />
+            <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -58,32 +59,32 @@
                 </Grid.ColumnDefinitions>
 
                 <Image
-                    WidthRequest="36"
-                    HeightRequest="36"
-                    BackgroundColor="Gray"
+                    WidthRequest="50"
+                    HeightRequest="50"
                     Grid.Row="0"
-                    Grid.Column="0" >
+                    Grid.Column="0" 
+                    Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
                 </Image>
                 <Image
-                    WidthRequest="36"
-                    HeightRequest="36"
-                    BackgroundColor="Gray"
+                    WidthRequest="50"
+                    HeightRequest="50"
                     Grid.Row="0"
-                    Grid.Column="2" >
+                    Grid.Column="2" 
+                    Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
                 </Image>
                 <Image
-                    WidthRequest="36"
-                    HeightRequest="36"
-                    BackgroundColor="Gray"
+                    WidthRequest="50"
+                    HeightRequest="50"
                     Grid.Row="2"
-                    Grid.Column="0" >
+                    Grid.Column="0" 
+                    Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
                 </Image>
                 <Image
-                    WidthRequest="36"
-                    HeightRequest="36"
-                    BackgroundColor="Gray"
+                    WidthRequest="50"
+                    HeightRequest="50"
                     Grid.Row="2"
-                    Grid.Column="2" >
+                    Grid.Column="2" 
+                    Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
 
                 </Image>
                 <Label
