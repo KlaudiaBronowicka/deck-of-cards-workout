@@ -42,6 +42,7 @@ namespace DeckOfCards
 
         protected override void OnSleep()
         {
+            //TODO: pause/resume workout
             // Handle when your app sleeps
         }
 
@@ -49,5 +50,7 @@ namespace DeckOfCards
         {
             // Handle when your app resumes
         }
+
+        
     }
 }

@@ -5,8 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.WorkoutPage"
-              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
+             xmlns:converters="clr-namespace:DeckOfCards.Converters"
+             xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SecondsToTimeConverter x:Key="timeConvert" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout
             VerticalOptions="FillAndExpand"
@@ -32,7 +38,7 @@
                 <Label
                     HorizontalTextAlignment="End"
                     Grid.Column="1"
-                    Text="{Binding Seconds}"
+                    Text="{Binding Seconds, Converter={StaticResource timeConvert}}"
                     FontSize="28"
                     TextColor="White">
                 </Label>
