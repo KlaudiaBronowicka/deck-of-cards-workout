@@ -118,11 +118,18 @@ namespace DeckOfCards.ViewModels
             NextCard();
         }
 
-        private void FinishGame()
+        private async void FinishGame()
         {
-            // Display information that you finished
-
             IsGameRunning = false;
+
+            var converter = new Converters.SecondsToTimeConverter();
+            var time = converter.Convert(Seconds, typeof(string), null, System.Globalization.CultureInfo.InvariantCulture);
+            
+            await _popupService.ShowDialog("Congratulations!", $"You finished your workout in {time}!", "OK");
+
+            Seconds = 0;
+            CurrentCardIndex = 0;
+            CurrentCard = null;
         }
 
         private int GetRandomCardIndex()

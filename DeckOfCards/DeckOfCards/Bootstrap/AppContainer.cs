@@ -23,6 +23,7 @@ namespace DeckOfCards.Bootstrap
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DeckDataService>().As<IDeckDataService>();
+            builder.RegisterType<PopupService>().As<IPopupService>();
 
             _container = builder.Build();
         }

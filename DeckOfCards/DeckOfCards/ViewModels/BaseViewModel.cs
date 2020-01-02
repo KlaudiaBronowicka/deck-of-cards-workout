@@ -17,11 +17,13 @@ namespace DeckOfCards.ViewModels
     {
         protected readonly INavigationService _navigationService;
         protected readonly IDeckDataService _deckDataService;
+        protected readonly IPopupService _popupService;
 
         public BaseViewModel()
         {
             _navigationService = AppContainer.Resolve<INavigationService>();
-            _deckDataService = AppContainer.Resolve<IDeckDataService>(); 
+            _deckDataService = AppContainer.Resolve<IDeckDataService>();
+            _popupService = AppContainer.Resolve<IPopupService>();
         }
 
         public virtual Task InitializeAsync(object data)
