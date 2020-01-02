@@ -36,7 +36,7 @@ namespace DeckOfCards.Services
             {
                 cards.Add(new CardItem(card.Symbol, card.Value, GetExerciseForCardSymbol(card.Symbol)));
             }
-            
+
             return cards;
         }
 
@@ -77,5 +77,11 @@ namespace DeckOfCards.Services
                 new ExerciseItem(CardSymbol.Joker, "5 of each")
             };
         }
+
+        public void UpdateExerciseData(List<ExerciseItem> newExercises)
+        {
+            _exercises = new List<ExerciseItem>(newExercises);
+        }
+
     }
 }

@@ -1,6 +1,9 @@
 ﻿using DeckOfCards.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace DeckOfCards.ViewModels
 {
@@ -15,6 +18,14 @@ namespace DeckOfCards.ViewModels
                 _exercises = value;
                 OnPropertyChanged();
             }
+        }
+
+        public ICommand SaveButtonClicked => new Command(OnSaveButtonClicked);
+
+        private void OnSaveButtonClicked()
+        {
+            _deckDataService.UpdateExerciseData(new List<ExerciseItem>(Exercises));
+            _navigationService.PopToRootAsync();
         }
 
         public override Task InitializeAsync(object data)

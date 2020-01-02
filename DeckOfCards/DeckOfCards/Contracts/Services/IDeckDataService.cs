@@ -14,5 +14,7 @@ namespace DeckOfCards.Contracts.Services
         string GetExerciseForCardSymbol(CardSymbol symbol);
 
         int GetNumberOfCardsInDeck();
+
+        void UpdateExerciseData(List<ExerciseItem> newExercises);
     }
 }

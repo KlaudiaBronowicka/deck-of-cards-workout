@@ -13,6 +13,9 @@
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding SaveButtonClicked}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ListView
             ItemsSource="{Binding Exercises}"
@@ -23,7 +26,7 @@
                         Height="60">
                         <ContentView>
                             <Grid
-                                Padding="16, 0, 16, 0">
+                                Padding="16, 0, 4, 0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="60"/>
                                 </Grid.RowDefinitions>
