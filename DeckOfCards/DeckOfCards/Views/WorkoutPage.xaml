@@ -14,6 +14,8 @@
             <converters:CardNumberConverter x:Key="cardNumberConvert" />
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
             <converters:BoolToValueConverter x:Key="gameStateTextConvert" x:TypeArguments="x:String" TrueValue="Next" FalseValue="Start"  />
+            <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="Resume" FalseValue="Pause"  />
+            <converters:InverseBoolConverter x:Key="inverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -99,9 +101,17 @@
             <Button
                 Text="{Binding IsGameRunning, Converter={StaticResource gameStateTextConvert}}"
                 HorizontalOptions="Center"
+                WidthRequest="180"                
+                Command="{Binding NextButtonPressedCommand}"
+                IsEnabled="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"
+>
+            </Button>
+            <Button
+                Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
+                HorizontalOptions="Center"
                 WidthRequest="180"
-                Command="{Binding ButtonPressedCommand}">
-                
+                Command="{Binding PauseButtonPressedCommand}"
+                IsEnabled="{Binding IsGameRunning}">
             </Button>
         </StackLayout>
     </ContentPage.Content>

@@ -68,23 +68,42 @@ namespace DeckOfCards.ViewModels
             }
         }
 
+        private bool _isGamePaused;
+        public bool IsGamePaused
+        {
+            get => _isGamePaused;
+            set
+            {
+                _isGamePaused = value;
+                OnPropertyChanged();
+            }
+        }
         
         private Random _random;
 
-        public ICommand ButtonPressedCommand => new Command(OnButtonPressed);
+        public ICommand NextButtonPressedCommand => new Command(OnNextButtonPressed);
+        public ICommand PauseButtonPressedCommand => new Command(OnPauseButtonPressed);
 
         public override Task InitializeAsync(object data)
         {
             Cards = new ObservableCollection<CardItem>(_deckDataService.GetFullDeck());
             _random = new Random();
 
+            IsGameRunning = false;
+
             return Task.FromResult(true);
         }
 
-        public void OnButtonPressed()
+        private void OnNextButtonPressed()
         {
             if (IsGameRunning)  NextCard();
             else StartGame();
+        }
+
+        private void OnPauseButtonPressed()
+        {
+            if (IsGamePaused) ResumeGame();
+            else PauseGame();
         }
 
         private void NextCard()
@@ -118,6 +137,17 @@ namespace DeckOfCards.ViewModels
             NextCard();
         }
 
+        private void ResumeGame()
+        {
+            IsGamePaused = false;
+            StartTimer();
+        }
+
+        private void PauseGame()
+        {
+            IsGamePaused = true;
+        }
+
         private async void FinishGame()
         {
             IsGameRunning = false;
@@ -142,8 +172,10 @@ namespace DeckOfCards.ViewModels
         {
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                Seconds += 1;
-                return _isGameRunning;
+                if (_isGameRunning && !_isGamePaused)
+                    Seconds += 1;
+
+                return _isGameRunning && !_isGamePaused;
             });
         }
     }

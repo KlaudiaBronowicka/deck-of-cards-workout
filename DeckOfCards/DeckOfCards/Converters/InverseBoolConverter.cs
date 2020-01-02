@@ -1,28 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Xamarin.Forms;
 
 namespace DeckOfCards.Converters
 {
-    public class BoolToValueConverter<T> : IValueConverter
+    public class InverseBoolConverter : IValueConverter
     {
-        public T TrueValue { get; set; }
-        public T FalseValue { get; set; }
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value.GetType() != typeof(bool))
-                return FalseValue;
+                return true;
 
-            return (bool)value ? TrueValue : FalseValue;
+            return !(bool)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value.GetType() != typeof(T))
+            if (value.GetType() != typeof(bool))
                 return false;
 
-            return ((T)value).Equals(TrueValue);
+            return !(bool)value;
         }
     }
 }
