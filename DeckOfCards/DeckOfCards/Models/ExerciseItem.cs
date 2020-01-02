@@ -6,8 +6,8 @@ namespace DeckOfCards.Models
 {
     public class ExerciseItem
     {
-        public readonly CardSymbol CardSymbol;
-        public readonly string Name;
+        public CardSymbol CardSymbol { get; }
+        public string Name { get; }
 
         public ExerciseItem(CardSymbol symbol, string name)
         {

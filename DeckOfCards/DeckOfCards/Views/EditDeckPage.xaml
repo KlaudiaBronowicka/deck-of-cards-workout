@@ -5,13 +5,60 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.EditDeckPage"
+             xmlns:converters="clr-namespace:DeckOfCards.Converters"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding Exercises[0].Name}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ListView
+            ItemsSource="{Binding Exercises}"
+            HasUnevenRows="true">
+            <ListView.ItemTemplate>
+            <DataTemplate>
+                    <ViewCell
+                        Height="60">
+                        <ContentView>
+                            <Grid
+                                Padding="16, 0, 16, 0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                WidthRequest="30"
+                                HeightRequest="30"
+                                Source="{Binding CardSymbol, Converter={StaticResource cardSymbolImageConvert}}">
+                                </Image>
+                                <Label
+                                    Margin="10"
+                                    Grid.Column="1"
+                                    Text="{Binding CardSymbol}"
+                                    VerticalOptions="Center"
+                                  />
+                                <Entry
+                                    Grid.Column="2"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    WidthRequest="200"
+                                    Text="{Binding Name}"
+                                    HorizontalTextAlignment="End"
+                                />
+
+                            </Grid>
+                        </ContentView>
+                    </ViewCell>
+            </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
     </ContentPage.Content>
 </ContentPage>
