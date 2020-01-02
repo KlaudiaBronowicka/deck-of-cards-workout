@@ -58,6 +58,17 @@ namespace DeckOfCards.ViewModels
         }
 
         private bool _isGameRunning;
+        public bool IsGameRunning
+        {
+            get => _isGameRunning;
+            set
+            {
+                _isGameRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
+        
         private Random _random;
 
         public ICommand ButtonPressedCommand => new Command(OnButtonPressed);
@@ -72,7 +83,7 @@ namespace DeckOfCards.ViewModels
 
         public void OnButtonPressed()
         {
-            if (_isGameRunning)  NextCard();
+            if (IsGameRunning)  NextCard();
             else StartGame();
         }
 
@@ -100,7 +111,7 @@ namespace DeckOfCards.ViewModels
             Cards = new ObservableCollection<CardItem>(_deckDataService.GetFullDeck());
             CurrentCardIndex = 0;
 
-            _isGameRunning = true;
+            IsGameRunning = true;
 
             StartTimer();
 
@@ -111,7 +122,7 @@ namespace DeckOfCards.ViewModels
         {
             // Display information that you finished
 
-            _isGameRunning = false;
+            IsGameRunning = false;
         }
 
         private int GetRandomCardIndex()

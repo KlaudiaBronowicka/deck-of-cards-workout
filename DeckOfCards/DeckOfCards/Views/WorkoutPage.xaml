@@ -13,6 +13,7 @@
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
             <converters:CardNumberConverter x:Key="cardNumberConvert" />
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
+            <converters:BoolToValueConverter x:Key="gameStateTextConvert" x:TypeArguments="x:String" TrueValue="Next" FalseValue="Start"  />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -96,7 +97,7 @@
                     Text="{Binding CurrentCard.Exercise}" />
             </Grid>
             <Button
-                Text="START"
+                Text="{Binding IsGameRunning, Converter={StaticResource gameStateTextConvert}}"
                 HorizontalOptions="Center"
                 WidthRequest="180"
                 Command="{Binding ButtonPressedCommand}">
