@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using DeckOfCards.Constants;
 
 namespace DeckOfCards.ViewModels
 {
@@ -43,8 +44,6 @@ namespace DeckOfCards.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        private Timer _timer;
 
         private int _seconds;
         public int Seconds 
@@ -92,6 +91,16 @@ namespace DeckOfCards.ViewModels
             IsGameRunning = false;
 
             return Task.FromResult(true);
+        }
+
+        public void SetupMessageListeners()
+        {
+            MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, (sender) => UpdateDeck());
+        }
+
+        private void UpdateDeck()
+        {
+
         }
 
         private void OnNextButtonPressed()

@@ -26,7 +26,8 @@ namespace DeckOfCards
         {
             AppContainer.RegisterDependencies();
 
-            //  put messaging center code here - register for messages
+            AppContainer.Resolve<WorkoutViewModel>().SetupMessageListeners();
+
         }
 
         private async Task InitializeNavigation()

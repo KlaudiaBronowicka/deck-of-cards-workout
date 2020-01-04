@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using DeckOfCards.Constants;
 
 namespace DeckOfCards.ViewModels
 {
@@ -25,6 +26,9 @@ namespace DeckOfCards.ViewModels
         private void OnSaveButtonClicked()
         {
             _deckDataService.UpdateExerciseData(new List<ExerciseItem>(Exercises));
+
+            MessagingCenter.Send(this, MessagingCenterConstants.ExercisesUpdated);
+
             _navigationService.PopToRootAsync();
         }
 
