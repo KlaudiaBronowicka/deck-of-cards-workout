@@ -18,7 +18,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ListView
-            ItemsSource="{Binding Exercises}"
+            ItemsSource="{Binding Exercises, Mode=TwoWay}"
             HasUnevenRows="true">
             <ListView.ItemTemplate>
             <DataTemplate>
@@ -52,7 +52,7 @@
                                     HorizontalOptions="End"
                                     VerticalOptions="Center"
                                     WidthRequest="200"
-                                    Text="{Binding Name}"
+                                    Text="{Binding Name, Mode=TwoWay}"
                                     HorizontalTextAlignment="End"
                                 />
 

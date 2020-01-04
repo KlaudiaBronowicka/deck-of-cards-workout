@@ -2,12 +2,10 @@
 using DeckOfCards.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
 namespace DeckOfCards.Services
 {
-    public class DeckDataService : IDeckDataService
+    public class DeckDataService : BaseService, IDeckDataService
     {
         List<ExerciseItem> _exercises;
         List<CardItem> _deck;

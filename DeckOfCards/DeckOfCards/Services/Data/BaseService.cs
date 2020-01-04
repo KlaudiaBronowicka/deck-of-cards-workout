@@ -1,12 +1,9 @@
 ﻿using Akavache;
-using DeckOfCards.Bootstrap;
-using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace DeckOfCards.Services.Data
+namespace DeckOfCards.Services
 {
     public class BaseService
     {
