@@ -2,71 +2,17 @@
 using DeckOfCards.Models;
 using System;
 using System.Collections.Generic;
+using static DeckOfCards.Constants.CacheNameConstants;
+using Akavache;
+using System.Threading.Tasks;
 
 namespace DeckOfCards.Services
 {
     public class DeckDataService : BaseService, IDeckDataService
     {
-        List<ExerciseItem> _exercises;
-        List<CardItem> _deck;
-
-        public DeckDataService()
-        {
-            InitiateExerciseData();
-            InitiateDeckData();
-        }
-
-        public string GetExerciseForCardSymbol(CardSymbol symbol)
-        {
-            return _exercises.Find(x => x.CardSymbol == symbol).Name;
-        }
-
-        public List<ExerciseItem> GetExercises()
-        {
-            return _exercises;
-        }
-
-        public List<CardItem> GetFullDeck()
-        {
-            var cards = new List<CardItem>();
-
-            foreach (var card in _deck)
-            {
-                cards.Add(new CardItem(card.Symbol, card.Value, GetExerciseForCardSymbol(card.Symbol)));
-            }
-
-            return cards;
-        }
-
-        public int GetNumberOfCardsInDeck()
-        {
-            return _deck?.Count ?? 0;
-        }
-
-        private void InitiateDeckData()
-        {
-            // use rules like if we should return Joker or not
-            var jokerExercise = GetExerciseForCardSymbol(CardSymbol.Joker);
-            _deck = new List<CardItem>()
-            {
-                new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise),
-                new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise)
-            };
-
-            for (int i = 0; i < 4; i++)
-            {
-                var exerciseName = GetExerciseForCardSymbol((CardSymbol)i);
-                for (int j = 0; j < 13; j++)
-                {
-                    _deck.Add(new CardItem((CardSymbol)i, (CardValue)j, exerciseName));
-                }
-            }
-        }
-
-        private void InitiateExerciseData()
-        {
-            // try to retrieve from storage first
-            _exercises = new List<ExerciseItem>
+        public async Task<List<ExerciseItem>> GetExercises() => 
+            await GetExerciseDataFromCache() ??
+            new List<ExerciseItem>
             {
                 new ExerciseItem(CardSymbol.Club, "Sit up"),
                 new ExerciseItem(CardSymbol.Hearts, "Burpee"),
@@ -74,12 +20,63 @@ namespace DeckOfCards.Services
                 new ExerciseItem(CardSymbol.Spade, "Squat"),
                 new ExerciseItem(CardSymbol.Joker, "5 of each")
             };
+
+        public int GetNumberOfCardsInDeck()
+        {
+            //TODO: Make this changeable - should depend on whether we want jokers or not
+            return 54;
         }
 
+        public async Task<List<CardItem>> GetFullDeck()
+        {
+            var exercises = await GetExercises();
+
+            // use rules like if we should return Joker or not
+            var jokerExercise = exercises.Find(x => x.CardSymbol == CardSymbol.Joker)?.Name;
+
+            var deck = new List<CardItem>()
+            {
+                new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise),
+                new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise)
+            };
+
+            for (int i = 0; i < 4; i++)
+            {
+                var exerciseName = exercises.Find(x => x.CardSymbol == (CardSymbol)i)?.Name;
+
+                for (int j = 0; j < 13; j++)
+                {
+                    deck.Add(new CardItem((CardSymbol)i, (CardValue)j, exerciseName));
+                }
+            }
+
+            return deck;
+        }
+        
         public void UpdateExerciseData(List<ExerciseItem> newExercises)
         {
-            _exercises = new List<ExerciseItem>(newExercises);
+            SaveExerciseDataToCache(newExercises);
         }
 
+        private void SaveExerciseDataToCache(List<ExerciseItem> exercises)
+        {
+            foreach (var exercise in exercises)
+            {
+                Cache.InsertObject($"ExerciseNames{(int)exercise.CardSymbol}", exercise.Name);
+            }
+        }
+
+        private async Task<List<ExerciseItem>> GetExerciseDataFromCache()
+        {
+            var exercises = new List<ExerciseItem>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                var exerciseName = await GetFromCache<string>($"{ExerciseNames}{i}");
+                exercises.Add(new ExerciseItem((CardSymbol)i, exerciseName));
+            }
+
+            return exercises;
+        }
     }
 }

@@ -2,16 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DeckOfCards.Contracts.Services
 {
     public interface IDeckDataService
     {
-        List<CardItem> GetFullDeck();
+        Task<List<CardItem>> GetFullDeck();
 
-        List<ExerciseItem> GetExercises();
-
-        string GetExerciseForCardSymbol(CardSymbol symbol);
+        Task<List<ExerciseItem>> GetExercises();
 
         int GetNumberOfCardsInDeck();
 

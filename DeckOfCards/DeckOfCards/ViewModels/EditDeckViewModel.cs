@@ -32,11 +32,10 @@ namespace DeckOfCards.ViewModels
             _navigationService.PopToRootAsync();
         }
 
-        public override Task InitializeAsync(object data)
+        public override async Task InitializeAsync(object data)
         {
-            Exercises = new ObservableCollection<ExerciseItem>(_deckDataService.GetExercises());
+            Exercises = new ObservableCollection<ExerciseItem>(await _deckDataService.GetExercises());
 
-            return Task.FromResult(true);
         }
     }
 }

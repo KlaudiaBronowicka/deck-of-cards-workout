@@ -85,7 +85,8 @@ namespace DeckOfCards.ViewModels
 
         public override Task InitializeAsync(object data)
         {
-            Cards = new ObservableCollection<CardItem>(_deckDataService.GetFullDeck());
+            UpdateDeck();
+
             _random = new Random();
 
             IsGameRunning = false;
@@ -98,9 +99,9 @@ namespace DeckOfCards.ViewModels
             MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, (sender) => UpdateDeck());
         }
 
-        private void UpdateDeck()
+        private async void UpdateDeck()
         {
-
+            Cards = new ObservableCollection<CardItem>(await _deckDataService.GetFullDeck());
         }
 
         private void OnNextButtonPressed()
@@ -134,9 +135,9 @@ namespace DeckOfCards.ViewModels
             CurrentCardIndex++;
         }
 
-        private void StartGame()
+        private async void StartGame()
         {
-            Cards = new ObservableCollection<CardItem>(_deckDataService.GetFullDeck());
+            Cards = new ObservableCollection<CardItem>(await _deckDataService.GetFullDeck());
             CurrentCardIndex = 0;
 
             IsGameRunning = true;

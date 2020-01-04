@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DeckOfCards.Models
 {
+    [Serializable]
     public class ExerciseItem
     {
         public CardSymbol CardSymbol { get; }
