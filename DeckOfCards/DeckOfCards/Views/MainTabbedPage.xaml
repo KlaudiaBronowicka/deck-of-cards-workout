@@ -14,8 +14,8 @@
     UnselectedTabColor="{StaticResource Light}"
     BarBackgroundColor="{StaticResource Primary}">
     <!--Pages can be added as references or inline-->
-    <ContentPage Title="Workout" IconImageSource="gym"/>
-    <ContentPage Title="Deck" IconImageSource="cards"/>
+    <views:WorkoutPage Title="Workout" IconImageSource="gym"/>
+    <views:EditDeckPage Title="Deck" IconImageSource="cards"/>
     <ContentPage Title="Stats" IconImageSource="graphic"/>
     <ContentPage Title="Settings" IconImageSource="gear" />
 </TabbedPage>

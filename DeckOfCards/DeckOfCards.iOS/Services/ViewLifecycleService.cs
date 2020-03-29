@@ -19,7 +19,7 @@ namespace DeckOfCards.iOS.Services
                     var statusBarView = new UIView();
                     var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Size.Height;
                     statusBarView.Bounds = new CoreGraphics.CGRect(0, 0, UIScreen.MainScreen.Bounds.Width, statusBarHeight);
-                    statusBarView.BackgroundColor = UIColor.FromRGB(40, 40, 40);
+                    statusBarView.BackgroundColor = UIColor.FromRGB(35, 49, 66);
                     UIApplication.SharedApplication.KeyWindow.Subviews[UIApplication.SharedApplication.KeyWindow.Subviews.Length - 1].AddSubview(statusBarView);
 
                     statusBarView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -34,6 +34,11 @@ namespace DeckOfCards.iOS.Services
                 }
 
             }
+
+            UITabBar.Appearance.BackgroundColor = UIColor.Black; // your color
+            UITabBar.Appearance.BarTintColor = UIColor.Black; // your color
+            UITabBar.Appearance.TintColor = UIColor.Black;
         }
+
     }
 }

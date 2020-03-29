@@ -3,29 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rf="clr-namespace:RedCorners.Forms;assembly=RedCorners.Forms"
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.WorkoutPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
-             utility:ViewModelLocator.AutoWireViewModel="True">
+             utility:ViewModelLocator.AutoWireViewModel="True"
+             >
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
             <converters:CardNumberConverter x:Key="cardNumberConvert" />
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
-            <converters:BoolToValueConverter x:Key="gameStateTextConvert" x:TypeArguments="x:String" TrueValue="Next" FalseValue="Start"  />
+            <converters:BoolToValueConverter x:Key="gameStateTextConvert" x:TypeArguments="x:String" TrueValue="Press to resume" FalseValue="Press to start"  />
             <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="Resume" FalseValue="Pause"  />
+            <converters:BoolToValueConverter x:Key="gamePausedOpacityConvert" x:TypeArguments="x:String" TrueValue="0.5" FalseValue="1"  />
+
             <converters:InverseBoolConverter x:Key="inverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout
+        <Grid
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
-            BackgroundColor="DarkCyan"
-            Padding="16"
-            Spacing="16">
-            <Grid>
+            Padding="20">
+             <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -37,7 +46,7 @@
                     HorizontalTextAlignment="Start"
                     Text="{Binding CurrentCardIndex, Converter={StaticResource cardNumberConvert}}"
                     FontSize="28"
-                    TextColor="White">
+                    TextColor="{StaticResource Light}">
                     
                 </Label>
                 <Label
@@ -45,74 +54,97 @@
                     Grid.Column="1"
                     Text="{Binding Seconds, Converter={StaticResource timeConvert}}"
                     FontSize="28"
-                    TextColor="White">
+                    TextColor="{StaticResource Light}">
                 </Label>
             </Grid>
-            <Grid
-                BackgroundColor="White">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="300"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <rf:Frame2
+                   Grid.Row="1"
+                   HasShadow="True"
+                   ShadowRadius="24"
+                   ShadowColor="Black"
+                   BackgroundColor="{StaticResource Light}"
+                   CornerRadius="16"
+                   Margin="20">
+                <rf:Frame2.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NextButtonPressedCommand}"/>
+                </rf:Frame2.GestureRecognizers>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                <Image
-                    WidthRequest="50"
-                    HeightRequest="50"
-                    Grid.Row="0"
-                    Grid.Column="0" 
-                    Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                </Image>
-                <Image
-                    WidthRequest="50"
-                    HeightRequest="50"
-                    Grid.Row="0"
-                    Grid.Column="2" 
-                    Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                </Image>
-                <Image
-                    WidthRequest="50"
-                    HeightRequest="50"
-                    Grid.Row="2"
-                    Grid.Column="0" 
-                    Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                </Image>
-                <Image
-                    WidthRequest="50"
-                    HeightRequest="50"
-                    Grid.Row="2"
-                    Grid.Column="2" 
-                    Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-
-                </Image>
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="36"
-                    Text="{Binding CurrentCard.Exercise}" />
-            </Grid>
-            <Button
-                Text="{Binding IsGameRunning, Converter={StaticResource gameStateTextConvert}}"
-                HorizontalOptions="Center"
-                WidthRequest="180"                
-                Command="{Binding NextButtonPressedCommand}"
-                IsEnabled="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"
->
-            </Button>
-            <Button
+                    <Image
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}"
+                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                    </Image>
+                    <Image
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}"
+                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                    </Image>
+                    <Image
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}"
+                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                    </Image>
+                    <Image
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}"
+                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                    </Image>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        FontSize="36"
+                        Text="{Binding CurrentCard.Exercise}"
+                        Opacity="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"/>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        FontSize="36"
+                        Text="{Binding IsGameRunning, Converter={StaticResource gameStateTextConvert}}"
+                        Opacity="{Binding IsGamePaused}"/>
+                </Grid>
+            </rf:Frame2>
+            <Button Grid.Row="2"
                 Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
-                HorizontalOptions="Center"
-                WidthRequest="180"
+                HorizontalOptions="FillAndExpand"
+                Margin="20, 10, 20, 10"
                 Command="{Binding PauseButtonPressedCommand}"
                 IsEnabled="{Binding IsGameRunning}">
             </Button>
-        </StackLayout>
+            <Button Grid.Row="3"
+                Text="Finish Workout"
+                HorizontalOptions="FillAndExpand"
+                Margin="20, 10, 20, 10"
+                Command="{Binding FinishButtonPressedCommand}"
+                IsVisible="{Binding IsGamePaused}"
+                Opacity="{Binding IsGameRunning}">
+            </Button>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

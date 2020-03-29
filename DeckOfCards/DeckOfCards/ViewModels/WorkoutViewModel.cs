@@ -82,6 +82,7 @@ namespace DeckOfCards.ViewModels
 
         public ICommand NextButtonPressedCommand => new Command(OnNextButtonPressed);
         public ICommand PauseButtonPressedCommand => new Command(OnPauseButtonPressed);
+        public ICommand FinishButtonPressedCommand => new Command(FinishGame);
 
         public override Task InitializeAsync(object data)
         {
@@ -106,6 +107,8 @@ namespace DeckOfCards.ViewModels
 
         private void OnNextButtonPressed()
         {
+            if (IsGamePaused) ResumeGame();
+
             if (IsGameRunning)  NextCard();
             else StartGame();
         }

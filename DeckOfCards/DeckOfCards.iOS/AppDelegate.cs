@@ -33,6 +33,7 @@ namespace DeckOfCards.iOS
                 statusBar.BackgroundColor = UIColor.FromRGB(40, 40, 40);
             }
 
+
             return base.FinishedLaunching(app, options);
         }
     }

@@ -19,7 +19,8 @@ namespace DeckOfCards
 
             InitializeApp();
 
-            InitializeNavigation();
+            //InitializeNavigation();
+            App.Current.MainPage = new MainTabbedPage();
         }
 
         private void InitializeApp()

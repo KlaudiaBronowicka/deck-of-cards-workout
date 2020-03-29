@@ -21,6 +21,11 @@
             <Style TargetType="TabbedPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
             </Style>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                <Setter Property="TextColor" Value="{StaticResource Light}" />
+                <Setter Property="CornerRadius" Value="16" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
     
