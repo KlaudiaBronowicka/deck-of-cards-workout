@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TabbedPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DeckOfCards.Views.MainTabbedPage"
+    xmlns:views="clr-namespace:DeckOfCards.Views"
+    xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    utility:ViewModelLocator.AutoWireViewModel="True"
+    android:TabbedPage.ToolbarPlacement="Bottom"
+    BarTextColor="{StaticResource Light}"
+    BackgroundColor="{StaticResource Primary}"
+    SelectedTabColor="{StaticResource Accent}"
+    UnselectedTabColor="{StaticResource Light}"
+    BarBackgroundColor="{StaticResource Primary}">
+    <!--Pages can be added as references or inline-->
+    <ContentPage Title="Workout" IconImageSource="gym"/>
+    <ContentPage Title="Deck" IconImageSource="cards"/>
+    <ContentPage Title="Stats" IconImageSource="graphic"/>
+    <ContentPage Title="Settings" IconImageSource="gear" />
+</TabbedPage>

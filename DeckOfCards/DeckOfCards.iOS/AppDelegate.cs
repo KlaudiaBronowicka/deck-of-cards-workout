@@ -25,6 +25,14 @@ namespace DeckOfCards.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            if (!UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+            {
+                // set status bar color to dark gray
+                // works only for ios < 13. Logic for newer versions is implemented with the use of ViewLifecycleService
+                UIView statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
+                statusBar.BackgroundColor = UIColor.FromRGB(40, 40, 40);
+            }
+
             return base.FinishedLaunching(app, options);
         }
     }

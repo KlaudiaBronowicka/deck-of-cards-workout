@@ -16,6 +16,7 @@ namespace DeckOfCards.Bootstrap
 
             //ViewModels
             builder.RegisterType<MainViewModel>();
+            builder.RegisterType<MainTabbedViewModel>();
             builder.RegisterType<MenuViewModel>();
             builder.RegisterType<WorkoutViewModel>();
             builder.RegisterType<EditDeckViewModel>();
@@ -24,6 +25,7 @@ namespace DeckOfCards.Bootstrap
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DeckDataService>().As<IDeckDataService>();
             builder.RegisterType<PopupService>().As<IPopupService>();
+            builder.RegisterType<INavigationService>();
 
             _container = builder.Build();
         }
