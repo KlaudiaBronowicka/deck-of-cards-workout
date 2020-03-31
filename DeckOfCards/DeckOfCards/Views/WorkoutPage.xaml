@@ -18,7 +18,7 @@
             <converters:BoolToValueConverter x:Key="gameStateTextConvert" x:TypeArguments="x:String" TrueValue="Press to resume" FalseValue="Press to start"  />
             <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="Resume" FalseValue="Pause"  />
             <converters:BoolToValueConverter x:Key="gamePausedOpacityConvert" x:TypeArguments="x:String" TrueValue="0.5" FalseValue="1"  />
-
+            <converters:GameStateToTextConverter x:Key="gameStateLabelTextConvert" x:TypeArguments="x:String" Default="Press to start" GamePaused="Press to resume" GameRunning="" />
             <converters:InverseBoolConverter x:Key="inverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -126,8 +126,7 @@
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         FontSize="36"
-                        Text="{Binding IsGameRunning, Converter={StaticResource gameStateTextConvert}}"
-                        Opacity="{Binding IsGamePaused}"/>
+                        Text="{Binding GameState, Converter={StaticResource gameStateLabelTextConvert}}"/>
                 </Grid>
             </rf:Frame2>
             <Button Grid.Row="2"
@@ -136,6 +135,12 @@
                 Margin="20, 10, 20, 10"
                 Command="{Binding PauseButtonPressedCommand}"
                 IsEnabled="{Binding IsGameRunning}">
+                <Button.Triggers>
+                    <Trigger TargetType="Button"
+                             Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </Trigger>
+                </Button.Triggers>
             </Button>
             <Button Grid.Row="3"
                 Text="Finish Workout"
@@ -144,6 +149,12 @@
                 Command="{Binding FinishButtonPressedCommand}"
                 IsVisible="{Binding IsGamePaused}"
                 Opacity="{Binding IsGameRunning}">
+                <Button.Triggers>
+                    <Trigger TargetType="Button"
+                             Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </Trigger>
+                </Button.Triggers>
             </Button>
         </Grid>
     </ContentPage.Content>

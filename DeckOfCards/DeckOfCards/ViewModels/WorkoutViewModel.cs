@@ -10,8 +10,10 @@ using DeckOfCards.Constants;
 
 namespace DeckOfCards.ViewModels
 {
+    public enum GameState { Default, Running, Paused };
+
     public class WorkoutViewModel : BaseViewModel
-    {
+    {      
         private ObservableCollection<CardItem> _cards;
         public ObservableCollection<CardItem> Cards
         {
@@ -56,28 +58,29 @@ namespace DeckOfCards.ViewModels
             }
         }
 
-        private bool _isGameRunning;
-        public bool IsGameRunning
+        private GameState _gameState;
+        public GameState GameState
         {
-            get => _isGameRunning;
+            get => _gameState;
             set
             {
-                _isGameRunning = value;
+                _gameState = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsGamePaused");
+                OnPropertyChanged("IsGameRunning");
             }
         }
 
-        private bool _isGamePaused;
         public bool IsGamePaused
         {
-            get => _isGamePaused;
-            set
-            {
-                _isGamePaused = value;
-                OnPropertyChanged();
-            }
+            get => GameState == GameState.Paused;
         }
-        
+
+        public bool IsGameRunning
+        {
+            get => GameState == GameState.Running || GameState == GameState.Paused;
+        }
+
         private Random _random;
 
         public ICommand NextButtonPressedCommand => new Command(OnNextButtonPressed);
@@ -89,8 +92,6 @@ namespace DeckOfCards.ViewModels
             UpdateDeck();
 
             _random = new Random();
-
-            IsGameRunning = false;
 
             return Task.FromResult(true);
         }
@@ -107,15 +108,23 @@ namespace DeckOfCards.ViewModels
 
         private void OnNextButtonPressed()
         {
-            if (IsGamePaused) ResumeGame();
-
-            if (IsGameRunning)  NextCard();
-            else StartGame();
+            switch (GameState)
+            {
+                case GameState.Paused:
+                    ResumeGame();
+                    break;
+                case GameState.Running:
+                    NextCard();
+                    break;
+                case GameState.Default:
+                    StartGame();
+                    break;
+            }
         }
 
         private void OnPauseButtonPressed()
         {
-            if (IsGamePaused) ResumeGame();
+            if (GameState == GameState.Paused) ResumeGame();
             else PauseGame();
         }
 
@@ -143,7 +152,7 @@ namespace DeckOfCards.ViewModels
             Cards = new ObservableCollection<CardItem>(await _deckDataService.GetFullDeck());
             CurrentCardIndex = 0;
 
-            IsGameRunning = true;
+            GameState = GameState.Running;
 
             StartTimer();
 
@@ -152,18 +161,18 @@ namespace DeckOfCards.ViewModels
 
         private void ResumeGame()
         {
-            IsGamePaused = false;
+            GameState = GameState.Running;
             StartTimer();
         }
 
         private void PauseGame()
         {
-            IsGamePaused = true;
+            GameState = GameState.Paused;
         }
 
         private async void FinishGame()
         {
-            IsGameRunning = false;
+            GameState = GameState.Default;
 
             var converter = new Converters.SecondsToTimeConverter();
             var time = converter.Convert(Seconds, typeof(string), null, System.Globalization.CultureInfo.InvariantCulture);
@@ -185,10 +194,10 @@ namespace DeckOfCards.ViewModels
         {
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                if (_isGameRunning && !_isGamePaused)
+                if (GameState == GameState.Running)
                     Seconds += 1;
 
-                return _isGameRunning && !_isGamePaused;
+                return GameState == GameState.Running;
             });
         }
     }
