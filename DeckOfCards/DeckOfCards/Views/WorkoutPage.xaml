@@ -15,7 +15,6 @@
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
             <converters:CardNumberConverter x:Key="cardNumberConvert" />
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
-            <converters:BoolToValueConverter x:Key="gameStateTextConvert" x:TypeArguments="x:String" TrueValue="Press to resume" FalseValue="Press to start"  />
             <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="Resume" FalseValue="Pause"  />
             <converters:BoolToValueConverter x:Key="gamePausedOpacityConvert" x:TypeArguments="x:String" TrueValue="0.5" FalseValue="1"  />
             <converters:GameStateToTextConverter x:Key="gameStateLabelTextConvert" x:TypeArguments="x:String" Default="Press to start" GamePaused="Press to resume" GameRunning="" />
@@ -66,7 +65,7 @@
                    CornerRadius="16"
                    Margin="20">
                 <rf:Frame2.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NextButtonPressedCommand}"/>
+                    <TapGestureRecognizer Tapped="CardTappedEvent"/>
                 </rf:Frame2.GestureRecognizers>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
