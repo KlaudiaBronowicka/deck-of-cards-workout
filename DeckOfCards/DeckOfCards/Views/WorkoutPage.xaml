@@ -7,6 +7,7 @@
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.WorkoutPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
+             xmlns:triggers="clr-namespace:DeckOfCards.Triggers"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
              >
@@ -66,6 +67,7 @@
                    Margin="20">
                 <rf:Frame2.GestureRecognizers>
                     <TapGestureRecognizer Tapped="CardTappedEvent"/>
+                    <SwipeGestureRecognizer Direction="Left" Swiped="CardSwipedEvent"/>
                 </rf:Frame2.GestureRecognizers>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -80,46 +82,54 @@
                     </Grid.ColumnDefinitions>
 
                     <Image
+                        x:Name="TopLeftCardSymbol"
                         WidthRequest="50"
                         HeightRequest="50"
                         Grid.Row="0"
                         Grid.Column="0"
-                        Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}"
-                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                       Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
                     <Image
+                        x:Name="TopRightCardSymbol"
                         WidthRequest="50"
                         HeightRequest="50"
                         Grid.Row="0"
                         Grid.Column="2"
-                        Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
                     <Image
+                        x:Name="BottomLeftCardSymbol"
                         WidthRequest="50"
                         HeightRequest="50"
                         Grid.Row="2"
                         Grid.Column="0"
-                        Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
                     <Image
+                        x:Name="BottomRightCardSymbol"
                         WidthRequest="50"
                         HeightRequest="50"
                         Grid.Row="2"
                         Grid.Column="2"
-                        Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
+                        
                     </Image>
                     <Label
+                        x:Name="ExerciseLabel"
                         Grid.Row="1"
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         FontSize="36"
-                        Text="{Binding CurrentCard.Exercise}"
-                        Opacity="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"/>
+                        Text="{Binding CurrentCard.Exercise}">
+                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"> -->
+                    </Label>
                     <Label
+                        x:Name="GameStateLabel"
                         Grid.Row="1"
                         Grid.Column="1"
                         HorizontalOptions="Center"
@@ -128,33 +138,38 @@
                         Text="{Binding GameState, Converter={StaticResource gameStateLabelTextConvert}}"/>
                 </Grid>
             </rf:Frame2>
-            <Button Grid.Row="2"
+            <Button
+                x:Name="FinishButton"
+                Grid.Row="2"
+                Text="Finish Workout"
+                HorizontalOptions="FillAndExpand"
+                Margin="20, 10, 20, 10"
+                Opacity="0"
+                Command="{Binding FinishButtonPressedCommand}"
+                IsEnabled="{Binding IsGamePaused}"
+                PropertyChanged="FinishButtonPropertyChanged"/>
+
+            <Button
+                x:Name="PauseButton"
+                Grid.Row="2"
                 Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
                 HorizontalOptions="FillAndExpand"
                 Margin="20, 10, 20, 10"
                 Command="{Binding PauseButtonPressedCommand}"
-                IsEnabled="{Binding IsGameRunning}">
+                IsEnabled="{Binding IsGameRunning}"
+                PropertyChanged="PauseButtonPropertyChanged"
+                />
+
+
+                <!--
                 <Button.Triggers>
                     <Trigger TargetType="Button"
-                             Property="IsEnabled" Value="False">
+                             Property="IsEnabled"
+                             Value="False">
                         <Setter Property="Opacity" Value="0.5" />
                     </Trigger>
                 </Button.Triggers>
-            </Button>
-            <Button Grid.Row="3"
-                Text="Finish Workout"
-                HorizontalOptions="FillAndExpand"
-                Margin="20, 10, 20, 10"
-                Command="{Binding FinishButtonPressedCommand}"
-                IsVisible="{Binding IsGamePaused}"
-                Opacity="{Binding IsGameRunning}">
-                <Button.Triggers>
-                    <Trigger TargetType="Button"
-                             Property="IsEnabled" Value="False">
-                        <Setter Property="Opacity" Value="0.5" />
-                    </Trigger>
-                </Button.Triggers>
-            </Button>
+                -->
         </Grid>
     </ContentPage.Content>
 </ContentPage>
