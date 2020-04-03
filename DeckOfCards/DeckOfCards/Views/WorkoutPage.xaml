@@ -11,6 +11,9 @@
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              xmlns:local="clr-namespace:DeckOfCards;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
+              xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp"
+             xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+                       
              >
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -25,17 +28,25 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid
+            
             VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"
-            Padding="20">
+            HorizontalOptions="FillAndExpand">
              <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+             <skiaforms:SKCanvasView
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 Grid.RowSpan="5"
+
+                 x:Name="canvasView"
+                                    PaintSurface="OnCanvasViewPaintSurface" />
+            <Grid Grid.Row="0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -45,12 +56,14 @@
                 </Grid.RowDefinitions>
                 <Label
                     HorizontalTextAlignment="Start"
+                    Margin="20, 20, 0, 0"
                     Text="{Binding CurrentCardIndex, Converter={StaticResource cardNumberConvert}}"
                     FontSize="28"
                     TextColor="{StaticResource Light}">
                     
                 </Label>
                 <Label
+                    Margin="0, 20, 20, 0"
                     HorizontalTextAlignment="End"
                     Grid.Column="1"
                     Text="{Binding Seconds, Converter={StaticResource timeConvert}}"
@@ -59,13 +72,14 @@
                 </Label>
             </Grid>
             <rf:Frame2
+                x:Name="CardView"
                    Grid.Row="1"
                    HasShadow="True"
                    ShadowRadius="24"
                    ShadowColor="Black"
                    BackgroundColor="{StaticResource Light}"
                    CornerRadius="16"
-                   Margin="20"
+                   Margin="40"
                    Padding="0">
                 <rf:Frame2.GestureRecognizers>
                     <TapGestureRecognizer Tapped="CardTappedEvent"/>
@@ -96,9 +110,8 @@
                          IsVisible="{Binding IsGameRunning, Converter={StaticResource inverseBoolConverter}}">
                      <Image
                         Aspect="AspectFill"
-                        Source="card.png"
-                       />
-                        </Frame>
+                        Source="card.png"/>
+                    </Frame>
 
                     <Image
                         x:Name="TopLeftCardSymbol"
@@ -151,24 +164,6 @@
                         Text="{Binding CurrentCard.Exercise}">
                         <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"> -->
                     </Label>
-                    <Frame
-                         x:Name="GameStartLabel"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        VerticalOptions="Center"
-                        HorizontalOptions="CenterAndExpand"
-                        HasShadow="False"
-                        CornerRadius="12"
-                        HeightRequest="40"
-                        Padding="10, 5, 10, 8"
-                        Opacity="1"
-                        BackgroundColor="{StaticResource Light}"
-                        >
-                    <Label
-                        HorizontalOptions="Center"
-                        FontSize="36"
-                        Text="Press to start"/>
-                    </Frame>
                      <Label
                         x:Name="GameResumeLabel"
                         Grid.Row="1"
@@ -187,7 +182,7 @@
                 Grid.Row="2"
                 Text="Finish Workout"
                 HorizontalOptions="FillAndExpand"
-                Margin="20, 10, 20, 10"
+                Margin="40, 10, 40, 10"
                 Opacity="0"
                 Command="{Binding FinishButtonPressedCommand}"
                 IsEnabled="{Binding IsGamePaused}"
@@ -198,10 +193,11 @@
                 Grid.Row="2"
                 Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
                 HorizontalOptions="FillAndExpand"
-                Margin="20, 10, 20, 10"
+                Margin="40, 10, 40, 10"
                 Command="{Binding PauseButtonPressedCommand}"
                 IsEnabled="{Binding IsGameRunning}"
                 PropertyChanged="PauseButtonPropertyChanged"
+                
                 />
 
 
