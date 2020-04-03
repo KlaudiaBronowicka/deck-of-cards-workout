@@ -136,6 +136,8 @@
     <ImageAsset Include="Assets.xcassets\cards.imageset\cards %282%29.png" />
     <ImageAsset Include="Assets.xcassets\graphic.imageset\graphic %281%29.png" />
     <ImageAsset Include="Assets.xcassets\gym.imageset\gym %282%29.png" />
+    <ImageAsset Include="Assets.xcassets\card.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\card.imageset\card-1.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -165,5 +167,6 @@
     <Folder Include="Assets.xcassets\graphic.imageset\" />
     <Folder Include="Assets.xcassets\gear.imageset\" />
     <Folder Include="Services\" />
+    <Folder Include="Assets.xcassets\card.imageset\" />
   </ItemGroup>
 </Project>

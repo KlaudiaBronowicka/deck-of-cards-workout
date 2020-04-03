@@ -83,7 +83,7 @@ namespace DeckOfCards.ViewModels
 
         private Random _random;
 
-        public ICommand NextButtonPressedCommand => new Command(OnNextButtonPressed);
+        public ICommand NextButtonPressedCommand => new Command(async () => await OnNextButtonPressed());
         public ICommand PauseButtonPressedCommand => new Command(OnPauseButtonPressed);
         public ICommand FinishButtonPressedCommand => new Command(FinishGame);
 
@@ -106,7 +106,7 @@ namespace DeckOfCards.ViewModels
             Cards = new ObservableCollection<CardItem>(await _deckDataService.GetFullDeck());
         }
 
-        private void OnNextButtonPressed()
+        public async Task OnNextButtonPressed()
         {
             switch (GameState)
             {
@@ -117,7 +117,7 @@ namespace DeckOfCards.ViewModels
                     NextCard();
                     break;
                 case GameState.Default:
-                    StartGame();
+                    await StartGame();
                     break;
             }
         }
@@ -147,7 +147,7 @@ namespace DeckOfCards.ViewModels
             CurrentCardIndex++;
         }
 
-        private async void StartGame()
+        private async Task StartGame()
         {
             Cards = new ObservableCollection<CardItem>(await _deckDataService.GetFullDeck());
             CurrentCardIndex = 0;

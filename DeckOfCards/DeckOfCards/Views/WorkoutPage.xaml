@@ -9,6 +9,7 @@
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
              xmlns:triggers="clr-namespace:DeckOfCards.Triggers"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
+             xmlns:local="clr-namespace:DeckOfCards;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
              >
     <ContentPage.Resources>
@@ -64,22 +65,40 @@
                    ShadowColor="Black"
                    BackgroundColor="{StaticResource Light}"
                    CornerRadius="16"
-                   Margin="20">
+                   Margin="20"
+                   Padding="0">
                 <rf:Frame2.GestureRecognizers>
                     <TapGestureRecognizer Tapped="CardTappedEvent"/>
                     <SwipeGestureRecognizer Direction="Left" Swiped="CardSwipedEvent"/>
                 </rf:Frame2.GestureRecognizers>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="70"/>
                         <RowDefinition Height="300"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="70" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="70" />
                     </Grid.ColumnDefinitions>
+                    <Frame
+                        x:Name="cardCoverImage"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.RowSpan="3"
+                        Grid.ColumnSpan="3"
+                        BackgroundColor="{StaticResource Light}"
+                        CornerRadius="12"
+                        Margin="10"
+                        Padding="0"
+                        HasShadow="False"
+                         IsVisible="{Binding IsGameRunning, Converter={StaticResource inverseBoolConverter}}">
+                     <Image
+                        Aspect="AspectFill"
+                        Source="card.png"
+                       />
+                        </Frame>
 
                     <Image
                         x:Name="TopLeftCardSymbol"
@@ -87,7 +106,9 @@
                         HeightRequest="50"
                         Grid.Row="0"
                         Grid.Column="0"
-                       Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}"
+                        Margin="20, 20, 0, 0"
+                        >
                         <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
                     <Image
@@ -96,6 +117,7 @@
                         HeightRequest="50"
                         Grid.Row="0"
                         Grid.Column="2"
+                        Margin="0, 20, 20, 0"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
                         <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
@@ -105,6 +127,7 @@
                         HeightRequest="50"
                         Grid.Row="2"
                         Grid.Column="0"
+                        Margin="20, 0, 0, 20"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
                         <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
@@ -114,9 +137,9 @@
                         HeightRequest="50"
                         Grid.Row="2"
                         Grid.Column="2"
+                        Margin="0, 0, 20, 20"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
                         <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
-                        
                     </Image>
                     <Label
                         x:Name="ExerciseLabel"
@@ -128,14 +151,35 @@
                         Text="{Binding CurrentCard.Exercise}">
                         <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"> -->
                     </Label>
+                    <Frame
+                         x:Name="GameStartLabel"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        VerticalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        HasShadow="False"
+                        CornerRadius="12"
+                        HeightRequest="40"
+                        Padding="10, 5, 10, 8"
+                        Opacity="1"
+                        BackgroundColor="{StaticResource Light}"
+                        >
                     <Label
-                        x:Name="GameStateLabel"
+                        HorizontalOptions="Center"
+                        FontSize="36"
+                        Text="Press to start"/>
+                    </Frame>
+                     <Label
+                        x:Name="GameResumeLabel"
                         Grid.Row="1"
                         Grid.Column="1"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         FontSize="36"
-                        Text="{Binding GameState, Converter={StaticResource gameStateLabelTextConvert}}"/>
+                         Opacity="0"
+                        Text="Press to resume">
+                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"> -->
+                    </Label>
                 </Grid>
             </rf:Frame2>
             <Button

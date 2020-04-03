@@ -22,10 +22,10 @@ namespace DeckOfCards.Views
 
             _fadeOutOnGamePausedElements = new[]
             {
-                (View)FindByName("TopLeftCardSymbol"),
-                (View)FindByName("TopRightCardSymbol"),
-                (View)FindByName("BottomLeftCardSymbol"),
-                (View)FindByName("BottomRightCardSymbol")
+                TopLeftCardSymbol,
+                TopRightCardSymbol,
+                BottomLeftCardSymbol,
+                BottomRightCardSymbol
             };
             
         }
@@ -60,7 +60,7 @@ namespace DeckOfCards.Views
                 card.RotateTo(-50, transitionTime, Easing.CubicIn)
                 );
 
-            ((WorkoutViewModel)BindingContext).NextButtonPressedCommand.Execute(null);
+           await ((WorkoutViewModel)BindingContext).OnNextButtonPressed();
 
             await card.RotateTo(30, 0);
             await card.TranslateTo(displacement, -80, 0);
@@ -111,15 +111,18 @@ namespace DeckOfCards.Views
             {
                 case GameState.Paused:
                     ExerciseLabel.FadeTo(0, 300);
-                    GameStateLabel.FadeTo(1, 300);
+                    GameResumeLabel.FadeTo(1, 300);
+                    GameStartLabel.FadeTo(0, 300);
                     break;
                 case GameState.Running:
                     ExerciseLabel.FadeTo(1, 300);
-                    GameStateLabel.FadeTo(0, 300);
+                    GameResumeLabel.FadeTo(0, 300);
+                    GameStartLabel.FadeTo(0, 300);
                     break;
                 case GameState.Default:
                     ExerciseLabel.FadeTo(0, 300);
-                    GameStateLabel.FadeTo(1, 300);
+                    GameResumeLabel.FadeTo(0, 300);
+                    GameStartLabel.FadeTo(1, 300);
                     break;
             }
         }
