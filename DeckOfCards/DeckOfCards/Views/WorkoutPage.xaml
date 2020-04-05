@@ -7,12 +7,14 @@
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.WorkoutPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
-             xmlns:triggers="clr-namespace:DeckOfCards.Triggers"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              xmlns:local="clr-namespace:DeckOfCards;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
               xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+                          xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+
                        
              >
     <ContentPage.Resources>
@@ -20,9 +22,8 @@
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
             <converters:CardNumberConverter x:Key="cardNumberConvert" />
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
-            <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="Resume" FalseValue="Pause"  />
+            <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="RESUME" FalseValue="PAUSE"  />
             <converters:BoolToValueConverter x:Key="gamePausedOpacityConvert" x:TypeArguments="x:String" TrueValue="0.5" FalseValue="1"  />
-            <converters:GameStateToTextConverter x:Key="gameStateLabelTextConvert" x:TypeArguments="x:String" Default="Press to start" GamePaused="Press to resume" GameRunning="" />
             <converters:InverseBoolConverter x:Key="inverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -177,6 +178,7 @@
                     </Label>
                 </Grid>
             </rf:Frame2>
+            <!--
             <Button
                 x:Name="FinishButton"
                 Grid.Row="2"
@@ -187,7 +189,7 @@
                 Command="{Binding FinishButtonPressedCommand}"
                 IsEnabled="{Binding IsGamePaused}"
                 PropertyChanged="FinishButtonPropertyChanged"/>
-
+            
             <Button
                 x:Name="PauseButton"
                 Grid.Row="2"
@@ -200,7 +202,69 @@
                 
                 />
 
+            -->
+            <Label
+                Grid.Row="2"
+                x:Name="StartGameLabel"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                Text="Tap the card to start"
+                TextColor="{StaticResource Light}"
+                FontSize="Large"
+                Opacity="0.5"
+                />
+            <Grid
+                Grid.Row="2"
+                x:Name="Buttons"
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="200"
+                BackgroundColor="Transparent"
+                IsEnabled="False"
+                Opacity="0"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
+                </Grid.RowDefinitions>
 
+            
+            <flex:FlexButton
+                Grid.Row="0"
+                x:Name="FinishButton"
+                Text="FINISH WORKOUT"
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="50"
+                Margin="40, 10, 40, 10"
+                ClickedCommand="{Binding FinishButtonPressedCommand}"
+                Clicked="FinishButton_Clicked"
+                CornerRadius="18"
+                ForegroundColor="{StaticResource Light}"
+                BackgroundColor="{StaticResource Secondary}"
+                HighlightBackgroundColor="#4f6784"
+                BorderThickness="0,0,0,4"
+                BorderColor="{StaticResource Primary}"
+                HighlightBorderColor="#2d3b4c"
+                FontSize="14"
+                />
+            <flex:FlexButton
+                Grid.Row="0"
+                x:Name="PauseButton"
+                Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
+                HorizontalOptions="FillAndExpand"
+                HeightRequest="50"
+                Margin="40, 10, 40, 10"
+                ClickedCommand="{Binding PauseButtonPressedCommand}"
+                Clicked="PauseButton_Clicked"
+                CornerRadius="18"
+                ForegroundColor="{StaticResource Light}"
+                BackgroundColor="{StaticResource Secondary}"
+                HighlightBackgroundColor="#4f6784"
+                BorderThickness="0,0,0,4"
+                BorderColor="{StaticResource Primary}"
+                HighlightBorderColor="#2d3b4c"
+                FontSize="14"
+                />
+                </Grid>
                 <!--
                 <Button.Triggers>
                     <Trigger TargetType="Button"

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Flex;
 using Foundation;
 using UIKit;
 
@@ -23,6 +23,7 @@ namespace DeckOfCards.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            FlexButton.Init();
             LoadApplication(new App());
 
             if (!UIDevice.CurrentDevice.CheckSystemVersion(13, 0))

@@ -35,7 +35,7 @@ namespace DeckOfCards.Views
             };
 
             StartCardPulsingAnimation();
-
+            
         }
 
         private async void CardTappedEvent(object sender, EventArgs e)
@@ -94,7 +94,7 @@ namespace DeckOfCards.Views
             {
                 FadeCardSymbols();
                 FadeLabels();
-                //ToggleButtons();
+                ToggleButtons();
                
             }
         }
@@ -133,68 +133,64 @@ namespace DeckOfCards.Views
                 case GameState.Running:
                     ExerciseLabel.FadeTo(1, 300);
                     GameResumeLabel.FadeTo(0, 300);
+                    StartGameLabel.FadeTo(0, 300);
                     break;
                 case GameState.Default:
                     ExerciseLabel.FadeTo(0, 300);
                     GameResumeLabel.FadeTo(0, 300);
+                    StartGameLabel.FadeTo(0.5, 300);
                     break;
             }
         }
 
-        private void ToggleButtons()
+        private async void ToggleButtons()
         {
             switch (_vm.GameState)
             {
                 case GameState.Paused:
                     FinishButton.FadeTo(1, 300);
+                    FinishButton.TranslateTo(0, 80, 300, Easing.SpringOut);
                     break;
                 case GameState.Running:
-                    FinishButton.FadeTo(0, 300);
+                    if (!Buttons.IsEnabled)
+                    {
+                        // new game
+                        Buttons.IsEnabled = true;
+                        await Buttons.TranslateTo(-Application.Current.MainPage.Width, 0, 0);
+                        Buttons.TranslateTo(0, 0, 500, Easing.SpringOut);
+                        Buttons.FadeTo(1, 500);
+                    }
+                    //FinishButton.FadeTo(0, 300);
+                    FinishButton.TranslateTo(0, 0, 300, Easing.CubicInOut);
                     break;
                 case GameState.Default:
                 default:
-                    FinishButton.FadeTo(0, 300);
+                    //animate buttons away
+                    await Task.WhenAll(
+                        Buttons.TranslateTo(-Application.Current.MainPage.Width, 0, 500, Easing.SinInOut),
+                        Buttons.FadeTo(0, 500));
+
+                    // if finish button was visible, hide it
+                    if (FinishButton.TranslationY != 0)
+                    {
+                        FinishButton.TranslateTo(0, 0, 300, Easing.CubicInOut);
+                    }
+
+                    Buttons.IsEnabled = false;
                     break;
             }
         }
 
-        //TODO: Move to a separate Button effect
-        async void FinishButtonPropertyChanged(Object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "IsEnabled")
-            {
-                var button = sender as Button;
 
-                if (button.IsEnabled)
-                {
-                    button.FadeTo(1, 300);
-                    button.TranslateTo(0, 80, 300, Easing.SpringOut);
-                }
-                else
-                {
-                    button.FadeTo(0, 300);
-                    button.TranslateTo(0, 0, 300, Easing.CubicInOut);
-                }
-            }
+
+        async void FinishButton_Clicked(Object sender, EventArgs e)
+        {
         }
 
-        //TODO: Move to a separate Button effect
-        void PauseButtonPropertyChanged(Object sender, PropertyChangedEventArgs e)
+        void PauseButton_Clicked(Object sender, EventArgs e)
         {
-            if (e.PropertyName == "IsEnabled")
-            {
-                var button = sender as Button;
-
-                if (button.IsEnabled)
-                {
-                    button.FadeTo(1, 300);
-                }
-                else
-                {
-                    button.FadeTo(0.5, 300);
-                }
-            }
         }
+
 
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
@@ -222,6 +218,5 @@ namespace DeckOfCards.Views
             
             }
         }
-
     }
 }
