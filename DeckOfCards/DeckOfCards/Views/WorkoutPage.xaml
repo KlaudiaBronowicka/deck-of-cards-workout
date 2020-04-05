@@ -8,45 +8,38 @@
              x:Class="DeckOfCards.Views.WorkoutPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
-             xmlns:local="clr-namespace:DeckOfCards;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
-              xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-                          xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
-
-                       
-             >
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
             <converters:CardNumberConverter x:Key="cardNumberConvert" />
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
             <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="RESUME" FalseValue="PAUSE"  />
-            <converters:BoolToValueConverter x:Key="gamePausedOpacityConvert" x:TypeArguments="x:String" TrueValue="0.5" FalseValue="1"  />
             <converters:InverseBoolConverter x:Key="inverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid
-            
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
              <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" /> <!-- Top bar -->
+                    <RowDefinition Height="Auto" /> <!-- Card view -->
+                    <RowDefinition Height="Auto" /> <!-- Buttons -->
+                    <RowDefinition Height="*" /> <!-- Rest of the screen -->
                 </Grid.RowDefinitions>
 
+            <!-- Gradient background -->
              <skiaforms:SKCanvasView
                  Grid.Row="0"
                  Grid.Column="0"
-                 Grid.RowSpan="5"
-
+                 Grid.RowSpan="4"
                  x:Name="canvasView"
-                                    PaintSurface="OnCanvasViewPaintSurface" />
+                 PaintSurface="OnCanvasViewPaintSurface" />
+
+            <!-- Top bar -->
             <Grid Grid.Row="0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -56,37 +49,39 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label
+                    Grid.Column="0"
                     HorizontalTextAlignment="Start"
-                    Margin="20, 20, 0, 0"
                     Text="{Binding CurrentCardIndex, Converter={StaticResource cardNumberConvert}}"
-                    FontSize="28"
-                    TextColor="{StaticResource Light}">
-                    
+                    Margin="20, 20, 0, 0"
+                    Style="{StaticResource TopBarLabelStyle}">
                 </Label>
                 <Label
-                    Margin="0, 20, 20, 0"
-                    HorizontalTextAlignment="End"
                     Grid.Column="1"
+                    HorizontalTextAlignment="End"
                     Text="{Binding Seconds, Converter={StaticResource timeConvert}}"
-                    FontSize="28"
-                    TextColor="{StaticResource Light}">
+                    Margin="0, 20, 20, 0"
+                    Style="{StaticResource TopBarLabelStyle}">
                 </Label>
             </Grid>
+
+            <!-- Card view -->
             <rf:Frame2
                 x:Name="CardView"
-                   Grid.Row="1"
-                   HasShadow="True"
-                   ShadowRadius="24"
-                   ShadowColor="Black"
-                   BackgroundColor="{StaticResource Light}"
-                   CornerRadius="16"
-                   Margin="40"
-                   Padding="0">
+                Grid.Row="1"
+                HasShadow="True"
+                ShadowRadius="24"
+                ShadowColor="Black"
+                BackgroundColor="{StaticResource Light}"
+                CornerRadius="16"
+                Margin="40"
+                Padding="0">
+
                 <rf:Frame2.GestureRecognizers>
                     <TapGestureRecognizer Tapped="CardTappedEvent"/>
                     <SwipeGestureRecognizer Direction="Left" Swiped="CardSwipedEvent"/>
                 </rf:Frame2.GestureRecognizers>
-                <Grid Grid.Row="1">
+
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="70"/>
                         <RowDefinition Height="300"/>
@@ -97,6 +92,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="70" />
                     </Grid.ColumnDefinitions>
+
                     <Frame
                         x:Name="cardCoverImage"
                         Grid.Row="0"
@@ -108,10 +104,10 @@
                         Margin="10"
                         Padding="0"
                         HasShadow="False"
-                         IsVisible="{Binding IsGameRunning, Converter={StaticResource inverseBoolConverter}}">
-                     <Image
-                        Aspect="AspectFill"
-                        Source="card.png"/>
+                        IsVisible="{Binding IsGameRunning, Converter={StaticResource inverseBoolConverter}}">
+                         <Image
+                            Aspect="AspectFill"
+                            Source="card.png"/>
                     </Frame>
 
                     <Image
@@ -121,9 +117,7 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}"
-                        Margin="20, 20, 0, 0"
-                        >
-                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
+                        Margin="20, 20, 0, 0">
                     </Image>
                     <Image
                         x:Name="TopRightCardSymbol"
@@ -133,7 +127,6 @@
                         Grid.Column="2"
                         Margin="0, 20, 20, 0"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
                     <Image
                         x:Name="BottomLeftCardSymbol"
@@ -143,7 +136,6 @@
                         Grid.Column="0"
                         Margin="20, 0, 0, 20"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
                     <Image
                         x:Name="BottomRightCardSymbol"
@@ -153,66 +145,34 @@
                         Grid.Column="2"
                         Margin="0, 0, 20, 20"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource gamePausedOpacityConvert}}" -->
                     </Image>
+
                     <Label
                         x:Name="ExerciseLabel"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        FontSize="36"
-                        Text="{Binding CurrentCard.Exercise}">
-                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"> -->
+                        Text="{Binding CurrentCard.Exercise}"
+                        Style="{StaticResource CardLabelStyle}">
                     </Label>
-                     <Label
+                    <Label
                         x:Name="GameResumeLabel"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        FontSize="36"
-                         Opacity="0"
-                        Text="Press to resume">
-                        <!-- Opacity="{Binding IsGamePaused, Converter={StaticResource inverseBoolConverter}}"> -->
+                        Text="Press to resume"
+                        Style="{StaticResource CardLabelStyle}"
+                        Opacity="0">
                     </Label>
+
                 </Grid>
             </rf:Frame2>
-            <!--
-            <Button
-                x:Name="FinishButton"
-                Grid.Row="2"
-                Text="Finish Workout"
-                HorizontalOptions="FillAndExpand"
-                Margin="40, 10, 40, 10"
-                Opacity="0"
-                Command="{Binding FinishButtonPressedCommand}"
-                IsEnabled="{Binding IsGamePaused}"
-                PropertyChanged="FinishButtonPropertyChanged"/>
-            
-            <Button
-                x:Name="PauseButton"
-                Grid.Row="2"
-                Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
-                HorizontalOptions="FillAndExpand"
-                Margin="40, 10, 40, 10"
-                Command="{Binding PauseButtonPressedCommand}"
-                IsEnabled="{Binding IsGameRunning}"
-                PropertyChanged="PauseButtonPropertyChanged"
-                
-                />
 
-            -->
             <Label
-                Grid.Row="2"
                 x:Name="StartGameLabel"
+                Grid.Row="2"
+                Text="Tap the card to start"
                 HorizontalOptions="FillAndExpand"
                 HorizontalTextAlignment="Center"
-                Text="Tap the card to start"
                 TextColor="{StaticResource Light}"
                 FontSize="Large"
-                Opacity="0.5"
-                />
+                Opacity="0.5"/>
+
+            <!-- Buttons -->
             <Grid
                 Grid.Row="2"
                 x:Name="Buttons"
@@ -220,60 +180,48 @@
                 HeightRequest="200"
                 BackgroundColor="Transparent"
                 IsEnabled="False"
-                Opacity="0"
-                >
+                Opacity="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="70"></RowDefinition>
-                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="140"></RowDefinition>
                 </Grid.RowDefinitions>
 
-            
-            <flex:FlexButton
-                Grid.Row="0"
-                x:Name="FinishButton"
-                Text="FINISH WORKOUT"
-                HorizontalOptions="FillAndExpand"
-                HeightRequest="50"
-                Margin="40, 10, 40, 10"
-                ClickedCommand="{Binding FinishButtonPressedCommand}"
-                Clicked="FinishButton_Clicked"
-                CornerRadius="18"
-                ForegroundColor="{StaticResource Light}"
-                BackgroundColor="{StaticResource Secondary}"
-                HighlightBackgroundColor="#4f6784"
-                BorderThickness="0,0,0,4"
-                BorderColor="{StaticResource Primary}"
-                HighlightBorderColor="#2d3b4c"
-                FontSize="14"
-                />
-            <flex:FlexButton
-                Grid.Row="0"
-                x:Name="PauseButton"
-                Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
-                HorizontalOptions="FillAndExpand"
-                HeightRequest="50"
-                Margin="40, 10, 40, 10"
-                ClickedCommand="{Binding PauseButtonPressedCommand}"
-                Clicked="PauseButton_Clicked"
-                CornerRadius="18"
-                ForegroundColor="{StaticResource Light}"
-                BackgroundColor="{StaticResource Secondary}"
-                HighlightBackgroundColor="#4f6784"
-                BorderThickness="0,0,0,4"
-                BorderColor="{StaticResource Primary}"
-                HighlightBorderColor="#2d3b4c"
-                FontSize="14"
-                />
-                </Grid>
-                <!--
-                <Button.Triggers>
-                    <Trigger TargetType="Button"
-                             Property="IsEnabled"
-                             Value="False">
-                        <Setter Property="Opacity" Value="0.5" />
-                    </Trigger>
-                </Button.Triggers>
-                -->
+                <flex:FlexButton
+                    Grid.Row="0"
+                    x:Name="FinishButton"
+                    Text="FINISH WORKOUT"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start"
+                    HeightRequest="50"
+                    Margin="40, 10, 40, 10"
+                    ClickedCommand="{Binding FinishButtonPressedCommand}"
+                    CornerRadius="18"
+                    ForegroundColor="{StaticResource Light}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    HighlightBackgroundColor="#4f6784"
+                    BorderThickness="0,0,0,4"
+                    BorderColor="{StaticResource Primary}"
+                    HighlightBorderColor="#2d3b4c"
+                    FontSize="14"/>
+
+                <flex:FlexButton
+                    Grid.Row="0"
+                    x:Name="PauseButton"
+                    Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start"
+                    HeightRequest="50"
+                    Margin="40, 10, 40, 10"
+                    ClickedCommand="{Binding PauseButtonPressedCommand}"
+                    CornerRadius="18"
+                    ForegroundColor="{StaticResource Light}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    HighlightBackgroundColor="#4f6784"
+                    BorderThickness="0,0,0,4"
+                    BorderColor="{StaticResource Primary}"
+                    HighlightBorderColor="#2d3b4c"
+                    FontSize="14"/>
+
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

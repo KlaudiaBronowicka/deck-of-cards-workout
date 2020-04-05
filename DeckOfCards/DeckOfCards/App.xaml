@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DeckOfCards.App"
-             >
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -21,10 +21,16 @@
             <Style TargetType="TabbedPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
             </Style>
-            <Style TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+            <Style TargetType="Label" x:Key="TopBarLabelStyle">
+                <Setter Property="FontSize" Value="28" />
                 <Setter Property="TextColor" Value="{StaticResource Light}" />
-                <Setter Property="CornerRadius" Value="16" />
+            </Style>
+            <Style x:Key="CardLabelStyle" TargetType="Label">
+                <Setter Property="Grid.Row" Value="1" />
+                <Setter Property="Grid.Column" Value="1" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="36" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

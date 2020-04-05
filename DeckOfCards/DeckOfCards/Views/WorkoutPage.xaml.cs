@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DeckOfCards.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SkiaSharp;
-using SkiaSharp.Views;
 using SkiaSharp.Views.Forms;
 
 namespace DeckOfCards.Views
@@ -38,54 +34,44 @@ namespace DeckOfCards.Views
             
         }
 
-        private async void CardTappedEvent(object sender, EventArgs e)
-        {
-            AnimateToNextCard((View)sender);
-        }
-
-
-        void CardSwipedEvent(Object sender, SwipedEventArgs e)
-        {
-            AnimateToNextCard((View)sender);
-        }
-
         private void StartCardPulsingAnimation()
         {
             new Animation {
                 { 0, 0.5, new Animation (v => CardView.Scale = v, 1, 1.015, Easing.SinInOut) },
                 { 0.5, 1, new Animation (v => CardView.Scale = v, 1.015, 1, Easing.SinInOut) }
                 }.Commit(this, "PulsingAnimation", 16, 2000, null, null, () => !_vm.IsGameRunning);
+        }
 
+        private void CardTappedEvent(object sender, EventArgs e)
+        {
+            AnimateToNextCard((View)sender);
+        }
+
+        void CardSwipedEvent(object sender, SwipedEventArgs e)
+        {
+            AnimateToNextCard((View)sender);
         }
 
         private async void AnimateToNextCard(View card)
         {
-            /*
-            if (_vm.GameState != GameState.Running)
-            {
-                // start game without animation
-                _vm.NextButtonPressedCommand.Execute(null);
-                return;
-            }
-            */
+            double position = 1.5 * card.Width;
 
-            uint transitionTime = 300;
-            double displacement = 1.5 * card.Width;
-
+            // animate off the screen
             await Task.WhenAll(
-                card.TranslateTo(-displacement, 50, transitionTime, Easing.CubicIn),
-                card.RotateTo(-50, transitionTime, Easing.CubicIn)
-                );
+                card.TranslateTo(-position, 50, 300, Easing.CubicIn),
+                card.RotateTo(-50, 300, Easing.CubicIn));
 
-           await _vm.OnNextButtonPressed();
+            // switch to next card
+            await _vm.OnNextButtonPressed();
 
+            // shift to opposite side of the screen
             await card.RotateTo(30, 0);
-            await card.TranslateTo(displacement, -80, 0);
+            await card.TranslateTo(position, -80, 0);
 
+            // animate into the screen
             await Task.WhenAll(
                 card.TranslateTo(0, 0, 200, Easing.CubicOut),
-                card.RotateTo(0, 200, Easing.CubicOut)
-                );
+                card.RotateTo(0, 200, Easing.CubicOut));
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -95,26 +81,17 @@ namespace DeckOfCards.Views
                 FadeCardSymbols();
                 FadeLabels();
                 ToggleButtons();
-               
             }
         }
 
         private void FadeCardSymbols()
         {
-            double opacity = 0;
-
-            switch (_vm.GameState)
+            double opacity = _vm.GameState switch
             {
-                case GameState.Paused:
-                    opacity = 0.5;
-                    break;
-                case GameState.Running:
-                    opacity = 1;
-                    break;
-                case GameState.Default:
-                    opacity = 0;
-                    break;
-            }
+                GameState.Paused => 0.5,
+                GameState.Running => 1,
+                _=> 0,
+            };
 
             foreach (var element in _fadeOutOnGamePausedElements)
             {
@@ -148,75 +125,73 @@ namespace DeckOfCards.Views
             switch (_vm.GameState)
             {
                 case GameState.Paused:
-                    FinishButton.FadeTo(1, 300);
-                    FinishButton.TranslateTo(0, 80, 300, Easing.SpringOut);
+
+                    // show finish button
+                    await Task.WhenAll(
+                        FinishButton.FadeTo(1, 300),
+                        FinishButton.TranslateTo(0, 80, 300, Easing.SpringOut));
+
                     break;
+
                 case GameState.Running:
+
                     if (!Buttons.IsEnabled)
                     {
                         // new game
                         Buttons.IsEnabled = true;
-                        await Buttons.TranslateTo(-Application.Current.MainPage.Width, 0, 0);
-                        Buttons.TranslateTo(0, 0, 500, Easing.SpringOut);
-                        Buttons.FadeTo(1, 500);
+                        Buttons.TranslationX = -Application.Current.MainPage.Width;
+
+                        await Task.WhenAll(
+                            Buttons.TranslateTo(0, 0, 500, Easing.SpringOut),
+                            Buttons.FadeTo(1, 500));
                     }
-                    //FinishButton.FadeTo(0, 300);
-                    FinishButton.TranslateTo(0, 0, 300, Easing.CubicInOut);
+                    else
+                    {
+                        // resume game
+                        await FinishButton.TranslateTo(0, 0, 300, Easing.CubicInOut);
+                    }
+
                     break;
+
                 case GameState.Default:
                 default:
+
                     //animate buttons away
                     await Task.WhenAll(
                         Buttons.TranslateTo(-Application.Current.MainPage.Width, 0, 500, Easing.SinInOut),
                         Buttons.FadeTo(0, 500));
 
-                    // if finish button was visible, hide it
-                    if (FinishButton.TranslationY != 0)
-                    {
-                        FinishButton.TranslateTo(0, 0, 300, Easing.CubicInOut);
-                    }
+                    // hide finish button
+                    FinishButton.TranslationY = 0;
 
                     Buttons.IsEnabled = false;
+
                     break;
             }
         }
 
-
-
-        async void FinishButton_Clicked(Object sender, EventArgs e)
-        {
-        }
-
-        void PauseButton_Clicked(Object sender, EventArgs e)
-        {
-        }
-
-
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            SKSurface surface = args.Surface;
-            SKCanvas canvas = surface.Canvas;
+            var canvas = args.Surface.Canvas;
 
             var width = canvas.DeviceClipBounds.Width;
             var height = canvas.DeviceClipBounds.Height;
 
-
             canvas.Clear();
 
-            using (SKPaint paint = new SKPaint())
-            {
-                SKRect rect = new SKRect(0, 0, width, height);
-                paint.Shader = SKShader.CreateRadialGradient(
-                                    new SKPoint(width * 0.2f, height * 0.5f),
-                                    1.3f*width,
-                                    new SKColor[] { new SKColor(69, 93, 122), new SKColor(35, 49, 66)},
-                                    new float[] { 0, 1 },
-                                    SKShaderTileMode.Mirror);
+            using var paint = new SKPaint();
 
-                // Draw the gradient on the rectangle
-                canvas.DrawRect(rect, paint);
-            
-            }
+            SKRect rect = new SKRect(0, 0, width, height);
+
+            paint.Shader = SKShader.CreateRadialGradient(
+                                new SKPoint(width * 0.2f, height * 0.5f),
+                                1.3f * width,
+                                new SKColor[] { new SKColor(69, 93, 122), new SKColor(35, 49, 66) },
+                                new float[] { 0, 1 },
+                                SKShaderTileMode.Mirror);
+
+            // Draw the gradient on the rectangle
+            canvas.DrawRect(rect, paint);
         }
     }
 }
