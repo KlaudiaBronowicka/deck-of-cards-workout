@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using DeckOfCards.Constants;
+using SkiaSharp.Views.Forms;
+using SkiaSharp;
 
 namespace DeckOfCards.ViewModels
 {
@@ -23,6 +25,11 @@ namespace DeckOfCards.ViewModels
 
         public ICommand SaveButtonClicked => new Command(OnSaveButtonClicked);
 
+        public EditDeckViewModel()
+        {
+            Task.Run(() => InitializeAsync(null));
+        }
+
         private void OnSaveButtonClicked()
         {
             _deckDataService.UpdateExerciseData(new List<ExerciseItem>(Exercises));
@@ -37,5 +44,6 @@ namespace DeckOfCards.ViewModels
             Exercises = new ObservableCollection<ExerciseItem>(await _deckDataService.GetExercises());
 
         }
+        
     }
 }

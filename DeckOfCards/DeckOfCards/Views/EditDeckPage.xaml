@@ -7,7 +7,8 @@
              x:Class="DeckOfCards.Views.EditDeckPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
-             utility:ViewModelLocator.AutoWireViewModel="True">
+             utility:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
@@ -17,11 +18,33 @@
         <ToolbarItem Text="Save" Command="{Binding SaveButtonClicked}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ListView
-            ItemsSource="{Binding Exercises, Mode=TwoWay}"
-            HasUnevenRows="true">
-            <ListView.ItemTemplate>
-            <DataTemplate>
+        <Grid
+            VerticalOptions="Fill"
+            HorizontalOptions="FillAndExpand"
+            >
+         <skiaforms:SKCanvasView
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 x:Name="canvasView"
+                 PaintSurface="OnCanvasViewPaintSurface" />
+        <StackLayout
+            VerticalOptions="Start"
+            >
+            <Label
+                FontSize="54"
+                TextColor="{StaticResource Light}"
+                Text="Edit deck"
+                Margin="16, 32, 0, 16"
+                />
+            <ListView
+                ItemsSource="{Binding Exercises, Mode=TwoWay}"
+                HasUnevenRows="true"
+                HeightRequest="300"
+                Margin="0, 0, 0, 0"
+                SeparatorColor="{StaticResource Secondary}"
+                >
+                <ListView.ItemTemplate>
+                <DataTemplate>
                     <ViewCell
                         Height="60">
                         <ContentView>
@@ -34,11 +57,11 @@
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="auto" />
                                     <ColumnDefinition Width="*" />
-
                                 </Grid.ColumnDefinitions>
                                 <Image
                                 WidthRequest="30"
                                 HeightRequest="30"
+                                Margin="8, 0, 0, 0"
                                 Source="{Binding CardSymbol, Converter={StaticResource cardSymbolImageConvert}}">
                                 </Image>
                                 <Label
@@ -46,22 +69,52 @@
                                     Grid.Column="1"
                                     Text="{Binding CardSymbol}"
                                     VerticalOptions="Center"
-                                  />
+                                    FontSize="20"
+                                    TextColor="{StaticResource Light}"
+                                    />
                                 <Entry
                                     Grid.Column="2"
                                     HorizontalOptions="End"
                                     VerticalOptions="Center"
+                                    FontSize="20"
                                     WidthRequest="200"
                                     Text="{Binding Name, Mode=TwoWay}"
+                                    TextColor="{StaticResource Light}"
                                     HorizontalTextAlignment="End"
-                                />
-
+                                    Margin="0, 0, 16, 0"
+                                    
+                                    />
                             </Grid>
                         </ContentView>
                     </ViewCell>
-            </DataTemplate>
-            </ListView.ItemTemplate>
-
-        </ListView>
+                </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition> <!-- label -->
+                    <ColumnDefinition Width="Auto"></ColumnDefinition> <!-- switch -->
+                </Grid.ColumnDefinitions>
+                <Frame
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start"
+                    HeightRequest="0.3"
+                    BackgroundColor="{StaticResource Secondary}"
+                    Margin="0, 0, -10, 0"
+                    HasShadow="False"
+                    Padding="0"/>
+                <Label
+                    Margin="22, 16, 0, 0"
+                    Grid.Column="0"
+                    Text="Include Jokers"
+                    VerticalOptions="Center"
+                    FontSize="20"
+                    TextColor="{StaticResource Light}"/>
+                <Switch
+                    Margin="0, 16, 16, 0"
+                    />
+            </Grid>
+        </StackLayout>
+    </Grid>
     </ContentPage.Content>
 </ContentPage>
