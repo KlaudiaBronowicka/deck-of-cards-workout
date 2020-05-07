@@ -8,7 +8,8 @@
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
+             xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
@@ -81,9 +82,7 @@
                                     Text="{Binding Name, Mode=TwoWay}"
                                     TextColor="{StaticResource Light}"
                                     HorizontalTextAlignment="End"
-                                    Margin="0, 0, 16, 0"
-                                    
-                                    />
+                                    Margin="0, 0, 16, 0" />
                             </Grid>
                         </ContentView>
                     </ViewCell>
@@ -112,8 +111,26 @@
                     TextColor="{StaticResource Light}"/>
                 <Switch
                     Margin="0, 16, 16, 0"
+                    IsToggled="{Binding IncludeJokers}"
                     />
             </Grid>
+            <flex:FlexButton
+                    Grid.Row="0"
+                    Text="Save changes"
+                    IsEnabled="{Binding AnyChangesToSave}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start"
+                    HeightRequest="50"
+                    Margin="40, 80, 40, 10"
+                    ClickedCommand="{Binding SaveButtonClicked}"
+                    CornerRadius="18"
+                    ForegroundColor="{StaticResource Light}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    HighlightBackgroundColor="#4f6784"
+                    BorderThickness="0,0,0,4"
+                    BorderColor="{StaticResource Primary}"
+                    HighlightBorderColor="#2d3b4c"
+                    FontSize="14"/>
         </StackLayout>
     </Grid>
     </ContentPage.Content>

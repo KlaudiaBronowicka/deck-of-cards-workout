@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using DeckOfCards.Constants;
-using SkiaSharp.Views.Forms;
-using SkiaSharp;
 
 namespace DeckOfCards.ViewModels
 {
@@ -23,26 +21,51 @@ namespace DeckOfCards.ViewModels
             }
         }
 
-        public ICommand SaveButtonClicked => new Command(OnSaveButtonClicked);
+        private bool _includeJokers;
+        public bool IncludeJokers
+        {
+            get => _includeJokers;
+            set
+            {
+                _includeJokers = value;
+                OnPropertyChanged();                    
+            }
+        }
+
+        private bool _anyChangesToSave;
+        public bool AnyChangesToSave
+        {
+            get => _anyChangesToSave;
+            set
+            {
+                _anyChangesToSave = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand SaveButtonClicked => new Command(SaveChanges);
 
         public EditDeckViewModel()
         {
             Task.Run(() => InitializeAsync(null));
         }
 
-        private void OnSaveButtonClicked()
+        private void SaveChanges()
         {
             _deckDataService.UpdateExerciseData(new List<ExerciseItem>(Exercises));
+            _deckDataService.UpdateJokerPreferences(IncludeJokers);
 
             MessagingCenter.Send(this, MessagingCenterConstants.ExercisesUpdated);
 
-            _navigationService.PopToRootAsync();
+            AnyChangesToSave = false;
         }
 
         public override async Task InitializeAsync(object data)
         {
             Exercises = new ObservableCollection<ExerciseItem>(await _deckDataService.GetExercises());
+            IncludeJokers = await _deckDataService.GetJokerPreferences();
 
+            AnyChangesToSave = false;
         }
         
     }

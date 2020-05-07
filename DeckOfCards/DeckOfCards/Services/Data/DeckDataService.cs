@@ -21,24 +21,22 @@ namespace DeckOfCards.Services
                 new ExerciseItem(CardSymbol.Joker, "5 of each")
             };
 
-        public int GetNumberOfCardsInDeck()
-        {
-            //TODO: Make this changeable - should depend on whether we want jokers or not
-            return 54;
-        }
-
         public async Task<List<CardItem>> GetFullDeck()
         {
             var exercises = await GetExercises();
 
-            // use rules like if we should return Joker or not
-            var jokerExercise = exercises.Find(x => x.CardSymbol == CardSymbol.Joker)?.Name;
+            var deck = new List<CardItem>();
 
-            var deck = new List<CardItem>()
+            // use rules like if we should return Joker or not
+            var includeJokers = await GetJokerPreferences();
+
+            if (includeJokers)
             {
-                new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise),
-                new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise)
-            };
+                var jokerExercise = exercises.Find(x => x.CardSymbol == CardSymbol.Joker)?.Name;
+
+                deck.Add(new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise));
+                deck.Add(new CardItem(CardSymbol.Joker, CardValue.Joker, jokerExercise));
+            }
 
             for (int i = 0; i < 4; i++)
             {
@@ -52,7 +50,25 @@ namespace DeckOfCards.Services
 
             return deck;
         }
-        
+
+        public void UpdateJokerPreferences(bool includeJokers)
+        {
+            Cache.InsertObject("IncludeJokers", includeJokers);
+        }
+
+
+        public async Task<int> GetNumberOfCardsInDeck()
+        {
+            var includeJokers = await GetJokerPreferences();
+
+            return includeJokers ? 54 : 52;
+        }
+
+        public async Task<bool> GetJokerPreferences()
+        {
+            return await GetFromCache<bool?>("IncludeJokers") ?? true;
+        }
+
         public void UpdateExerciseData(List<ExerciseItem> newExercises)
         {
             SaveExerciseDataToCache(newExercises);

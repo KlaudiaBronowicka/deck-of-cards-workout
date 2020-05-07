@@ -2,6 +2,8 @@
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Linq;
+using DeckOfCards.ViewModels;
 
 namespace DeckOfCards.Views
 {
@@ -36,5 +38,6 @@ namespace DeckOfCards.Views
             // Draw the gradient on the rectangle
             canvas.DrawRect(rect, paint);
         }
+
     }
 }

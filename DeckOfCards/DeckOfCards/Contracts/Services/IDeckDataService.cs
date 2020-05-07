@@ -12,8 +12,12 @@ namespace DeckOfCards.Contracts.Services
 
         Task<List<ExerciseItem>> GetExercises();
 
-        int GetNumberOfCardsInDeck();
+        Task<int> GetNumberOfCardsInDeck();
+
+        Task<bool> GetJokerPreferences();
 
         void UpdateExerciseData(List<ExerciseItem> newExercises);
+
+        void UpdateJokerPreferences(bool includeJokers);
     }
 }

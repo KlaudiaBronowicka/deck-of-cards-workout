@@ -34,6 +34,13 @@ namespace DeckOfCards.Views
             
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            _vm.OnViewAppearing();
+        }
+
         private void StartCardPulsingAnimation()
         {
             new Animation {

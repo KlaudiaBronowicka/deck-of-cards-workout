@@ -25,6 +25,17 @@ namespace DeckOfCards.ViewModels
             }
         }
 
+        private int _numberOfCards;
+        public int NumberOfCards
+        {
+            get => _numberOfCards;
+            set
+            {
+                _numberOfCards = value;
+                OnPropertyChanged();
+            }
+        }
+
         private CardItem _cardItem;
         public CardItem CurrentCard
         {
@@ -87,18 +98,23 @@ namespace DeckOfCards.ViewModels
         public ICommand PauseButtonPressedCommand => new Command(OnPauseButtonPressed);
         public ICommand FinishButtonPressedCommand => new Command(FinishGame);
 
-        public override Task InitializeAsync(object data)
+        public override async Task InitializeAsync(object data)
         {
             UpdateDeck();
 
-            _random = new Random();
+            NumberOfCards = await _deckDataService.GetNumberOfCardsInDeck();
+        }
 
-            return Task.FromResult(true);
+        public void OnViewAppearing()
+        {
+            if (IsGameRunning) return;
+
+            Task.Run(() => InitializeAsync(null));
         }
 
         public void SetupMessageListeners()
         {
-            MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, (sender) => UpdateDeck());
+            MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, async (sender) => await InitializeAsync(null));
         }
 
         private async void UpdateDeck()
@@ -182,11 +198,13 @@ namespace DeckOfCards.ViewModels
             Seconds = 0;
             CurrentCardIndex = 0;
             CurrentCard = null;
+
+            await InitializeAsync(null);
         }
 
         private int GetRandomCardIndex()
         {
-            _random = _random ?? new Random();
+            _random ??= new Random();
             return _random.Next(0, Cards.Count);
         }
 

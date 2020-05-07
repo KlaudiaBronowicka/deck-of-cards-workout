@@ -48,12 +48,17 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label
-                    Grid.Column="0"
+                 <Label Grid.Column="0"
                     HorizontalTextAlignment="Start"
-                    Text="{Binding CurrentCardIndex, Converter={StaticResource cardNumberConvert}}"
                     Margin="20, 20, 0, 0"
                     Style="{StaticResource TopBarLabelStyle}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding CurrentCardIndex}" />
+                            <Span Text="/" />
+                            <Span Text="{Binding NumberOfCards}" />
+                        </FormattedString>
+                    </Label.FormattedText>
                 </Label>
                 <Label
                     Grid.Column="1"
