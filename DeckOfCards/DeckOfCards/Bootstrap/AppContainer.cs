@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DeckOfCards.Contracts.Services;
 using DeckOfCards.Services;
+using DeckOfCards.Services.Data;
 using DeckOfCards.ViewModels;
 using System;
 
@@ -24,7 +25,10 @@ namespace DeckOfCards.Bootstrap
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DeckDataService>().As<IDeckDataService>();
             builder.RegisterType<PopupService>().As<IPopupService>();
+            builder.RegisterType<WorkoutService>().As<IWorkoutService>();
             builder.RegisterType<IViewLifecycleService>();
+
+            builder.RegisterType<DeckOfCardsDB>();
 
             _container = builder.Build();
         }

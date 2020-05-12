@@ -20,7 +20,7 @@ namespace DeckOfCards
             InitializeApp();
 
             //InitializeNavigation();
-            App.Current.MainPage = new MainTabbedPage();
+            Current.MainPage = new MainTabbedPage();
         }
 
         private void InitializeApp()
@@ -31,21 +31,15 @@ namespace DeckOfCards
 
         }
 
-        private async Task InitializeNavigation()
-        {
-            var navigationService = AppContainer.Resolve<INavigationService>();
-            await navigationService.InitializeAsync();
-        }
-
         protected override void OnStart()
         {
             // Handle when your app starts
         }
 
-        protected override void OnSleep()
+        protected override async void OnSleep()
         {
-            //TODO: pause/resume workout
             // Handle when your app sleeps
+            await AppContainer.Resolve<WorkoutViewModel>().SaveWorkout();
         }
 
         protected override void OnResume()

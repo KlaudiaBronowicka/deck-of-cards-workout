@@ -10,5 +10,6 @@ namespace DeckOfCards.Contracts.Services
 
         void Initialize();
         Task ShowDialog(string title, string message, string cancel);
+        Task<bool> ShowDialog(string title, string message, string cancel, string confirm);
     }
 }

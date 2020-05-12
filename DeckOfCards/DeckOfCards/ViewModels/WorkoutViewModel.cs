@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using DeckOfCards.Constants;
+using System.Collections.Generic;
 
 namespace DeckOfCards.ViewModels
 {
     public enum GameState { Default, Running, Paused };
 
     public class WorkoutViewModel : BaseViewModel
-    {      
+    {
+
         private ObservableCollection<CardItem> _cards;
         public ObservableCollection<CardItem> Cards
         {
@@ -93,28 +95,91 @@ namespace DeckOfCards.ViewModels
         }
 
         private Random _random;
+        private Workout _currentWorkout;
 
         public ICommand NextButtonPressedCommand => new Command(async () => await OnNextButtonPressed());
         public ICommand PauseButtonPressedCommand => new Command(OnPauseButtonPressed);
         public ICommand FinishButtonPressedCommand => new Command(FinishGame);
 
+        /// <param name="data">True to try to restore previous workout, false otherwise</param>
+        /// <returns></returns>
         public override async Task InitializeAsync(object data)
         {
+            if (data.GetType() == typeof(bool) && (bool)data)
+            {
+                var workout = await _workoutService.RestoreLastWorkout();
+                if (workout != null)
+                {
+                    // previous workout unfinished
+                    var result = await _popupService.ShowDialog(
+                        "Unfinished workout",
+                        "Would you like to continue your previous workout?",
+                        "No",
+                        "Yes");
+
+                    if (result)
+                    {
+                        RestoreWorkout(workout);
+                        return;
+                    }
+                }
+            }
+
             UpdateDeck();
 
             NumberOfCards = await _deckDataService.GetNumberOfCardsInDeck();
+        }
+
+
+        private void RestoreWorkout(Workout workout)
+        {
+            _currentWorkout = workout;
+            Cards = new ObservableCollection<CardItem>(workout.RemainingCards);
+
+            NumberOfCards = workout.JokersIncluded ? 54 : 52;
+
+            Seconds = workout.Seconds;
+
+            //TODO: test if not off by 1
+            CurrentCardIndex = NumberOfCards - Cards.Count;
+
+            NextCard();
+
+            GameState = GameState.Running;
+            GameState = GameState.Paused;
         }
 
         public void OnViewAppearing()
         {
             if (IsGameRunning) return;
 
-            Task.Run(() => InitializeAsync(null));
+            Task.Run(() => InitializeAsync(true)).ConfigureAwait(true);
         }
 
         public void SetupMessageListeners()
         {
-            MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, async (sender) => await InitializeAsync(null));
+            MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, async (sender) => await InitializeAsync(false));
+        }
+
+        public async Task SaveWorkout()
+        {
+            UpdateWorkoutData();
+
+            await _workoutService.SaveWorkout(_currentWorkout);
+        }
+
+        public void UpdateWorkoutData()
+        {
+            if (Cards == null) return;
+
+            _currentWorkout.RemainingCards = new List<CardItem>(Cards);
+
+            _currentWorkout.Seconds = Seconds;
+
+            if (Cards.Count == 0)
+            {
+                _currentWorkout.DateFinished = DateTime.Now;
+            }
         }
 
         private async void UpdateDeck()
@@ -168,11 +233,27 @@ namespace DeckOfCards.ViewModels
             Cards = new ObservableCollection<CardItem>(await _deckDataService.GetFullDeck());
             CurrentCardIndex = 0;
 
+            await InitializeNewWorkoutData();
+
             GameState = GameState.Running;
 
             StartTimer();
 
             NextCard();
+        }
+
+        private async Task InitializeNewWorkoutData()
+        {
+            var jokersIncluded = await _deckDataService.GetJokerPreferences();
+            var exercises = await _deckDataService.GetExercises();
+
+            _currentWorkout = new Workout
+            {
+                RemainingCards = new List<CardItem>(Cards),
+                DateStarted = DateTime.Now,
+                JokersIncluded = jokersIncluded,
+                Exercises = exercises
+            };
         }
 
         private void ResumeGame()
@@ -190,6 +271,8 @@ namespace DeckOfCards.ViewModels
         {
             GameState = GameState.Default;
 
+            await SaveWorkout();
+
             var converter = new Converters.SecondsToTimeConverter();
             var time = converter.Convert(Seconds, typeof(string), null, System.Globalization.CultureInfo.InvariantCulture);
             
@@ -198,8 +281,9 @@ namespace DeckOfCards.ViewModels
             Seconds = 0;
             CurrentCardIndex = 0;
             CurrentCard = null;
+            _currentWorkout = null;
 
-            await InitializeAsync(null);
+            await InitializeAsync(false);
         }
 
         private int GetRandomCardIndex()

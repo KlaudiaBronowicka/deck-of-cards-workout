@@ -14,7 +14,6 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
-            <converters:CardNumberConverter x:Key="cardNumberConvert" />
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
             <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="RESUME" FalseValue="PAUSE"  />
             <converters:InverseBoolConverter x:Key="inverseBoolConverter" />
