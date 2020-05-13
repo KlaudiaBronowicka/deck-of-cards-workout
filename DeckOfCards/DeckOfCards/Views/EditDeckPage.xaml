@@ -15,14 +15,10 @@
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Command="{Binding SaveButtonClicked}"/>
-    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid
             VerticalOptions="Fill"
-            HorizontalOptions="FillAndExpand"
-            >
+            HorizontalOptions="FillAndExpand">
          <skiaforms:SKCanvasView
                  Grid.Row="0"
                  Grid.Column="0"

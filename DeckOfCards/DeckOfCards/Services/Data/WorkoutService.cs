@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DeckOfCards.Contracts.Services;
 using DeckOfCards.Models;
 using DeckOfCards.Utility;
+using System.Linq;
 
 namespace DeckOfCards.Services.Data
 {
@@ -20,7 +21,7 @@ namespace DeckOfCards.Services.Data
         {
             var workouts = await _db.GetAllWorkouts();
 
-            return WorkoutDBListToWorkoutList(workouts).ToArray();
+            return WorkoutDBListToWorkoutList(workouts).OrderByDescending(x => x.DateStarted).ToArray();
         }
 
         /// <summary>

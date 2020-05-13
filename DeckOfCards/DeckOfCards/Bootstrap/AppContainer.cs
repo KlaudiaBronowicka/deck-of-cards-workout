@@ -20,7 +20,8 @@ namespace DeckOfCards.Bootstrap
             builder.RegisterType<MainTabbedViewModel>();
             builder.RegisterType<WorkoutViewModel>();
             builder.RegisterType<EditDeckViewModel>();
-            
+            builder.RegisterType<HistoryViewModel>();
+
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DeckDataService>().As<IDeckDataService>();
