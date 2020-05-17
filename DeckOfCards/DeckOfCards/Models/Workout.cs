@@ -13,5 +13,6 @@ namespace DeckOfCards.Models
         public DateTime DateFinished { get; set; }
         public bool JokersIncluded { get; set; }
         public List<ExerciseItem> Exercises { get; set; }
+        public Dictionary<CardSymbol, int> FinishedExercises { get; set; }
     }
 }

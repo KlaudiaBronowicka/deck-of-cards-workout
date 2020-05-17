@@ -8,6 +8,43 @@ namespace DeckOfCards.Utility
     public static class Helper
     {
 
+        public static string SerializeFinishedExercises(Dictionary<CardSymbol, int> exercises)
+        {
+            string serializedValue = string.Empty;
+
+            foreach (var exercise in exercises)
+            {
+                serializedValue += $"{exercise.Key}.{exercise.Value},";
+            }
+
+            serializedValue.TrimEnd(',');
+
+            return serializedValue;
+        }
+
+
+        public static Dictionary<CardSymbol, int> DeserializeIntoFinishedExercises(string data)
+        {
+            
+            var dict = new Dictionary<CardSymbol, int>();
+
+            if (string.IsNullOrEmpty(data)) return dict;
+
+            var array = data.Split(',');
+
+            foreach (var exerciseString in array)
+            {
+                if (string.IsNullOrEmpty(exerciseString)) continue;
+
+                var values = exerciseString.Split('.');
+                var cardSymbol = (CardSymbol)Enum.Parse(typeof(CardSymbol), values[0]);
+
+                dict.Add(cardSymbol, int.Parse(values[1]));
+            }
+
+            return dict;
+        }
+
         public static string SerializeExerciseList(List<ExerciseItem> exercises)
         {
             string serializedValue = string.Empty;

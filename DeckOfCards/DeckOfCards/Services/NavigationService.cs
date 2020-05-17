@@ -32,9 +32,10 @@ namespace DeckOfCards.Services
 
         public async Task NavigateBackAsync()
         {
-            if (CurrentApplication.MainPage is MainPage mainPage)
+            if (CurrentApplication.MainPage is MainTabbedPage mainPage)
             {
-                await mainPage.Detail.Navigation.PopAsync();
+                if (mainPage.CurrentPage is NavigationPage navigationPage)
+                    await navigationPage.PopAsync();
             }
             else if (CurrentApplication.MainPage != null)
             {
@@ -89,26 +90,24 @@ namespace DeckOfCards.Services
             {
                 CurrentApplication.MainPage = page;
             }
-            else if (CurrentApplication.MainPage is MainPage)
+            else if (CurrentApplication.MainPage is MainTabbedPage)
             {
-                var mainPage = CurrentApplication.MainPage as MainPage;
+                var mainPage = CurrentApplication.MainPage as MainTabbedPage;
 
-                if (mainPage.Detail is NavigationPage navigationPage)
+                if (mainPage.CurrentPage is NavigationPage navigationPage)
                 {
                     var currentPage = navigationPage.CurrentPage;
 
                     if (currentPage.GetType() != page.GetType())
                     {
-                        await navigationPage.PushAsync(page);
+                        await navigationPage.PushAsync(page, true);
                     }
                 }
                 else
                 {
                     navigationPage = new NavigationPage(page);
-                    mainPage.Detail = navigationPage;
+                    mainPage.CurrentPage = navigationPage;
                 }
-
-                mainPage.IsPresented = false;
             }
             else
             {
@@ -157,6 +156,7 @@ namespace DeckOfCards.Services
             _mappings.Add(typeof(MainTabbedViewModel), typeof(MainTabbedPage));
             _mappings.Add(typeof(WorkoutViewModel), typeof(WorkoutPage));
             _mappings.Add(typeof(EditDeckViewModel), typeof(EditDeckPage));
+            _mappings.Add(typeof(WorkoutDetailsViewModel), typeof(WorkoutDetailsPage));
         }
     }
 }

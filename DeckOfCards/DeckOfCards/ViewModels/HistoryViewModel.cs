@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DeckOfCards.Bootstrap;
 using DeckOfCards.Models;
 using Xamarin.Forms;
 
@@ -55,6 +56,12 @@ namespace DeckOfCards.ViewModels
             Workouts = new ObservableCollection<Workout>(allWorkouts);
         }
 
+        public void WorkoutItemTapped(int index)
+        {
+            var workout = Workouts[index];
+
+            _navigationService.NavigateToAsync<WorkoutDetailsViewModel>(workout);
+        }
 
     }
 }

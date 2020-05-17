@@ -11,5 +11,7 @@ namespace DeckOfCards.Contracts.Services
         Task<Workout[]> GetAllWorkouts();
 
         Task<Workout> RestoreLastWorkout();
+
+        Task RemoveWorkout(int id);
     }
 }

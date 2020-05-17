@@ -56,6 +56,11 @@ namespace DeckOfCards.Services.Data
             await _db.SaveWorkout(WorkoutToWorkoutDB(workout));
         }
 
+        public async Task RemoveWorkout(int id)
+        {
+            await _db.DeleteWorkout(id);
+        }
+
         private List<WorkoutDBModel> WorkoutListToWorkoutDBList(List<Workout> workouts)
         {
             var list = new List<WorkoutDBModel>();
@@ -88,7 +93,8 @@ namespace DeckOfCards.Services.Data
                 DateStarted = workout.DateStarted,
                 DateFinished = workout.DateFinished,
                 JokersIncluded = workout.JokersIncluded,
-                Exercises = Helper.SerializeExerciseList(workout.Exercises)
+                Exercises = Helper.SerializeExerciseList(workout.Exercises),
+                FinishedExercises = Helper.SerializeFinishedExercises(workout.FinishedExercises)
             };
         }
 
@@ -104,7 +110,8 @@ namespace DeckOfCards.Services.Data
                 DateStarted = workout.DateStarted,
                 DateFinished = workout.DateFinished,
                 JokersIncluded = workout.JokersIncluded,
-                Exercises = exercises
+                Exercises = exercises,
+                FinishedExercises = Helper.DeserializeIntoFinishedExercises(workout.FinishedExercises)
             };
         }
     }

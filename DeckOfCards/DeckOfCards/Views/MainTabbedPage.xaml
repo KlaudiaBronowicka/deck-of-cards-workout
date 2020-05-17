@@ -17,6 +17,10 @@
     <!--Pages can be added as references or inline-->
     <views:WorkoutPage Title="Workout" IconImageSource="gym"/>
     <views:EditDeckPage Title="Deck" IconImageSource="cards"/>
-    <views:HistoryPage Title="History" IconImageSource="graphic"/>
+    <NavigationPage Title="History" IconImageSource="graphic">
+        <x:Arguments>
+			<views:HistoryPage />
+		</x:Arguments>
+    </NavigationPage>
     <ContentPage Title="Settings" IconImageSource="gear" />
 </TabbedPage>

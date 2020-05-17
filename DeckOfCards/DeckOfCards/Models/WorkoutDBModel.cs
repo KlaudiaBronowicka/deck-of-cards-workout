@@ -14,5 +14,6 @@ namespace DeckOfCards.Models
         public DateTime DateFinished { get; set; }
         public bool JokersIncluded { get; set; }
         public string Exercises { get; set; }
+        public string FinishedExercises { get; set; }
     }
 }

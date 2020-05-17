@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using DeckOfCards.Constants;
 using System.Collections.Generic;
+using DeckOfCards.Utility;
 
 namespace DeckOfCards.ViewModels
 {
@@ -101,15 +102,19 @@ namespace DeckOfCards.ViewModels
         public ICommand PauseButtonPressedCommand => new Command(OnPauseButtonPressed);
         public ICommand FinishButtonPressedCommand => new Command(FinishGame);
 
+
+        private bool AskedAboutUnfinishedWorkout;
+
         /// <param name="data">True to try to restore previous workout, false otherwise</param>
         /// <returns></returns>
         public override async Task InitializeAsync(object data)
         {
-            if (data.GetType() == typeof(bool) && (bool)data)
+            if (data.GetType() == typeof(bool) && (bool)data && !AskedAboutUnfinishedWorkout)
             {
                 var workout = await _workoutService.RestoreLastWorkout();
                 if (workout != null)
                 {
+                    AskedAboutUnfinishedWorkout = true;
                     // previous workout unfinished
                     var result = await _popupService.ShowDialog(
                         "Unfinished workout",
@@ -209,8 +214,29 @@ namespace DeckOfCards.ViewModels
             else PauseGame();
         }
 
+        private void AddCardToFinished()
+        {
+            if (CurrentCard == null) return;
+
+            if (_currentWorkout.FinishedExercises == null)
+            {
+                _currentWorkout.FinishedExercises = new Dictionary<CardSymbol, int>();
+            }
+
+            if (!_currentWorkout.FinishedExercises.ContainsKey(CurrentCard.Symbol))
+            {
+                _currentWorkout.FinishedExercises.Add(CurrentCard.Symbol, Helper.GetNumberForValue(CurrentCard.Value));
+            }
+            else
+            {
+                _currentWorkout.FinishedExercises[CurrentCard.Symbol] += Helper.GetNumberForValue(CurrentCard.Value);
+            }
+        }
+
         private void NextCard()
         {
+            AddCardToFinished();
+
             if (Cards.Contains(CurrentCard))
             {
                 Cards.Remove(CurrentCard);
