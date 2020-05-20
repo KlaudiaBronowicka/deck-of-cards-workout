@@ -10,7 +10,8 @@
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex">
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+             xmlns:controls="clr-namespace:DeckOfCards.Controls;assembly=DeckOfCards">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
@@ -226,6 +227,7 @@
                     FontSize="14"/>
 
             </Grid>
+            <controls:AdControlView Grid.Row="3" VerticalOptions="End"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

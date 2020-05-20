@@ -22,6 +22,9 @@ namespace DeckOfCards.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+
+            var id = "ca-app-pub-9447326003867145~9473946718";
+            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, id);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {

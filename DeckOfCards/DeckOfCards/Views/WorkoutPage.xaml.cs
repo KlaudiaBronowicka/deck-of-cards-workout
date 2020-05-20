@@ -31,7 +31,7 @@ namespace DeckOfCards.Views
             };
 
             StartCardPulsingAnimation();
-            
+
         }
 
         protected override void OnAppearing()

@@ -89,6 +89,7 @@ namespace DeckOfCards.Services
             for (int i = 0; i < 5; i++)
             {
                 var exerciseName = await GetFromCache<string>($"{ExerciseNames}{i}");
+                if (string.IsNullOrEmpty(exerciseName)) return null;
                 exercises.Add(new ExerciseItem((CardSymbol)i, exerciseName));
             }
 
