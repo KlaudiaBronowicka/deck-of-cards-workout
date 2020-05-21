@@ -23,12 +23,14 @@
     <ContentPage.Content>
         <Grid
             VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand">
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0">
              <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" /> <!-- Top bar -->
                     <RowDefinition Height="Auto" /> <!-- Card view -->
                     <RowDefinition Height="Auto" /> <!-- Buttons -->
                     <RowDefinition Height="*" /> <!-- Rest of the screen -->
+                    <RowDefinition Height="80" /> <!-- Ad banner-->
                 </Grid.RowDefinitions>
 
             <!-- Gradient background -->
@@ -227,7 +229,7 @@
                     FontSize="14"/>
 
             </Grid>
-            <controls:AdControlView Grid.Row="3" VerticalOptions="End"/>
+            <controls:AdControlView Grid.Row="4" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

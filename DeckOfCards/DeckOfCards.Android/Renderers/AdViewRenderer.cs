@@ -13,6 +13,7 @@ namespace DeckOfCards.Droid.Renderers
         public AdViewRenderer(Context context) : base(context) { }
 
         const string AdUnitId = "ca-app-pub-9447326003867145/6404644839";
+        const string TestAdUnitId = "ca-app-pub-3940256099942544/6300978111";
 
         AdView _adView;
 
@@ -23,7 +24,7 @@ namespace DeckOfCards.Droid.Renderers
 
             // This is a string in the Resources/values/strings.xml that I added or you can modify it here. This comes from admob and contains a / in it
 
-            var adParams = new LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+            var adParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
 
             _adView = new AdView(Context)
             {
@@ -37,6 +38,7 @@ namespace DeckOfCards.Droid.Renderers
             _adView.LoadAd(new AdRequest
                             .Builder()
                             .Build());
+
             return _adView;
         }
 
@@ -46,8 +48,7 @@ namespace DeckOfCards.Droid.Renderers
 
             if (Control == null)
             {
-                CreateNativeAdControl();
-                SetNativeControl(_adView);
+                SetNativeControl(CreateNativeAdControl());
             }
         }
     }
