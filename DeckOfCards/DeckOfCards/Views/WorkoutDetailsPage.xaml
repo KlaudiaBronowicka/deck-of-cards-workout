@@ -7,6 +7,7 @@
     utility:ViewModelLocator.AutoWireViewModel="True"
     xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
     xmlns:converters="clr-namespace:DeckOfCards.Converters"
+    xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
     xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
     NavigationPage.HasBackButton="True"
     NavigationPage.HasNavigationBar="True"
@@ -85,16 +86,18 @@
                     </FormattedString>
                 </Label.FormattedText>
                 </Label>
-                <ListView
+                <renderers:DataListView
                 ItemsSource="{Binding FinishedExercises, Mode=TwoWay}"
                 HasUnevenRows="true"
                 HeightRequest="300"
                 Margin="0, 30, 0, 0"
                 SeparatorColor="{StaticResource Secondary}"
+                BackgroundColor="Transparent"
+                SelectionMode="None"
                 >
                 <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell
+                    <renderers:NotSelectableListViewCell
                         Height="80">
                         <ContentView>
                             <Grid
@@ -131,10 +134,10 @@
                                     </Label>
                             </Grid>
                         </ContentView>
-                    </ViewCell>
+                    </renderers:NotSelectableListViewCell>
                 </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </renderers:DataListView>
             </StackLayout>
             </Grid>
     </ContentPage.Content>

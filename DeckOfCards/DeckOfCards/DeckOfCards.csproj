@@ -51,5 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
+    <Folder Include="Renderers\" />
   </ItemGroup>
 </Project>

@@ -11,7 +11,9 @@
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
-             xmlns:controls="clr-namespace:DeckOfCards.Controls;assembly=DeckOfCards">
+             xmlns:controls="clr-namespace:DeckOfCards.Controls;assembly=DeckOfCards"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             >
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
@@ -37,12 +39,17 @@
              <skiaforms:SKCanvasView
                  Grid.Row="0"
                  Grid.Column="0"
-                 Grid.RowSpan="4"
+                 Grid.RowSpan="5"
                  x:Name="canvasView"
                  PaintSurface="OnCanvasViewPaintSurface" />
 
             <!-- Top bar -->
             <Grid Grid.Row="0" >
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,20,0,0" />
+                </OnPlatform>
+            </Grid.Padding>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -158,12 +165,22 @@
                         x:Name="ExerciseLabel"
                         Text="{Binding CurrentCard.Exercise}"
                         Style="{StaticResource CardLabelStyle}">
+                        <Label.FontSize>
+                             <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="iOS" Value="26" />
+                            </OnPlatform>
+                        </Label.FontSize>
                     </Label>
                     <Label
                         x:Name="GameResumeLabel"
                         Text="Press to resume"
                         Style="{StaticResource CardLabelStyle}"
                         Opacity="0">
+                        <Label.FontSize>
+                             <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="iOS" Value="26" />
+                            </OnPlatform>
+                        </Label.FontSize>
                     </Label>
 
                 </Grid>

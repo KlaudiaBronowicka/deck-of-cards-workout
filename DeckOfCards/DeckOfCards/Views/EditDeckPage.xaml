@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.EditDeckPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
+             xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
@@ -27,22 +28,30 @@
         <StackLayout
             VerticalOptions="Start"
             >
+            
+            <StackLayout.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,10,0,0" />
+                </OnPlatform>
+            </StackLayout.Padding>
             <Label
                 FontSize="54"
                 TextColor="{StaticResource Light}"
                 Text="Edit deck"
                 Margin="16, 32, 0, 16"
                 />
-            <ListView
+            <renderers:DataListView
                 ItemsSource="{Binding Exercises, Mode=TwoWay}"
                 HasUnevenRows="true"
                 HeightRequest="300"
                 Margin="0, 0, 0, 0"
                 SeparatorColor="{StaticResource Secondary}"
+                BackgroundColor="Transparent"
+                SelectionMode="None"
                 >
                 <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell
+                    <renderers:NotSelectableListViewCell
                         Height="60">
                         <ContentView>
                             <Grid
@@ -78,13 +87,14 @@
                                     Text="{Binding Name, Mode=TwoWay}"
                                     TextColor="{StaticResource Light}"
                                     HorizontalTextAlignment="End"
+                                    BackgroundColor="Transparent"
                                     Margin="0, 0, 16, 0" />
                             </Grid>
                         </ContentView>
-                    </ViewCell>
+                    </renderers:NotSelectableListViewCell>
                 </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </renderers:DataListView>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition> <!-- label -->
@@ -92,12 +102,19 @@
                 </Grid.ColumnDefinitions>
                 <Frame
                     HorizontalOptions="FillAndExpand"
+                    Grid.ColumnSpan="2"
                     VerticalOptions="Start"
                     HeightRequest="0.3"
                     BackgroundColor="{StaticResource Secondary}"
                     Margin="0, 0, -10, 0"
                     HasShadow="False"
-                    Padding="0"/>
+                    Padding="0">
+                    <Frame.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean">
+                            <On Platform="iOS" Value="False" />
+                        </OnPlatform>
+                    </Frame.IsVisible>
+                    </Frame>
                 <Label
                     Margin="22, 16, 0, 0"
                     Grid.Column="0"
@@ -106,9 +123,17 @@
                     FontSize="20"
                     TextColor="{StaticResource Light}"/>
                 <Switch
+                    Grid.Column="1"
                     Margin="0, 16, 16, 0"
                     IsToggled="{Binding IncludeJokers}"
-                    />
+                    >
+                    <Switch.OnColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="{StaticResource Accent}" />
+                        </OnPlatform>
+                    </Switch.OnColor>
+
+                    </Switch>
             </Grid>
             <flex:FlexButton
                     Grid.Row="0"

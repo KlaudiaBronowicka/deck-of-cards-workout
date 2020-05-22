@@ -7,6 +7,7 @@
     utility:ViewModelLocator.AutoWireViewModel="True"
     xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
     xmlns:converters="clr-namespace:DeckOfCards.Converters"
+    xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
     NavigationPage.HasNavigationBar="False"
     >
     <ContentPage.Resources>
@@ -28,6 +29,11 @@
                  PaintSurface="OnCanvasViewPaintSurface" />
             <StackLayout
                 VerticalOptions="Start">
+                <StackLayout.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,10,0,0" />
+                </OnPlatform>
+            </StackLayout.Padding>
             <Label
                 FontSize="54"
                 TextColor="{StaticResource Light}"
@@ -42,10 +48,11 @@
                 RefreshCommand="{Binding RefreshCommand}"
                 IsRefreshing="{Binding IsRefreshing}"
                 IsPullToRefreshEnabled="True"
-                ItemSelected="WorkoutItemSelected">
+                ItemSelected="WorkoutItemSelected"
+                BackgroundColor="Transparent">
                 <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell
+                    <renderers:ListViewCell
                         Height="110">
                         <ContentView>
                             <Grid
@@ -102,7 +109,7 @@
                                 
                             </Grid>
                         </ContentView>
-                    </ViewCell>
+                    </renderers:ListViewCell>
                 </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -10,6 +10,8 @@ namespace DeckOfCards.Utility
 
         public static string SerializeFinishedExercises(Dictionary<CardSymbol, int> exercises)
         {
+            if (exercises == null) return null;
+
             string serializedValue = string.Empty;
 
             foreach (var exercise in exercises)
