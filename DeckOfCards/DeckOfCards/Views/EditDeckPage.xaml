@@ -26,20 +26,17 @@
                  Grid.Column="0"
                  x:Name="canvasView"
                  PaintSurface="OnCanvasViewPaintSurface" />
-        <StackLayout
-            VerticalOptions="Start"
-            >
-            
+            <ScrollView>
+            <StackLayout
+            VerticalOptions="Start">
             <StackLayout.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS" Value="0,10,0,0" />
                 </OnPlatform>
             </StackLayout.Padding>
             <Label
-                FontSize="54"
-                TextColor="{StaticResource Light}"
                 Text="Edit deck"
-                Margin="16, 32, 0, 16"
+                Style="{StaticResource HeaderStyle}"
                 />
             <renderers:DataListView
                 ItemsSource="{Binding Exercises, Mode=TwoWay}"
@@ -143,7 +140,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Start"
                     HeightRequest="50"
-                    Margin="40, 80, 40, 10"
+                    Style="{StaticResource SaveChangesButtonStyle}"
                     ClickedCommand="{Binding SaveButtonClicked}"
                     CornerRadius="18"
                     ForegroundColor="{StaticResource Light}"
@@ -154,6 +151,7 @@
                     HighlightBorderColor="#2d3b4c"
                     FontSize="14"/>
         </StackLayout>
+        </ScrollView>
     </Grid>
     </ContentPage.Content>
 </ContentPage>

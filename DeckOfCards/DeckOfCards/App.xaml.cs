@@ -7,6 +7,7 @@ using DeckOfCards.Contracts.Services;
 using System.Threading.Tasks;
 using DeckOfCards.ViewModels;
 using DeckOfCards.Bootstrap;
+using Xamarin.Essentials;
 
 namespace DeckOfCards
 {
@@ -16,8 +17,11 @@ namespace DeckOfCards
         public App()
         {
             InitializeComponent();
+            LoadStyles();
+
 
             InitializeApp();
+
 
             //InitializeNavigation();
             Current.MainPage = new MainTabbedPage();
@@ -47,6 +51,35 @@ namespace DeckOfCards
             // Handle when your app resumes
         }
 
-        
+        void LoadStyles()
+        {
+            if (IsASmallDevice())
+            {
+                //AppResourceDictionary.MergedDictionaries.Add(SmallDeviceStyle.SharedInstance);
+                Resources.Add(SmallDeviceStyle.SharedInstance);
+            }
+            else
+            {
+                //AppResourceDictionary.MergedDictionaries.Add(GeneralDeviceStyle.SharedInstance);
+                Resources.Add(GeneralDeviceStyle.SharedInstance);
+
+            }
+        }
+
+        const int SmallWidthResolution = 768;
+        const int SmallHeightResolution = 1280;
+
+        public static bool IsASmallDevice()
+        {
+            // Get Metrics
+            var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+
+            // Width (in pixels)
+            var width = mainDisplayInfo.Width;
+
+            // Height (in pixels)
+            var height = mainDisplayInfo.Height;
+            return (width <= SmallWidthResolution && height <= SmallHeightResolution);
+        }
     }
 }

@@ -24,7 +24,8 @@ namespace DeckOfCards.iOS.Renderers
             if (_bgView == null)
             {
                 _bgView = new UIView(cell.SelectedBackgroundView.Bounds);
-                _bgView.Layer.BackgroundColor = CGColor.CreateSrgb(0, 0, 0, 0);
+                
+                _bgView.Layer.BackgroundColor = new CGColor(0, 0, 0, 0);
             }
 
             cell.SelectedBackgroundView = _bgView;

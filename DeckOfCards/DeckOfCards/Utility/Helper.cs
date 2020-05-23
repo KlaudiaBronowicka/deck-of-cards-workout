@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using DeckOfCards.Models;
 using System.Linq;
+using Xamarin.Essentials;
 
 namespace DeckOfCards.Utility
 {
     public static class Helper
     {
+        
 
         public static string SerializeFinishedExercises(Dictionary<CardSymbol, int> exercises)
         {

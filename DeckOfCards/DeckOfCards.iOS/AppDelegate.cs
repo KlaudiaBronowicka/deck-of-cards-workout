@@ -34,7 +34,7 @@ namespace DeckOfCards.iOS
                 // set status bar color to dark gray
                 // works only for ios < 13. Logic for newer versions is implemented with the use of ViewLifecycleService
                 UIView statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
-                statusBar.BackgroundColor = UIColor.FromRGB(40, 40, 40);
+                statusBar.BackgroundColor = UIColor.FromRGBA(0, 0, 0, 0);
             }
 
 

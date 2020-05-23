@@ -37,7 +37,7 @@
                 Grid.Column="0"
                 x:Name="canvasView"
                 PaintSurface="OnCanvasViewPaintSurface" />
-
+            <ScrollView>
             <StackLayout
                 Grid.Column="0"
                 Grid.Row="0"
@@ -47,7 +47,7 @@
                     Margin="20, 20, 0, 0"
                     Text="Time: 28min 33s"
                     VerticalOptions="Center"
-                    FontSize="28"
+                    Style="{StaticResource DetailsPageLabelStyle}"
                     HorizontalTextAlignment="Start"
                     HorizontalOptions="FillAndExpand"
                     TextColor="{StaticResource Light}">
@@ -60,9 +60,8 @@
                     </Label>
                 <Label
                     Margin="20, 20, 0, 0"
-                    Text="Time: 28min 33s"
                     VerticalOptions="Center"
-                    FontSize="28"
+                    Style="{StaticResource DetailsPageLabelStyle}"
                     HorizontalTextAlignment="Start"
                     HorizontalOptions="FillAndExpand"
                     TextColor="{StaticResource Light}">
@@ -75,10 +74,9 @@
                     </Label>
             <Label
                 Margin="20, 20, 0, 0"
-                Text="54/54"
                 VerticalOptions="Center"
                 HorizontalTextAlignment="Start"
-                FontSize="28"
+                Style="{StaticResource DetailsPageLabelStyle}"
                 TextColor="{StaticResource Light}">
                 <Label.FormattedText>
                     <FormattedString>
@@ -98,13 +96,12 @@
                 >
                 <ListView.ItemTemplate>
                 <DataTemplate>
-                    <renderers:NotSelectableListViewCell
-                        Height="80">
+                    <renderers:NotSelectableListViewCell>
                         <ContentView>
                             <Grid
-                                Padding="16, 0, 4, 0">
+                                Style="{StaticResource DetailsPageCellSizeStyle}">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="80"/>
+                                    <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -114,19 +111,18 @@
                                 <Image
                                 WidthRequest="30"
                                 HeightRequest="30"
+                                VerticalOptions="Center"
                                 Margin="8, 0, 0, 0"
                                 Source="{Binding Key.CardSymbol, Converter={StaticResource cardSymbolImageConvert}}">
                                 </Image>
                                  <Label
-                                    Margin="10"
                                     Grid.Column="1"
-                                    VerticalOptions="Center"
                                     HorizontalTextAlignment="End"
-                                    FontSize="28"
+                                    Style="{StaticResource DetailsPageCellLabelStyle}"
                                     TextColor="{StaticResource Light}">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                             <Span Text="{Binding Value}" />
+                                            <Span Text="{Binding Value}" />
                                             <Span Text=" x " />
                                             <Span Text="{Binding Key.Name}"/>
                                            
@@ -140,6 +136,7 @@
                 </ListView.ItemTemplate>
             </renderers:DataListView>
             </StackLayout>
+            </ScrollView>
             </Grid>
     </ContentPage.Content>
 </ContentPage>

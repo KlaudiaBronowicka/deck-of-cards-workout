@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DeckOfCards.GeneralDeviceStyle">
+    <Style TargetType="Label" x:Key="HeaderStyle">
+        <Setter Property="FontSize" Value="54" />
+        <Setter Property="TextColor" Value="{StaticResource Light}" />
+        <Setter Property="Margin" Value="16, 32, 0, 16" />
+    </Style>
+    <Style TargetType="Label" x:Key="HistoryPageCellLabelStyle">
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+   <Style TargetType="Label" x:Key="TopBarLabelStyle">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="TextColor" Value="{StaticResource Light}" />
+    </Style>
+    <Style x:Key="CardLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="Grid.Row" Value="1" />
+        <Setter Property="Grid.Column" Value="0" />
+        <Setter Property="Grid.ColumnSpan" Value="3" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+
+    </Style>
+    <Style TargetType="Label" x:Key="StartGameLabelStyle">
+        <Setter Property="FontSize" Value="28" />
+    </Style>
+    <Style x:Key="CardSizeStyle" TargetType="Frame">
+        <Setter Property="HeightRequest" Value="380" />
+    </Style>
+    <Style x:Key="AdBannerStyle" TargetType="View">
+        <Setter Property="HeightRequest" Value="60" />
+    </Style>
+    <Style x:Key="CardSymbolImageStyle" TargetType="Image">
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="WidthRequest" Value="50" />
+    </Style>
+    <Style x:Key="SaveChangesButtonStyle" TargetType="Button">
+        <Setter Property="Margin" Value="40, 80, 40, 10" />
+    </Style>
+    <Style x:Key="HistoryPageCellSizeStyle" TargetType="StackLayout">
+        <Setter Property="HeightRequest" Value="90" />
+    </Style>
+    <Style TargetType="Label" x:Key="DetailsPageLabelStyle">
+        <Setter Property="FontSize" Value="22" />
+    </Style>
+    <Style TargetType="Label" x:Key="DetailsPageCellLabelStyle" BasedOn="{StaticResource DetailsPageLabelStyle}">
+        <Setter Property="Margin" Value="12, 5, 0, 0" />
+    </Style> 
+    <Style TargetType="Grid" x:Key="DetailsPageCellSizeStyle">
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="Padding" Value="16, 20, 0, 10"/>
+    </Style>
+</ResourceDictionary>

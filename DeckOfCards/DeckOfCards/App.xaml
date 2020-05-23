@@ -8,7 +8,7 @@
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex">
 
     <Application.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary x:Name="AppResourceDictionary">
             <!--Global Styles-->
             <Color x:Key="Primary">#233142</Color>
             <Color x:Key="Secondary">#455d7a</Color>
@@ -20,17 +20,6 @@
             </Style>
             <Style TargetType="TabbedPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
-            </Style>
-            <Style TargetType="Label" x:Key="TopBarLabelStyle">
-                <Setter Property="FontSize" Value="28" />
-                <Setter Property="TextColor" Value="{StaticResource Light}" />
-            </Style>
-            <Style x:Key="CardLabelStyle" TargetType="Label">
-                <Setter Property="Grid.Row" Value="1" />
-                <Setter Property="Grid.Column" Value="1" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
-                <Setter Property="FontSize" Value="36" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

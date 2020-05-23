@@ -32,8 +32,8 @@
                     <RowDefinition Height="Auto" /> <!-- Top bar -->
                     <RowDefinition Height="Auto" /> <!-- Card view -->
                     <RowDefinition Height="Auto" /> <!-- Buttons -->
-                    <RowDefinition Height="*" /> <!-- Rest of the screen -->
-                    <RowDefinition Height="80" /> <!-- Ad banner-->
+                    <RowDefinition Height="0" /> <!-- Rest of the screen -->
+                    <RowDefinition Height="Auto" /> <!-- Ad banner-->
                 </Grid.RowDefinitions>
 
             <!-- Gradient background -->
@@ -88,8 +88,9 @@
                 ShadowColor="Black"
                 BackgroundColor="{StaticResource Light}"
                 CornerRadius="16"
-                Margin="40"
-                Padding="0">
+                Margin="40, 20, 40, 30"
+                Padding="0"
+                Style="{StaticResource CardSizeStyle}">
 
                 <rf:Frame2.GestureRecognizers>
                     <TapGestureRecognizer Tapped="CardTappedEvent"/>
@@ -98,14 +99,14 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="300"/>
-                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
                     <Frame
@@ -114,6 +115,7 @@
                         Grid.Column="0"
                         Grid.RowSpan="3"
                         Grid.ColumnSpan="3"
+                        Style="{StaticResource CardSizeStyle}"
                         BackgroundColor="{StaticResource Light}"
                         CornerRadius="12"
                         Margin="10"
@@ -127,8 +129,7 @@
 
                     <Image
                         x:Name="TopLeftCardSymbol"
-                        WidthRequest="50"
-                        HeightRequest="50"
+                        Style="{StaticResource CardSymbolImageStyle}"
                         Grid.Row="0"
                         Grid.Column="0"
                         Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}"
@@ -136,8 +137,7 @@
                     </Image>
                     <Image
                         x:Name="TopRightCardSymbol"
-                        WidthRequest="50"
-                        HeightRequest="50"
+                        Style="{StaticResource CardSymbolImageStyle}"
                         Grid.Row="0"
                         Grid.Column="2"
                         Margin="0, 20, 20, 0"
@@ -145,8 +145,7 @@
                     </Image>
                     <Image
                         x:Name="BottomLeftCardSymbol"
-                        WidthRequest="50"
-                        HeightRequest="50"
+                        Style="{StaticResource CardSymbolImageStyle}"
                         Grid.Row="2"
                         Grid.Column="0"
                         Margin="20, 0, 0, 20"
@@ -154,8 +153,7 @@
                     </Image>
                     <Image
                         x:Name="BottomRightCardSymbol"
-                        WidthRequest="50"
-                        HeightRequest="50"
+                        Style="{StaticResource CardSymbolImageStyle}"
                         Grid.Row="2"
                         Grid.Column="2"
                         Margin="0, 0, 20, 20"
@@ -165,24 +163,13 @@
                     <Label
                         x:Name="ExerciseLabel"
                         Text="{Binding CurrentCard.Exercise}"
-                        Style="{StaticResource CardLabelStyle}">
-                        <Label.FontSize>
-                             <OnPlatform x:TypeArguments="x:Double">
-                                <On Platform="iOS" Value="26" />
-                            </OnPlatform>
-                        </Label.FontSize>
-                    </Label>
+                        Style="{StaticResource CardLabelStyle}"/>
+
                     <Label
                         x:Name="GameResumeLabel"
                         Text="Press to resume"
                         Style="{StaticResource CardLabelStyle}"
-                        Opacity="0">
-                        <Label.FontSize>
-                             <OnPlatform x:TypeArguments="x:Double">
-                                <On Platform="iOS" Value="26" />
-                            </OnPlatform>
-                        </Label.FontSize>
-                    </Label>
+                        Opacity="0"/>
 
                 </Grid>
             </rf:Frame2>
@@ -191,10 +178,10 @@
                 x:Name="StartGameLabel"
                 Grid.Row="2"
                 Text="Tap the card to start"
+                Style="{StaticResource StartGameLabelStyle}"
                 HorizontalOptions="FillAndExpand"
                 HorizontalTextAlignment="Center"
                 TextColor="{StaticResource Light}"
-                FontSize="Large"
                 Opacity="0.5"/>
 
             <!-- Buttons -->
@@ -247,7 +234,7 @@
                     FontSize="14"/>
 
             </Grid>
-            <controls:AdControlView Grid.Row="4" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            <controls:AdControlView Grid.Row="4" Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
