@@ -246,7 +246,7 @@
                     FontSize="14"/>
 
             </Grid>
-            <controls:AdControlView Grid.Row="4" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+            <controls:AdControlView Grid.Row="4" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Red"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

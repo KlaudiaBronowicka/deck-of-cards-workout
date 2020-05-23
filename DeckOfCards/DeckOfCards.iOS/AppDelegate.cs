@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Flex;
 using Foundation;
+using Google.MobileAds;
 using UIKit;
 
 namespace DeckOfCards.iOS
@@ -25,6 +26,8 @@ namespace DeckOfCards.iOS
             global::Xamarin.Forms.Forms.Init();
             FlexButton.Init();
             LoadApplication(new App());
+
+            MobileAds.SharedInstance.Start(null);
 
             if (!UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {

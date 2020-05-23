@@ -21,7 +21,7 @@
         <Grid
             VerticalOptions="Fill"
             HorizontalOptions="FillAndExpand"
-            >
+            BackgroundColor="{StaticResource Primary}">
          <skiaforms:SKCanvasView
                  Grid.Row="0"
                  Grid.Column="0"

@@ -30,12 +30,12 @@
   <ItemGroup>
     <PackageReference Include="akavache" Version="6.10.17" />
     <PackageReference Include="Autofac" Version="5.2.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.726" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="RedCorners.Forms" Version="8.47.0" />
-    <PackageReference Include="SkiaSharp" Version="1.68.2.1" />
-    <PackageReference Include="SkiaSharp.Views" Version="1.68.2.1" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.2.1" />
+    <PackageReference Include="SkiaSharp" Version="1.68.3" />
+    <PackageReference Include="SkiaSharp.Views" Version="1.68.3" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.3" />
     <PackageReference Include="Forms.Controls.FlexButton" Version="0.11.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.302-beta" />
     <PackageReference Include="SQLitePCL.raw" Version="0.9.2" />
