@@ -12,10 +12,10 @@ namespace DeckOfCards.iOS.Renderers
 {
     public class AdViewRenderer : ViewRenderer<AdControlView, BannerView>
     {
-        string bannerId = "ca-app-pub-9447326003867145/2985781178";
-        string testBannerId = "ca-app-pub-3940256099942544/2934735716";
-        BannerView _adView;
+        private const string BannerId = "ca-app-pub-9447326003867145/2985781178";
+        private const string TestBannerId = "ca-app-pub-3940256099942544/2934735716";
 
+        private BannerView _adView;
 
         private BannerView CreateNativeAdControl()
         {
@@ -30,7 +30,7 @@ namespace DeckOfCards.iOS.Renderers
             _adView = new BannerView(size: AdSizeCons.SmartBannerPortrait,
                                            origin: new CGPoint(0, UIScreen.MainScreen.Bounds.Size.Height - AdSizeCons.Banner.Size.Height))
             {
-                AdUnitId = testBannerId,
+                AdUnitId = BannerId,
                 RootViewController = rootViewController
             };
 
@@ -61,8 +61,6 @@ namespace DeckOfCards.iOS.Renderers
         /// The visible view controller.
         UIViewController GetVisibleViewController()
         {
-            //if ( UIApplication.SharedApplication.KeyWindow?.RootViewController == null) return null;
-
             var rootController = UIApplication.SharedApplication.KeyWindow?.RootViewController ?? UIApplication.SharedApplication.Windows[0].RootViewController;
 
             if (rootController.PresentedViewController == null)

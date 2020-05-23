@@ -26,7 +26,8 @@
         <Grid
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
-            RowSpacing="0">
+            RowSpacing="0"
+            BackgroundColor="{StaticResource Primary}">
              <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" /> <!-- Top bar -->
                     <RowDefinition Height="Auto" /> <!-- Card view -->
@@ -246,7 +247,7 @@
                     FontSize="14"/>
 
             </Grid>
-            <controls:AdControlView Grid.Row="4" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Red"/>
+            <controls:AdControlView Grid.Row="4" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
