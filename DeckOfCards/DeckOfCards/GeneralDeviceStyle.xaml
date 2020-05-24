@@ -26,13 +26,13 @@
 
     </Style>
     <Style TargetType="Label" x:Key="StartGameLabelStyle">
-        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontSize" Value="18" />
     </Style>
     <Style x:Key="CardSizeStyle" TargetType="Frame">
         <Setter Property="HeightRequest" Value="380" />
     </Style>
     <Style x:Key="AdBannerStyle" TargetType="View">
-        <Setter Property="HeightRequest" Value="60" />
+        <Setter Property="HeightRequest" Value="50" />
     </Style>
     <Style x:Key="CardSymbolImageStyle" TargetType="Image">
         <Setter Property="HeightRequest" Value="50" />
