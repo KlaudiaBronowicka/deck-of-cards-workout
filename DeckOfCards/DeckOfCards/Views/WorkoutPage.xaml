@@ -234,7 +234,7 @@
                     FontSize="14"/>
 
             </Grid>
-            <controls:AdControlView Grid.Row="4" Style="{StaticResource AdBannerStyle}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            <controls:AdControlView Grid.Row="4" Style="{StaticResource AdBannerStyle}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
         </Grid>
     </ContentPage.Content>
 </ContentPage>
