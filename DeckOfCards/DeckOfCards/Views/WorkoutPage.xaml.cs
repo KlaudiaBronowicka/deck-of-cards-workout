@@ -18,6 +18,7 @@ namespace DeckOfCards.Views
         public WorkoutPage()
         {
             InitializeComponent();
+
             _vm = (WorkoutViewModel)BindingContext;
 
             _vm.PropertyChanged += OnViewModelPropertyChanged;
@@ -37,6 +38,11 @@ namespace DeckOfCards.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            if (!Xamarin.Essentials.Preferences.Get("SeenTutorial", false))
+            {
+                ShowTutorial();
+            }
 
             _vm.OnViewAppearing();
         }
@@ -199,6 +205,34 @@ namespace DeckOfCards.Views
 
             // Draw the gradient on the rectangle
             canvas.DrawRect(rect, paint);
+        }
+
+        private void HelpButtonClicked(object sender, EventArgs e)
+        {
+            ShowTutorial();
+        }
+
+        private void CloseTutorialButtonClicked(object sender, EventArgs e)
+        {
+            HideTutorial();
+        }
+        
+
+        private async void ShowTutorial()
+        {
+            TutorialWindow.IsVisible = true;
+            TutorialWindow.HasShadow = false;
+            await TutorialWindow.ScaleTo(1, 500, Easing.SpringOut);
+            TutorialWindow.HasShadow = true;
+        }
+
+        private async void HideTutorial()
+        {
+            TutorialWindow.HasShadow = false;
+            await TutorialWindow.ScaleTo(0, 400, Easing.SpringIn);
+            TutorialWindow.IsVisible = false;
+
+            Xamarin.Essentials.Preferences.Set("SeenTutorial", true);
         }
     }
 }

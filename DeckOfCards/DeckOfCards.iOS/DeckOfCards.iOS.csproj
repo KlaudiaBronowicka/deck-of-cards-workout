@@ -121,6 +121,18 @@
     <ImageAsset Include="Assets.xcassets\LaunchScreenLogo.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\LaunchScreenLogo.imageset\splash.png" />
     <ImageAsset Include="Assets.xcassets\LaunchScreenLogo.imageset\cards-splash-logo.png" />
+    <ImageAsset Include="Assets.xcassets\HelpIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\HelpIcon.imageset\information.png" />
+    <ImageAsset Include="Assets.xcassets\club.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\heart.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\diamond.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\star.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\spade.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\spade.imageset\spade.png" />
+    <ImageAsset Include="Assets.xcassets\star.imageset\star.png" />
+    <ImageAsset Include="Assets.xcassets\heart.imageset\heart.png" />
+    <ImageAsset Include="Assets.xcassets\club.imageset\club.png" />
+    <ImageAsset Include="Assets.xcassets\diamond.imageset\diamond.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -165,5 +177,11 @@
     <Folder Include="Assets.xcassets\card.imageset\" />
     <Folder Include="Renderers\" />
     <Folder Include="Assets.xcassets\LaunchScreenLogo.imageset\" />
+    <Folder Include="Assets.xcassets\HelpIcon.imageset\" />
+    <Folder Include="Assets.xcassets\club.imageset\" />
+    <Folder Include="Assets.xcassets\heart.imageset\" />
+    <Folder Include="Assets.xcassets\diamond.imageset\" />
+    <Folder Include="Assets.xcassets\star.imageset\" />
+    <Folder Include="Assets.xcassets\spade.imageset\" />
   </ItemGroup>
 </Project>
