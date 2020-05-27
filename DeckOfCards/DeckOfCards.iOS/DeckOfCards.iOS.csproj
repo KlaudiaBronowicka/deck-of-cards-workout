@@ -118,6 +118,9 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Artboard 1-6.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Artboard 1-7.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Artboard 1-8.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchScreenLogo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LaunchScreenLogo.imageset\splash.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchScreenLogo.imageset\cards-splash-logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -161,5 +164,6 @@
     <Folder Include="Services\" />
     <Folder Include="Assets.xcassets\card.imageset\" />
     <Folder Include="Renderers\" />
+    <Folder Include="Assets.xcassets\LaunchScreenLogo.imageset\" />
   </ItemGroup>
 </Project>
