@@ -18,19 +18,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" colorSpace="custom" customColorSpace="sRGB" red="0.180973470211029" green="0.253015220165253" blue="0.32811826467514" alpha="1"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="203" image="LaunchScreenLogo" insetsLayoutMarginsFromSafeArea="NO" autoresizesSubviews="NO">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="203" image="LaunchScreenLogo" insetsLayoutMarginsFromSafeArea="NO" autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO">
                                 <rect key="frame" x="107" y="268" width="200" height="200"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
                                 <constraints>
                                     <constraint id="414" firstAttribute="height" secondItem="203" secondAttribute="width" multiplier="1:1"/>
+                                    <constraint id="1249" firstAttribute="width" constant="200"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <constraints>
-                            <constraint id="411" firstItem="203" firstAttribute="trailing" secondItem="yd7-JS-zBw" secondAttribute="trailingMargin" constant="-87"/>
-                            <constraint id="412" firstAttribute="leadingMargin" secondItem="203" secondAttribute="leading" constant="-87"/>
+                            <constraint id="638" firstItem="203" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY"/>
+                            <constraint id="639" firstItem="203" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
