@@ -221,14 +221,28 @@ namespace DeckOfCards.Views
         private async void ShowTutorial()
         {
             TutorialWindow.IsVisible = true;
-            TutorialWindow.HasShadow = false;
-            await TutorialWindow.ScaleTo(1, 500, Easing.SpringOut);
-            TutorialWindow.HasShadow = true;
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                TutorialWindow.HasShadow = false;
+                await TutorialWindow.ScaleTo(1, 500, Easing.SpringOut);
+                TutorialWindow.HasShadow = true;
+            }
+            else
+            {
+                await TutorialWindow.ScaleTo(1, 500, Easing.SpringOut);
+            }
+
+
         }
 
         private async void HideTutorial()
         {
-            TutorialWindow.HasShadow = false;
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                TutorialWindow.HasShadow = false;
+            }
+
             await TutorialWindow.ScaleTo(0, 400, Easing.SpringIn);
             TutorialWindow.IsVisible = false;
 
