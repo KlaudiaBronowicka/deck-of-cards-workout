@@ -76,9 +76,7 @@
                     BackgroundColor="Transparent"
                     Grid.Column="1"
                     Source="HelpIcon"
-                    HeightRequest="30"
-                    WidthRequest="30"
-                    Margin="0, 22, 0, 0"
+                    Style="{StaticResource HelpIconStyle}"
                     Clicked="HelpButtonClicked">
                 </ImageButton>
                 <Label
