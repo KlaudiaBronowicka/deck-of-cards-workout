@@ -53,23 +53,17 @@ namespace DeckOfCards
 
         void LoadStyles()
         {
-            if (IsASmallDevice())
-            {
-                //AppResourceDictionary.MergedDictionaries.Add(SmallDeviceStyle.SharedInstance);
-                Resources.Add(SmallDeviceStyle.SharedInstance);
-            }
-            else
-            {
-                //AppResourceDictionary.MergedDictionaries.Add(GeneralDeviceStyle.SharedInstance);
-                Resources.Add(GeneralDeviceStyle.SharedInstance);
+            var style = GetDeviceSpecificStyle();
 
-            }
+            Resources.Add(style);
         }
 
         const int SmallWidthResolution = 768;
         const int SmallHeightResolution = 1280;
 
-        public static bool IsASmallDevice()
+        const int MidHeightResolution = 1334;
+
+        public static ResourceDictionary GetDeviceSpecificStyle()
         {
             // Get Metrics
             var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
@@ -79,7 +73,11 @@ namespace DeckOfCards
 
             // Height (in pixels)
             var height = mainDisplayInfo.Height;
-            return (width <= SmallWidthResolution && height <= SmallHeightResolution);
+            if (width <= SmallWidthResolution && height <= SmallHeightResolution)
+                return SmallDeviceStyle.SharedInstance;
+            else
+                return GeneralDeviceStyle.SharedInstance;
+
         }
     }
 }

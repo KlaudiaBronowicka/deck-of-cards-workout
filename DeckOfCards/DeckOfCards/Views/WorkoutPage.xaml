@@ -30,17 +30,16 @@
             BackgroundColor="{StaticResource Primary}">
              <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" /> <!-- Top bar -->
-                    <RowDefinition Height="Auto" /> <!-- Card view -->
-                    <RowDefinition Height="Auto" /> <!-- Buttons -->
-                    <RowDefinition Height="*" /> <!-- Rest of the screen -->
-                    <RowDefinition Height="Auto" /> <!-- Ad banner-->
+                    <RowDefinition Height="*" /> <!-- Card view -->
+                    <RowDefinition Height="150" /> <!-- Buttons -->
+                    <RowDefinition Height="50" /> <!-- Ad banner-->
                 </Grid.RowDefinitions>
 
             <!-- Gradient background -->
              <skiaforms:SKCanvasView
                  Grid.Row="0"
                  Grid.Column="0"
-                 Grid.RowSpan="5"
+                 Grid.RowSpan="4"
                  x:Name="canvasView"
                  PaintSurface="OnCanvasViewPaintSurface" />
 
@@ -99,7 +98,9 @@
                 CornerRadius="16"
                 Margin="40, 20, 40, 30"
                 Padding="0"
-                Style="{StaticResource CardSizeStyle}">
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                >
 
                 <rf:Frame2.GestureRecognizers>
                     <TapGestureRecognizer Tapped="CardTappedEvent"/>
@@ -243,7 +244,7 @@
                     FontSize="14"/>
 
             </Grid>
-            <controls:AdControlView Grid.Row="4" Style="{StaticResource AdBannerStyle}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+            <controls:AdControlView Grid.Row="3" Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand"  />
 
 
          <!-- Tutorial view -->
@@ -254,7 +255,7 @@
              BackgroundColor="{StaticResource Secondary}"
              Grid.Column="0"
              Grid.Row="0"
-             Grid.RowSpan="5"
+             Grid.RowSpan="4"
              Scale="0"
              AnchorY="0"
              IsVisible="False"
@@ -265,7 +266,7 @@
                 </OnPlatform>
              </Frame.Margin>
              
-             <ScrollView>
+             <ScrollView x:Name="TutorialScrollView">
             <StackLayout>
                 <Label
                     HorizontalOptions="Center"
@@ -408,6 +409,7 @@
 
 
                 <flex:FlexButton
+                    x:Name="CloseTutorialButton"
                 Text="Got it!"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="Start"

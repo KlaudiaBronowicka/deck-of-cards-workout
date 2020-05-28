@@ -227,10 +227,13 @@ namespace DeckOfCards.Views
                 TutorialWindow.HasShadow = false;
                 await TutorialWindow.ScaleTo(1, 500, Easing.SpringOut);
                 TutorialWindow.HasShadow = true;
+                await TutorialScrollView.ScrollToAsync(CloseTutorialButton, ScrollToPosition.End, true);
+
             }
             else
             {
                 await TutorialWindow.ScaleTo(1, 500, Easing.SpringOut);
+                await TutorialScrollView.ScrollToAsync(CloseTutorialButton, ScrollToPosition.End, true);
             }
 
 
