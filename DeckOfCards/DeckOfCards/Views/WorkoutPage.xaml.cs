@@ -47,6 +47,13 @@ namespace DeckOfCards.Views
             _vm.OnViewAppearing();
         }
 
+        protected override async void OnDisappearing()
+        {
+            await _vm.OnViewDisappearing();
+            base.OnDisappearing();
+
+        }
+
         private void StartCardPulsingAnimation()
         {
             new Animation {

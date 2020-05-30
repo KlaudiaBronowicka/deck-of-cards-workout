@@ -161,6 +161,11 @@ namespace DeckOfCards.ViewModels
             Task.Run(() => InitializeAsync(true)).ConfigureAwait(true);
         }
 
+        public async Task OnViewDisappearing()
+        {
+            await SaveWorkout();
+        }
+
         public void SetupMessageListeners()
         {
             MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, async (sender) => await InitializeAsync(false));
