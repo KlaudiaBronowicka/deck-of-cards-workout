@@ -253,6 +253,8 @@ namespace DeckOfCards.ViewModels
                 return;
             }
 
+            Task.Run(() => SaveWorkout());
+
             var index = GetRandomCardIndex();
             CurrentCard = Cards[index];
 

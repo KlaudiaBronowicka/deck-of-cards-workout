@@ -158,8 +158,11 @@ namespace DeckOfCards.Views
                     if (!Buttons.IsEnabled)
                     {
                         // new game
-                        Buttons.IsEnabled = true;
-                        Buttons.TranslationX = -Application.Current.MainPage.Width;
+                        await Xamarin.Essentials.MainThread.InvokeOnMainThreadAsync(() =>
+                        {
+                            Buttons.IsEnabled = true;
+                            Buttons.TranslationX = -Application.Current.MainPage.Width;
+                        });
 
                         await Task.WhenAll(
                             Buttons.TranslateTo(0, 0, 500, Easing.SpringOut),
