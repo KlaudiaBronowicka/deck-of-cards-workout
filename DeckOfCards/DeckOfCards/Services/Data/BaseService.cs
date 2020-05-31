@@ -12,11 +12,18 @@ namespace DeckOfCards.Services
         {
             get
             {
-                _cache = _cache ?? BlobCache.LocalMachine;
+                _cache = _cache ?? BlobCache.Secure;
                 return _cache;
             }
         }
-        
+
+        protected DeckOfCardsDB _db;
+
+        public BaseService(DeckOfCardsDB db)
+        {
+            _db = db;
+        }
+
         public async Task<T> GetFromCache<T>(string cacheName)
         {
             try

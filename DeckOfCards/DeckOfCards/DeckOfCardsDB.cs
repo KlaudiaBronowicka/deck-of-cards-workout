@@ -33,8 +33,64 @@ namespace DeckOfCards
                     await Database.CreateTablesAsync(CreateFlags.None, typeof(WorkoutDBModel)).ConfigureAwait(false);
                     initialized = true;
                 }
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(ExerciseDBModel).Name))
+                {
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(ExerciseDBModel)).ConfigureAwait(false);
+                    initialized = true;
+                }
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(PreferencesDBModel).Name))
+                {
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(PreferencesDBModel)).ConfigureAwait(false);
+                    initialized = true;
+                }
             }
         }
+
+        public Task<PreferencesDBModel> GetPreference(string name)
+        {
+            return Database.Table<PreferencesDBModel>().Where(i => i.Name == name).FirstOrDefaultAsync();
+        }
+
+        public async Task<int> SavePreference(PreferencesDBModel preference)
+        {
+            var existingItem = await GetPreference(preference.Name);
+
+            if (existingItem != null)
+            {
+                return await Database.UpdateAsync(preference);
+            }
+            else
+            {
+                return await Database.InsertAsync(preference);
+            }
+        }
+
+
+        public async Task<int> SaveExercise(ExerciseDBModel item)
+        {
+            var existingItem = await GetExercise(item.CardSymbol);
+
+            if (existingItem != null)
+            {
+                return await Database.UpdateAsync(item);
+            }
+            else
+            {
+                return await Database.InsertAsync(item);
+            }
+        }
+
+        //TODO: Split into two repositories for workouts and exercises
+        public Task<List<ExerciseDBModel>> GetExercises()
+        {
+            return Database.Table<ExerciseDBModel>().ToListAsync();
+        }
+
+        public Task<ExerciseDBModel> GetExercise(int cardSymbol)
+        {
+            return Database.Table<ExerciseDBModel>().Where(i => i.CardSymbol == cardSymbol).FirstOrDefaultAsync();
+        }
+
 
         public Task<List<WorkoutDBModel>> GetAllWorkouts()
         {

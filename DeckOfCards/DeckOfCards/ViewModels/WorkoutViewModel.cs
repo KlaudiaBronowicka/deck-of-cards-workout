@@ -163,7 +163,7 @@ namespace DeckOfCards.ViewModels
 
         public async Task OnViewDisappearing()
         {
-            await SaveWorkout();
+            //await SaveWorkout();
         }
 
         public void SetupMessageListeners()

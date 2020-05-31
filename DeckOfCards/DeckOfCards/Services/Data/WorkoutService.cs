@@ -8,14 +8,10 @@ using System.Linq;
 
 namespace DeckOfCards.Services.Data
 {
-    public class WorkoutService : IWorkoutService
+    public class WorkoutService : BaseService, IWorkoutService
     {
-        DeckOfCardsDB _db;
 
-        public WorkoutService(DeckOfCardsDB db)
-        {
-            _db = db;
-        }
+        public WorkoutService(DeckOfCardsDB db) : base(db) {}
 
         public async Task<Workout[]> GetAllWorkouts()
         {

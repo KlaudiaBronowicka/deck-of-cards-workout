@@ -1,26 +1,15 @@
 ﻿using DeckOfCards.Contracts.Services;
 using DeckOfCards.Models;
-using System;
 using System.Collections.Generic;
-using static DeckOfCards.Constants.CacheNameConstants;
-using Akavache;
 using System.Threading.Tasks;
 
 namespace DeckOfCards.Services
 {
     public class DeckDataService : BaseService, IDeckDataService
     {
-        public async Task<List<ExerciseItem>> GetExercises() => 
-            await GetExerciseDataFromCache() ??
-            new List<ExerciseItem>
-            {
-                new ExerciseItem(CardSymbol.Club, "Sit up"),
-                new ExerciseItem(CardSymbol.Hearts, "Burpee"),
-                new ExerciseItem(CardSymbol.Diamond, "Push up"),
-                new ExerciseItem(CardSymbol.Spade, "Squat"),
-                new ExerciseItem(CardSymbol.Joker, "5 of each")
-            };
+        public DeckDataService(DeckOfCardsDB db) : base(db) {}
 
+        
         public async Task<List<CardItem>> GetFullDeck()
         {
             var exercises = await GetExercises();
@@ -51,9 +40,9 @@ namespace DeckOfCards.Services
             return deck;
         }
 
-        public void UpdateJokerPreferences(bool includeJokers)
+        public async void UpdateJokerPreferences(bool includeJokers)
         {
-            Cache.InsertObject("IncludeJokers", includeJokers);
+            await _db.SavePreference(new PreferencesDBModel { Name = "IncludeJokers", Value = includeJokers });
         }
 
 
@@ -66,34 +55,53 @@ namespace DeckOfCards.Services
 
         public async Task<bool> GetJokerPreferences()
         {
-            return await GetFromCache<bool?>("IncludeJokers") ?? true;
+            var pref = await _db.GetPreference("IncludeJokers");
+            return pref == null || pref.Value;
         }
 
-        public void UpdateExerciseData(List<ExerciseItem> newExercises)
-        {
-            SaveExerciseDataToCache(newExercises);
-        }
-
-        private void SaveExerciseDataToCache(List<ExerciseItem> exercises)
+        public async Task UpdateExerciseData(List<ExerciseItem> exercises)
         {
             foreach (var exercise in exercises)
             {
-                Cache.InsertObject($"ExerciseNames{(int)exercise.CardSymbol}", exercise.Name);
+                await _db.SaveExercise(new ExerciseDBModel { CardSymbol = (int)exercise.CardSymbol, Name = exercise.Name });
             }
         }
 
-        private async Task<List<ExerciseItem>> GetExerciseDataFromCache()
+        //TODO: use automapper everywhere?
+        public async Task<List<ExerciseItem>> GetExercises()
         {
             var exercises = new List<ExerciseItem>();
 
-            for (int i = 0; i < 5; i++)
+            var exercisesDB = await _db.GetExercises();
+
+            if (exercisesDB.Count == 5)
             {
-                var exerciseName = await GetFromCache<string>($"{ExerciseNames}{i}");
-                if (string.IsNullOrEmpty(exerciseName)) return null;
-                exercises.Add(new ExerciseItem((CardSymbol)i, exerciseName));
+
+                for (int i = 0; i < exercisesDB.Count; i++)
+                {
+                    exercises.Add(new ExerciseItem((CardSymbol)exercisesDB[i].CardSymbol, exercisesDB[i].Name));
+                }
+
+                return exercises;
+            }
+
+            // save default exercises in db and return them
+            exercises = new List<ExerciseItem>
+                {
+                    new ExerciseItem(CardSymbol.Club, "Sit up"),
+                    new ExerciseItem(CardSymbol.Hearts, "Burpee"),
+                    new ExerciseItem(CardSymbol.Diamond, "Push up"),
+                    new ExerciseItem(CardSymbol.Spade, "Squat"),
+                    new ExerciseItem(CardSymbol.Joker, "5 of each")
+                };
+
+            foreach (var exercise in exercises)
+            {
+                await _db.SaveExercise(new ExerciseDBModel { CardSymbol = (int)exercise.CardSymbol, Name = exercise.Name });
             }
 
             return exercises;
         }
+
     }
 }
