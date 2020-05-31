@@ -45,11 +45,15 @@ namespace DeckOfCards.Services.Data
             return workout;
         }
 
-        public async Task SaveWorkout(Workout workout)
+        public async Task<Workout> SaveWorkout(Workout workout)
         {
-            if (workout == null) return;
+            if (workout == null) return null;
 
-            await _db.SaveWorkout(WorkoutToWorkoutDB(workout));
+            var id = await _db.SaveWorkout(WorkoutToWorkoutDB(workout));
+
+            workout.Id = id;
+
+            return workout;
         }
 
         public async Task RemoveWorkout(int id)

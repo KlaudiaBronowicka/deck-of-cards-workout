@@ -50,10 +50,10 @@ namespace DeckOfCards.ViewModels
             Task.Run(() => InitializeAsync(null));
         }
 
-        private void SaveChanges()
+        private async void SaveChanges()
         {
-            _deckDataService.UpdateExerciseData(new List<ExerciseItem>(Exercises));
-            _deckDataService.UpdateJokerPreferences(IncludeJokers);
+            await _deckDataService.UpdateExerciseData(new List<ExerciseItem>(Exercises));
+            await _deckDataService.UpdateJokerPreferences(IncludeJokers);
 
             MessagingCenter.Send(this, MessagingCenterConstants.ExercisesUpdated);
 

@@ -6,7 +6,7 @@ namespace DeckOfCards.Contracts.Services
 {
     public interface IWorkoutService
     {
-        Task SaveWorkout(Workout workout);
+        Task<Workout> SaveWorkout(Workout workout);
 
         Task<Workout[]> GetAllWorkouts();
 

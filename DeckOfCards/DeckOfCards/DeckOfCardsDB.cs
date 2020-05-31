@@ -57,7 +57,9 @@ namespace DeckOfCards
 
             if (existingItem != null)
             {
-                return await Database.UpdateAsync(preference);
+                existingItem.Value = preference.Value;
+
+                return await Database.UpdateAsync(existingItem);
             }
             else
             {
@@ -102,6 +104,11 @@ namespace DeckOfCards
             return Database.Table<WorkoutDBModel>().Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
+        public Task<WorkoutDBModel> GetWorkout(DateTime startDate)
+        {
+            return Database.Table<WorkoutDBModel>().Where(i => i.DateStarted == startDate).FirstOrDefaultAsync();
+        }
+
         public Task<WorkoutDBModel> GetLastWorkout()
         {
             return Database.Table<WorkoutDBModel>().OrderByDescending(x => x.DateStarted).FirstOrDefaultAsync();
@@ -109,10 +116,12 @@ namespace DeckOfCards
 
         public async Task<int> SaveWorkout(WorkoutDBModel item)
         {
-            var existingItem = await GetWorkout(item.Id);
+            var existingItem = await GetWorkout(item.DateStarted);
 
             if (existingItem != null)
             {
+                item.Id = existingItem.Id;
+
                 return await Database.UpdateAsync(item);
             }
             else

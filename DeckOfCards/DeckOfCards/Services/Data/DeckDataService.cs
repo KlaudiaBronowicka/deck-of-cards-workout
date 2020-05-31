@@ -40,7 +40,7 @@ namespace DeckOfCards.Services
             return deck;
         }
 
-        public async void UpdateJokerPreferences(bool includeJokers)
+        public async Task UpdateJokerPreferences(bool includeJokers)
         {
             await _db.SavePreference(new PreferencesDBModel { Name = "IncludeJokers", Value = includeJokers });
         }

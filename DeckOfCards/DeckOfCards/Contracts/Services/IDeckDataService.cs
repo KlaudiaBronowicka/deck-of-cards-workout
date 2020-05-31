@@ -16,6 +16,6 @@ namespace DeckOfCards.Contracts.Services
 
         Task UpdateExerciseData(List<ExerciseItem> newExercises);
 
-        void UpdateJokerPreferences(bool includeJokers);
+        Task UpdateJokerPreferences(bool includeJokers);
     }
 }

@@ -1,14 +1,13 @@
-﻿using DeckOfCards.Contracts.Services;
-using DeckOfCards.Models;
+﻿using DeckOfCards.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using DeckOfCards.Constants;
 using System.Collections.Generic;
 using DeckOfCards.Utility;
+using System.Linq;
 
 namespace DeckOfCards.ViewModels
 {
@@ -105,10 +104,16 @@ namespace DeckOfCards.ViewModels
 
         private bool AskedAboutUnfinishedWorkout;
 
+        public WorkoutViewModel()
+        {
+            SetupMessageListeners();
+        }
+
         /// <param name="data">True to try to restore previous workout, false otherwise</param>
         /// <returns></returns>
         public override async Task InitializeAsync(object data)
         {
+
             if (data.GetType() == typeof(bool) && (bool)data && !AskedAboutUnfinishedWorkout)
             {
                 var workout = await _workoutService.RestoreLastWorkout();
@@ -135,6 +140,46 @@ namespace DeckOfCards.ViewModels
             NumberOfCards = await _deckDataService.GetNumberOfCardsInDeck();
         }
 
+        public async void DeckPreferencesChanged()
+        {
+            // return because InitializeAsync() runs in 'OnAppearing()' so this case will be handled there
+            if (GameState != GameState.Running) return;
+
+            var newJokerPrefs = await _deckDataService.GetJokerPreferences();
+
+            // if joker preferences changed
+            if (_currentWorkout.JokersIncluded != newJokerPrefs)
+            {
+                if (newJokerPrefs) // add jokers to the current deck
+                {
+                    // add empty workouts because they will get updated later on
+                    Cards.Add(new CardItem(CardSymbol.Joker, CardValue.Joker, ""));
+                    Cards.Add(new CardItem(CardSymbol.Joker, CardValue.Joker, ""));
+
+                }
+                else // remove jokers from the current deck
+                {
+                    var jokerCards = Cards.Where(x => x.Symbol == CardSymbol.Joker).ToList();
+                    foreach (var jokerCard in jokerCards)
+                    {
+                        Cards.Remove(jokerCard);
+                        NumberOfCards--;
+                    }
+                }                    
+            }
+
+            // update workout data
+            var newExercises = await _deckDataService.GetExercises();
+
+            foreach (var card in Cards)
+            {
+                card.Exercise = newExercises.Where(x => x.CardSymbol == card.Symbol).FirstOrDefault()?.Name ?? card.Exercise;                
+            }
+
+            // update current card
+            CurrentCard.Exercise = newExercises.Where(x => x.CardSymbol == CurrentCard.Symbol).FirstOrDefault()?.Name ?? CurrentCard.Exercise;
+
+        }
 
         private void RestoreWorkout(Workout workout)
         {
@@ -168,14 +213,14 @@ namespace DeckOfCards.ViewModels
 
         public void SetupMessageListeners()
         {
-            MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, async (sender) => await InitializeAsync(false));
+            MessagingCenter.Subscribe<EditDeckViewModel>(this, MessagingCenterConstants.ExercisesUpdated, (sender) => DeckPreferencesChanged());
         }
 
         public async Task SaveWorkout()
         {
             UpdateWorkoutData();
 
-            await _workoutService.SaveWorkout(_currentWorkout);
+            _currentWorkout = await _workoutService.SaveWorkout(_currentWorkout);
         }
 
         public void UpdateWorkoutData()
@@ -228,13 +273,15 @@ namespace DeckOfCards.ViewModels
                 _currentWorkout.FinishedExercises = new Dictionary<CardSymbol, int>();
             }
 
+            var value = CurrentCard.Value == CardValue.Joker ? 1 : Helper.GetNumberForValue(CurrentCard.Value);
+
             if (!_currentWorkout.FinishedExercises.ContainsKey(CurrentCard.Symbol))
             {
-                _currentWorkout.FinishedExercises.Add(CurrentCard.Symbol, Helper.GetNumberForValue(CurrentCard.Value));
+                _currentWorkout.FinishedExercises.Add(CurrentCard.Symbol, value);
             }
             else
             {
-                _currentWorkout.FinishedExercises[CurrentCard.Symbol] += Helper.GetNumberForValue(CurrentCard.Value);
+                _currentWorkout.FinishedExercises[CurrentCard.Symbol] += value;
             }
         }
 
