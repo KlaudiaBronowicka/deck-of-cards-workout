@@ -157,6 +157,9 @@ namespace DeckOfCards.Services
             _mappings.Add(typeof(WorkoutViewModel), typeof(WorkoutPage));
             _mappings.Add(typeof(EditDeckViewModel), typeof(EditDeckPage));
             _mappings.Add(typeof(WorkoutDetailsViewModel), typeof(WorkoutDetailsPage));
+            _mappings.Add(typeof(SettingsViewModel), typeof(SettingsPage));
+            _mappings.Add(typeof(WorkoutRemindersViewModel), typeof(WorkoutRemindersPage));
+
         }
     }
 }

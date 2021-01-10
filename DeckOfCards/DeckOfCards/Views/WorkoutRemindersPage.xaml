@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DeckOfCards.Views.WorkoutRemindersPage"
+             xmlns:converters="clr-namespace:DeckOfCards.Converters"
+             xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
+             xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
+             utility:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+             Title="Your reminders">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Add new"
+            Command="{Binding AddCommand}"
+            Order="Primary"
+            Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NumberToTwoDigitTextConverter x:Key="numberToTwoDigitTextConverter" />
+            <converters:WorkoutReminderToDaysTextConverter x:Key="workoutReminderToDaysTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+     <ContentPage.Content>
+        <Grid
+            VerticalOptions="Fill"
+            HorizontalOptions="FillAndExpand"
+            BackgroundColor="{StaticResource Primary}">
+         <skiaforms:SKCanvasView
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 x:Name="canvasView"
+                 PaintSurface="OnCanvasViewPaintSurface" />
+             <ListView
+                ItemsSource="{Binding Reminders, Mode=TwoWay}"
+                HasUnevenRows="true"
+                Margin="0, 0, 0, 0"
+                SeparatorColor="Transparent"
+                IsPullToRefreshEnabled="False"
+                ItemSelected="Reminder_ItemSelected"
+                BackgroundColor="Transparent">
+                <ListView.ItemTemplate>
+                <DataTemplate>
+                    <renderers:ListViewCell>
+                        <ContentView>
+                            <Frame Padding="16" Margin="16" BackgroundColor="{StaticResource Secondary}" CornerRadius="16" HasShadow="True">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TimePicker Grid.Column="0" Grid.Row="0" TextColor="{StaticResource Light}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Start" >
+                                        <TimePicker.Format>HH:mm</TimePicker.Format>
+                                        <TimePicker.Triggers>
+                                            <DataTrigger TargetType="TimePicker"
+                                                         Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
+                                                         Value="False">
+                                                <Setter Property="IsEnabled" Value="False" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="TimePicker"
+                                                         Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
+                                                         Value="True">
+                                                <Setter Property="IsEnabled" Value="True" />
+                                            </DataTrigger>
+                                        </TimePicker.Triggers>
+                                    </TimePicker>
+                                    <Switch
+                                        x:Name="switch"
+                                        Grid.Column="1"
+                                        Grid.Row="0"
+                                        IsToggled="{Binding Active, Mode=TwoWay}">
+                                        <Switch.OnColor>
+                                            <OnPlatform x:TypeArguments="Color">
+                                                <On Platform="iOS" Value="{StaticResource Accent}" />
+                                            </OnPlatform>
+                                        </Switch.OnColor>
+                                    </Switch>
+                                    <Label Text="{Binding ., Converter={StaticResource workoutReminderToDaysTextConverter}}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" TextColor="{StaticResource Light}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
+                                                         Value="False">
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
+                                                         Value="True">
+                                                <Setter Property="Opacity" Value="1" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Grid>
+                            </Frame>
+                        </ContentView>
+                    </renderers:ListViewCell>
+                </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

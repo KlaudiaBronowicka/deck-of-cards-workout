@@ -4,6 +4,7 @@ using DeckOfCards.Services;
 using DeckOfCards.Services.Data;
 using DeckOfCards.ViewModels;
 using System;
+using Xamarin.Forms;
 
 namespace DeckOfCards.Bootstrap
 {
@@ -22,13 +23,19 @@ namespace DeckOfCards.Bootstrap
             builder.RegisterType<EditDeckViewModel>();
             builder.RegisterType<HistoryViewModel>();
             builder.RegisterType<WorkoutDetailsViewModel>();
+            builder.RegisterType<SettingsViewModel>();
+            builder.RegisterType<WorkoutRemindersViewModel>();
 
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DeckDataService>().As<IDeckDataService>();
             builder.RegisterType<PopupService>().As<IPopupService>();
             builder.RegisterType<WorkoutService>().As<IWorkoutService>();
-            builder.RegisterType<IViewLifecycleService>();
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                builder.RegisterType<IViewLifecycleService>();
+            }
 
             builder.RegisterType<DeckOfCardsDB>();
 

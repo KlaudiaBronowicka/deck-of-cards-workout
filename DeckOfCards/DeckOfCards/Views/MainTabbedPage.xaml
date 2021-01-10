@@ -22,5 +22,9 @@
 			<views:HistoryPage />
 		</x:Arguments>
     </NavigationPage>
-   <!-- <ContentPage Title="Settings" IconImageSource="gear" /> -->
+    <NavigationPage  Title="Settings" IconImageSource="settings">
+        <x:Arguments>
+            <views:SettingsPage />
+		</x:Arguments>
+    </NavigationPage>
 </TabbedPage>

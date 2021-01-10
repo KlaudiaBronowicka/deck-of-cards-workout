@@ -5,7 +5,7 @@
     x:Class="DeckOfCards.GeneralDeviceStyle">
     
     <Style TargetType="Label" x:Key="HeaderStyle">
-        <Setter Property="FontSize" Value="54" />
+        <Setter Property="FontSize" Value="44" />
         <Setter Property="TextColor" Value="{StaticResource Light}" />
         <Setter Property="Margin" Value="16, 32, 0, 16" />
     </Style>

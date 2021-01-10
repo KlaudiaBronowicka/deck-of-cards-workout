@@ -4,6 +4,7 @@ using UIKit;
 
 namespace DeckOfCards.iOS.Services
 {
+    //TODO: Refactor so that I don't need this service
     public class ViewLifecycleService : IViewLifecycleService
     {
         public ViewLifecycleService()

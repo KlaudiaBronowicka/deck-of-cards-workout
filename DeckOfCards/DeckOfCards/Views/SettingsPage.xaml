@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DeckOfCards.Views.SettingsPage"
+             xmlns:converters="clr-namespace:DeckOfCards.Converters"
+             xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
+             xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
+             utility:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+             NavigationPage.HasNavigationBar="False">
+     <ContentPage.Content>
+        <Grid
+            VerticalOptions="Fill"
+            HorizontalOptions="FillAndExpand"
+            BackgroundColor="{StaticResource Primary}">
+         <skiaforms:SKCanvasView
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 x:Name="canvasView"
+                 PaintSurface="OnCanvasViewPaintSurface" />
+            <ScrollView>
+                <StackLayout VerticalOptions="FillAndExpand" Spacing="0">
+                    <StackLayout.Padding>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS" Value="0,10,0,0" />
+                        </OnPlatform>
+                    </StackLayout.Padding>
+                    <Label Text="Settings" Style="{StaticResource HeaderStyle}" />
+                <TableView Intent="Settings" HasUnevenRows="True">
+                    <TableRoot>
+                        <TableSection>
+                            <ViewCell Tapped="WorkoutRemindersTapped">
+                                <StackLayout Padding="16, 12, 16, 16" Spacing="0">
+                                    <Label Text="Workout reminders" FontSize="18" TextColor="{StaticResource Light}"/>
+                                    <Label FontSize="12" Text="No active reminders" TextColor="{StaticResource Light}" Opacity="0.5"/>
+                                </StackLayout>
+                            </ViewCell>
+                            <ViewCell>
+                                <Grid ColumnDefinitions="*, Auto" HeightRequest="54" Padding="16, 8, 16, 8">
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="Animate card transitions"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center"
+                                        FontSize="18"
+                                        TextColor="{StaticResource Light}"/>
+                                    <Switch
+                                        Grid.Column="1"
+                                        IsToggled="{Binding AnimateCards}">
+                                        <Switch.OnColor>
+                                            <OnPlatform x:TypeArguments="Color">
+                                                <On Platform="iOS" Value="{StaticResource Accent}" />
+                                            </OnPlatform>
+                                        </Switch.OnColor>
+                                    </Switch>
+                                </Grid>
+                            </ViewCell>
+                            <ViewCell>
+                                <Grid ColumnDefinitions="*, Auto" HeightRequest="54" Padding="16, 8, 16, 8">
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="Save unfinished workouts"
+                                        VerticalOptions="Center"
+                                        FontSize="18"
+                                        TextColor="{StaticResource Light}"/>
+                                    <Switch
+                                        Grid.Column="1"
+                                        IsToggled="{Binding SaveUnfinishedWorkouts}">
+                                        <Switch.OnColor>
+                                            <OnPlatform x:TypeArguments="Color">
+                                                <On Platform="iOS" Value="{StaticResource Accent}" />
+                                            </OnPlatform>
+                                        </Switch.OnColor>
+                                    </Switch>
+                                </Grid>
+                            </ViewCell>
+                        </TableSection>
+                    </TableRoot>
+                </TableView>    
+            </StackLayout>
+</ScrollView>
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>
