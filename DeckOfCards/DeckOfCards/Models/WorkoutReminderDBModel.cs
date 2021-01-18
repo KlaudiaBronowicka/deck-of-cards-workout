@@ -1,8 +1,11 @@
 ﻿using System;
+using SQLite;
+
 namespace DeckOfCards.Models
 {
-    public class WorkoutReminder
+    public class WorkoutReminderDBModel
     {
+        [PrimaryKey, AutoIncrement]
         public int? Id { get; set; }
 
         public bool Active { get; set; }
@@ -16,6 +19,5 @@ namespace DeckOfCards.Models
         public bool Friday { get; set; }
         public bool Saturday { get; set; }
         public bool Sunday { get; set; }
-
     }
 }

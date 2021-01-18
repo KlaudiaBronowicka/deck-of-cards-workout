@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using DeckOfCards.Models;
+using DeckOfCards.ViewModels;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
@@ -8,9 +10,12 @@ namespace DeckOfCards.Views
 {
     public partial class WorkoutRemindersPage : ContentPage
     {
+        private WorkoutRemindersViewModel _vm;
+
         public WorkoutRemindersPage()
         {
             InitializeComponent();
+            _vm = BindingContext as WorkoutRemindersViewModel;
         }
 
         public void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
@@ -37,8 +42,23 @@ namespace DeckOfCards.Views
             canvas.DrawRect(rect, paint);
         }
 
-        void Reminder_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        void Switch_Toggled(object sender, ToggledEventArgs e)
         {
+            var view = sender as View;
+
+            if (!(view.BindingContext is WorkoutReminder reminder)) return;
+
+            _vm.ActiveUpdated((int)reminder.Id);
+        }
+
+
+        void TimePicker_Unfocused(object sender, FocusEventArgs e)
+        {
+            var view = sender as View;
+
+            if (!(view.BindingContext is WorkoutReminder reminder)) return;
+
+            _vm.ActiveUpdated((int)reminder.Id);
         }
     }
 }

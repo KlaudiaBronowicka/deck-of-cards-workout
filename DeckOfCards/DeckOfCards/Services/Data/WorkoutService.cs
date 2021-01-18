@@ -49,9 +49,9 @@ namespace DeckOfCards.Services.Data
         {
             if (workout == null) return null;
 
-            var id = await _db.SaveWorkout(WorkoutToWorkoutDB(workout));
+            var workoutId = await _db.SaveWorkout(WorkoutToWorkoutDB(workout));
 
-            workout.Id = id;
+            workout.Id = workoutId;
 
             return workout;
         }

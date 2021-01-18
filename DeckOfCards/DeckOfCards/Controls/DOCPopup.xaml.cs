@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Xamarin.Forms;
 
-namespace DeckOfCards.Views
+namespace DeckOfCards.Controls
 {
-    public partial class DayOfTheWeekSelectionView : ContentPage
+    public partial class DOCPopup : Rg.Plugins.Popup.Pages.PopupPage
     {
-        public DayOfTheWeekSelectionView()
+        public DOCPopup()
         {
             InitializeComponent();
         }

@@ -8,5 +8,14 @@ namespace DeckOfCards.Services
         void Initialize();
         void SendNotification(string title, string message, DateTime? notifyTime = null);
         void ReceiveNotification(string title, string message);
+
+        /// <summary>
+        /// Schedules a notification at the specified time, repeating every day
+        /// </summary>
+        void ScheduleRepeating(int reminderId, string title, string message, TimeSpan notifyTime);
+
+        public void ScheduleRepeating(int reminderId, string title, string message, TimeSpan notifyTime, bool[] daysOfTheWeek);
+
+        void CancelNotificaiton(int reminderId);
     }
 }

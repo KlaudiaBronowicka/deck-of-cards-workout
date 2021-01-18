@@ -10,6 +10,7 @@ namespace DeckOfCards.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        //TODO: resolve per VM
         protected readonly INavigationService _navigationService;
         protected readonly IDeckDataService _deckDataService;
         protected readonly IWorkoutService _workoutService;

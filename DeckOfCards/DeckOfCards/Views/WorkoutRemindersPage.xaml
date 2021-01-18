@@ -11,7 +11,8 @@
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
-             Title="Your reminders">
+             Title="Your reminders"
+             x:Name="Page">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Add new"
@@ -41,13 +42,25 @@
                 Margin="0, 0, 0, 0"
                 SeparatorColor="Transparent"
                 IsPullToRefreshEnabled="False"
-                ItemSelected="Reminder_ItemSelected"
                 BackgroundColor="Transparent">
                 <ListView.ItemTemplate>
                 <DataTemplate>
                     <renderers:ListViewCell>
                         <ContentView>
                             <Frame Padding="16" Margin="16" BackgroundColor="{StaticResource Secondary}" CornerRadius="16" HasShadow="True">
+                                <Frame.Triggers>
+                                            <DataTrigger TargetType="Frame"
+                                                         Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
+                                                         Value="False">
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Frame"
+                                                         Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
+                                                         Value="True">
+                                                <Setter Property="Opacity" Value="1" />
+                                            </DataTrigger>
+                                        </Frame.Triggers>
+
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
@@ -57,9 +70,23 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TimePicker Grid.Column="0" Grid.Row="0" TextColor="{StaticResource Light}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Start" >
+                                    
+                                    <Switch
+                                        x:Name="switch"
+                                        Grid.Column="1"
+                                        Grid.Row="0"
+                                        IsToggled="{Binding Active, Mode=TwoWay}"
+                                        Toggled="Switch_Toggled"
+                                        >
+                                        <Switch.OnColor>
+                                            <OnPlatform x:TypeArguments="Color">
+                                                <On Platform="iOS" Value="{StaticResource Accent}" />
+                                            </OnPlatform>
+                                        </Switch.OnColor>
+                                    </Switch>
+                                    <TimePicker Grid.Column="0" Grid.Row="0" TextColor="{StaticResource Light}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Start" Time="{Binding Time, Mode=TwoWay}" Unfocused="TimePicker_Unfocused">
                                         <TimePicker.Format>HH:mm</TimePicker.Format>
-                                        <TimePicker.Triggers>
+                                        <!--<TimePicker.Triggers>
                                             <DataTrigger TargetType="TimePicker"
                                                          Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
                                                          Value="False">
@@ -70,21 +97,10 @@
                                                          Value="True">
                                                 <Setter Property="IsEnabled" Value="True" />
                                             </DataTrigger>
-                                        </TimePicker.Triggers>
+                                        </TimePicker.Triggers>-->
                                     </TimePicker>
-                                    <Switch
-                                        x:Name="switch"
-                                        Grid.Column="1"
-                                        Grid.Row="0"
-                                        IsToggled="{Binding Active, Mode=TwoWay}">
-                                        <Switch.OnColor>
-                                            <OnPlatform x:TypeArguments="Color">
-                                                <On Platform="iOS" Value="{StaticResource Accent}" />
-                                            </OnPlatform>
-                                        </Switch.OnColor>
-                                    </Switch>
-                                    <Label Text="{Binding ., Converter={StaticResource workoutReminderToDaysTextConverter}}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" TextColor="{StaticResource Light}">
-                                        <Label.Triggers>
+                                    <Label Text="{Binding ., Converter={StaticResource workoutReminderToDaysTextConverter}}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" TextColor="{StaticResource Light}" x:Name="daysLabel">
+                                        <!--<Label.Triggers>
                                             <DataTrigger TargetType="Label"
                                                          Binding="{Binding Source={x:Reference switch}, Path=IsToggled}"
                                                          Value="False">
@@ -95,7 +111,10 @@
                                                          Value="True">
                                                 <Setter Property="Opacity" Value="1" />
                                             </DataTrigger>
-                                        </Label.Triggers>
+                                        </Label.Triggers>-->
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference Page}, Path=BindingContext.DaysOfTheWeekLabelTappedCommand}" CommandParameter="{Binding Id}" />
+                                        </Label.GestureRecognizers>
                                     </Label>
                                 </Grid>
                             </Frame>

@@ -30,7 +30,7 @@ namespace DeckOfCards
             {
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(WorkoutDBModel).Name))
                 {
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(WorkoutDBModel)).ConfigureAwait(false);
+                    await Database.CreateTablesAsync(CreateFlags.ImplicitPK | CreateFlags.AutoIncPK, typeof(WorkoutDBModel)).ConfigureAwait(false);
                     initialized = true;
                 }
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(ExerciseDBModel).Name))
@@ -41,6 +41,11 @@ namespace DeckOfCards
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(PreferencesDBModel).Name))
                 {
                     await Database.CreateTablesAsync(CreateFlags.None, typeof(PreferencesDBModel)).ConfigureAwait(false);
+                    initialized = true;
+                }
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(WorkoutReminderDBModel).Name))
+                {
+                    await Database.CreateTablesAsync(CreateFlags.ImplicitPK | CreateFlags.AutoIncPK, typeof(WorkoutReminderDBModel)).ConfigureAwait(false);
                     initialized = true;
                 }
             }
@@ -114,6 +119,11 @@ namespace DeckOfCards
             return Database.Table<WorkoutDBModel>().OrderByDescending(x => x.DateStarted).FirstOrDefaultAsync();
         }
 
+        /// <summary>
+        /// Updates workout item if it already exists or creates a new record if it doesn't.
+        /// </summary>
+        /// <param name="item">Item to update</param>
+        /// <returns>Inserted item's id</returns>
         public async Task<int> SaveWorkout(WorkoutDBModel item)
         {
             var existingItem = await GetWorkout(item.DateStarted);
@@ -122,11 +132,15 @@ namespace DeckOfCards
             {
                 item.Id = existingItem.Id;
 
-                return await Database.UpdateAsync(item);
+                await Database.UpdateAsync(item);
+
+                return (int)item.Id;
             }
             else
             {
-                return await Database.InsertAsync(item);
+                await Database.InsertAsync(item);
+
+                return (int)item.Id;
             }
         }
 
@@ -142,6 +156,50 @@ namespace DeckOfCards
             if (workout == null) return -1;
 
             return await Database.DeleteAsync(workout);
+        }
+
+        /// <summary>
+        /// Updates reminder item if it already exists or creates a new record if it doesn't.
+        /// </summary>
+        /// <param name="item">Item to update</param>
+        /// <returns>Inserted item's id</returns>
+        public async Task<int> SaveReminder(WorkoutReminderDBModel item)
+        {
+            var existingItem = await GetReminder(item.Id ?? -1);
+
+            if (existingItem != null)
+            {
+                item.Id = existingItem.Id;
+
+                await Database.UpdateAsync(item);
+
+                return (int)item.Id;
+            }
+            else
+            {
+                await Database.InsertAsync(item);
+
+                return (int)item.Id;
+            }
+        }
+
+        public Task<WorkoutReminderDBModel> GetReminder(int id)
+        {
+            return Database.Table<WorkoutReminderDBModel>().Where(i => i.Id == id).FirstOrDefaultAsync();
+        }
+
+        public Task<List<WorkoutReminderDBModel>> GetAllReminders()
+        {
+            return Database.Table<WorkoutReminderDBModel>().ToListAsync();
+        }
+
+        public async Task<int> RemoveReminder(int id)
+        {
+            var reminder = await GetReminder(id);
+
+            if (reminder == null) return -1;
+
+            return await Database.DeleteAsync(reminder);
         }
     }
 }

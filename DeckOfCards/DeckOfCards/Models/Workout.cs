@@ -6,7 +6,7 @@ namespace DeckOfCards.Models
 {
     public class Workout
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public List<CardItem> RemainingCards { get; set; }
         public int Seconds { get; set; }
         public DateTime DateStarted { get; set; }

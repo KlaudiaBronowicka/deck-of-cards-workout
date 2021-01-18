@@ -63,7 +63,7 @@ namespace DeckOfCards.ViewModels
 
             if (result)
             {
-                await _workoutService.RemoveWorkout(Workout.Id);
+                await _workoutService.RemoveWorkout((int)Workout.Id);
 
                 await _navigationService.NavigateBackAsync();
 

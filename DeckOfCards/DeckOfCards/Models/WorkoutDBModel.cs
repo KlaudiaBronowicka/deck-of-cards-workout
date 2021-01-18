@@ -6,7 +6,7 @@ namespace DeckOfCards.Models
     public class WorkoutDBModel
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public string RemainingCards { get; set; }
         public int Seconds { get; set; }

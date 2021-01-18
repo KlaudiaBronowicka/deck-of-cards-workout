@@ -33,11 +33,6 @@ namespace DeckOfCards
 
             AppContainer.Resolve<WorkoutViewModel>().SetupMessageListeners();
 
-            var notificationManager = DependencyService.Get<INotificationManager>();
-            notificationManager.Initialize();
-
-            notificationManager.SendNotification("HELLO MOTHERFUCKER", "sup!", DateTime.Now.AddSeconds(20));
-
         }
 
         protected override void OnStart()
