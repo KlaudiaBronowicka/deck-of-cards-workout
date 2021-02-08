@@ -23,10 +23,17 @@ namespace DeckOfCards.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            
             Rg.Plugins.Popup.Popup.Init();
 
             global::Xamarin.Forms.Forms.Init();
             FlexButton.Init();
+
+            // Ask the user for permission to show notifications on iOS 10.0+ at startup.
+            // If not asked at startup, user will be asked when showing the first notification.
+            Plugin.LocalNotification.NotificationCenter.AskPermission();
+
+
             LoadApplication(new App());
 
             MobileAds.SharedInstance.Start(null);
@@ -41,6 +48,11 @@ namespace DeckOfCards.iOS
 
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public override void WillEnterForeground(UIApplication uiApplication)
+        {
+            Plugin.LocalNotification.NotificationCenter.ResetApplicationIconBadgeNumber(uiApplication);
         }
     }
 }

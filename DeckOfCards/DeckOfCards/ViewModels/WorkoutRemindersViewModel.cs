@@ -10,6 +10,8 @@ using System.Linq;
 using System.Collections.Generic;
 using DeckOfCards.Contracts.Services;
 using DeckOfCards.Services;
+using Xamarin.Essentials;
+using DeckOfCards.Controls;
 
 namespace DeckOfCards.ViewModels
 {
@@ -30,23 +32,22 @@ namespace DeckOfCards.ViewModels
 
         public ICommand DaysOfTheWeekLabelTappedCommand => new Command<int>(async (int id) => await OpenDayOfTheWeekSelectionPopup(id));
         public ICommand AddCommand => new Command(async () => await AddNewReminder());
+        public ICommand ItemLongPressedCommand => new Command<int>(async (int id) => await OpenRemoveReminderPopup(id));
 
         private IRemindersService _remindersService;
         private INotificationManager _notificationManager;
 
-        public WorkoutRemindersViewModel(IRemindersService remindersService)
+        public WorkoutRemindersViewModel(IRemindersService remindersService, INotificationManager notificationManager)
         {
             _remindersService = remindersService;
-
-            _notificationManager = DependencyService.Get<INotificationManager>();
-            _notificationManager.Initialize();
+            _notificationManager = notificationManager;
         }
 
-        public override async Task InitializeAsync(object data)
+        public override Task InitializeAsync(object data)
         {
-            var reminders = await _remindersService.GetAllReminders();
+            Reminders = new ObservableCollection<WorkoutReminder>(data as List<WorkoutReminder>);
 
-            Reminders = new ObservableCollection<WorkoutReminder>(reminders);
+            return Task.CompletedTask;
         }
 
         private async Task OpenDayOfTheWeekSelectionPopup(int id)
@@ -58,6 +59,17 @@ namespace DeckOfCards.ViewModels
             _currentlyEditedReminder = id;
 
             await PopupNavigation.Instance.PushAsync(new DayOfTheWeekSelectionPopup(reminder, async () => await ReminderDaysUpdated()));
+        }
+
+        private async Task OpenRemoveReminderPopup(int id)
+        {
+            HapticFeedback.Perform(HapticFeedbackType.LongPress);
+
+            var reminder = Reminders.FirstOrDefault(x => x.Id == id);
+
+            if (reminder == null) return;
+
+            await PopupNavigation.Instance.PushAsync(new ConfirmationPopup("Remove reminder", "Are you sure you want to remove this reminder?", async () => await RemoveReminder(id), null));
         }
 
         private async Task ReminderDaysUpdated()
@@ -94,11 +106,20 @@ namespace DeckOfCards.ViewModels
             }
             else
             {
-                _notificationManager.CancelNotificaiton((int)reminder.Id);
+                _notificationManager.CancelNotification((int)reminder.Id);
             }
 
             await _remindersService.SaveReminder(reminder);
 
+        }
+
+        private async Task RemoveReminder(int id)
+        {
+            await _remindersService.RemoveReminder(id);
+
+            Reminders.Remove(Reminders.FirstOrDefault(x => x.Id == id));
+
+            _notificationManager.CancelNotification(id);
         }
 
         public async Task TimeUpdated(int reminderId)

@@ -16,6 +16,7 @@ namespace DeckOfCards.Services
 
         public void ScheduleRepeating(int reminderId, string title, string message, TimeSpan notifyTime, bool[] daysOfTheWeek);
 
-        void CancelNotificaiton(int reminderId);
+        void CancelNotification(int reminderId);
+        void CancelAll();
     }
 }

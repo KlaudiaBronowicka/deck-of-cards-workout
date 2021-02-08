@@ -32,6 +32,8 @@ namespace DeckOfCards.Bootstrap
             builder.RegisterType<PopupService>().As<IPopupService>();
             builder.RegisterType<WorkoutService>().As<IWorkoutService>();
             builder.RegisterType<RemindersService>().As<IRemindersService>();
+            builder.RegisterType<NotificationManager>().As<INotificationManager>();
+            builder.RegisterType<PreferenceService>().As<IPreferenceService>();
 
             if (Device.RuntimePlatform == Device.iOS)
             {

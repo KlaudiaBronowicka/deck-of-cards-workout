@@ -1,46 +1,16 @@
-﻿using Akavache;
-using System.Collections.Generic;
-using System.Reactive.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace DeckOfCards.Services
 {
     public class BaseService
     {
-        private IBlobCache _cache;
-        protected IBlobCache Cache
-        {
-            get
-            {
-                _cache = _cache ?? BlobCache.Secure;
-                return _cache;
-            }
-        }
-
         protected DeckOfCardsDB _db;
 
         public BaseService(DeckOfCardsDB db)
         {
             _db = db;
         }
-
-        public async Task<T> GetFromCache<T>(string cacheName)
-        {
-            try
-            {
-                T element = await Cache.GetObject<T>(cacheName);
-                return element;
-            }
-            catch (KeyNotFoundException)
-            {
-                return default;
-            }
-        }
-
-        public void InvalidateCache()
-        {
-            Cache.InvalidateAllObjects<object>();
-        }
-
     }
 }

@@ -115,7 +115,7 @@ namespace DeckOfCards.Services
 
                 if (navigationPage != null)
                 {
-                    await navigationPage.PushAsync(page);
+                    await navigationPage.PushAsync(page, true);
                 }
                 else
                 {

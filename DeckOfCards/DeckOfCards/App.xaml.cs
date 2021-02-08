@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DeckOfCards.ViewModels;
 using DeckOfCards.Bootstrap;
 using Xamarin.Essentials;
+using Plugin.LocalNotification;
 
 namespace DeckOfCards
 {
@@ -17,14 +18,21 @@ namespace DeckOfCards
         public App()
         {
             InitializeComponent();
+
+            // Local Notification tap event listener
+            NotificationCenter.Current.NotificationTapped += OnLocalNotificationTapped;
+
+
             LoadStyles();
 
-
             InitializeApp();
-
-
             //InitializeNavigation();
             Current.MainPage = new MainTabbedPage();
+        }
+
+        private void OnLocalNotificationTapped(NotificationTappedEventArgs e)
+        {
+            // your code goes here
         }
 
         private void InitializeApp()

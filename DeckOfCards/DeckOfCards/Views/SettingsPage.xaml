@@ -12,6 +12,11 @@
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
              NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ActiveRemindersToTextConverter x:Key="activeRemindersToTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
      <ContentPage.Content>
         <Grid
             VerticalOptions="Fill"
@@ -36,7 +41,7 @@
                             <ViewCell Tapped="WorkoutRemindersTapped">
                                 <StackLayout Padding="16, 12, 16, 16" Spacing="0">
                                     <Label Text="Workout reminders" FontSize="18" TextColor="{StaticResource Light}"/>
-                                    <Label FontSize="12" Text="No active reminders" TextColor="{StaticResource Light}" Opacity="0.5"/>
+                                    <Label FontSize="12" Text="{Binding ActiveReminders, Converter={StaticResource activeRemindersToTextConverter}}" TextColor="{StaticResource Light}" Opacity="0.5"/>
                                 </StackLayout>
                             </ViewCell>
                             <ViewCell>
@@ -50,7 +55,7 @@
                                         TextColor="{StaticResource Light}"/>
                                     <Switch
                                         Grid.Column="1"
-                                        IsToggled="{Binding AnimateCards}">
+                                        IsToggled="{Binding AnimateCardTransitions}">
                                         <Switch.OnColor>
                                             <OnPlatform x:TypeArguments="Color">
                                                 <On Platform="iOS" Value="{StaticResource Accent}" />

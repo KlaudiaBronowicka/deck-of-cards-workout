@@ -7,11 +7,11 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content;
-using DeckOfCards.Droid.Services;
 using DeckOfCards.Services;
 using Xamarin.Forms;
 using Rg.Plugins.Popup.Services;
 using DeckOfCards.Views;
+using Plugin.LocalNotification;
 
 namespace DeckOfCards.Droid
 {
@@ -25,6 +25,8 @@ namespace DeckOfCards.Droid
 
             base.OnCreate(savedInstanceState);
 
+            NotificationCenter.CreateNotificationChannel();
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
@@ -32,22 +34,14 @@ namespace DeckOfCards.Droid
             var id = "ca-app-pub-9447326003867145~9473946718";
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, id);
             Rg.Plugins.Popup.Popup.Init(this);
-            CreateNotificationFromIntent(Intent);
+
+            NotificationCenter.NotifyNotificationTapped(Intent);
         }
 
         protected override void OnNewIntent(Intent intent)
         {
-            CreateNotificationFromIntent(intent);
-        }
-
-        void CreateNotificationFromIntent(Intent intent)
-        {
-            if (intent?.Extras != null)
-            {
-                string title = intent.GetStringExtra(AndroidNotificationManager.TitleKey);
-                string message = intent.GetStringExtra(AndroidNotificationManager.MessageKey);
-                DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
-            }
+            NotificationCenter.NotifyNotificationTapped(intent);
+            base.OnNewIntent(intent);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

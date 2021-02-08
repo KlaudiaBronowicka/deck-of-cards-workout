@@ -18,6 +18,12 @@ namespace DeckOfCards.Views
             _vm = BindingContext as SettingsViewModel;
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _vm.InitializeAsync(null);
+        }
+
         public void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             var canvas = args.Surface.Canvas;
