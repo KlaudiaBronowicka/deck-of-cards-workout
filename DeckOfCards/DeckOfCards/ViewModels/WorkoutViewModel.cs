@@ -8,6 +8,7 @@ using DeckOfCards.Constants;
 using System.Collections.Generic;
 using DeckOfCards.Utility;
 using System.Linq;
+using DeckOfCards.Contracts.Services;
 
 namespace DeckOfCards.ViewModels
 {
@@ -104,8 +105,22 @@ namespace DeckOfCards.ViewModels
 
         private bool AskedAboutUnfinishedWorkout;
 
-        public WorkoutViewModel()
+        private readonly IWorkoutService _workoutService;
+        private readonly IDeckDataService _deckDataService;
+        private readonly IPopupService _popupService;
+        private readonly IPreferenceService _preferencesService;
+
+        public bool AnimateCardTransitions { get; set; }
+        private bool _saveUnfinishedWorkouts;
+
+
+        public WorkoutViewModel(IWorkoutService workoutService, IDeckDataService deckDataService, IPopupService popupService, IPreferenceService preferencesService)
         {
+            _workoutService = workoutService;
+            _deckDataService = deckDataService;
+            _popupService = popupService;
+            _preferencesService = preferencesService;
+
             SetupMessageListeners();
         }
 
@@ -113,8 +128,10 @@ namespace DeckOfCards.ViewModels
         /// <returns></returns>
         public override async Task InitializeAsync(object data)
         {
+            AnimateCardTransitions = await _preferencesService.GetPreference(Constants.Constants.AnimateCardTransitionsPref, true);
+            _saveUnfinishedWorkouts = await _preferencesService.GetPreference(Constants.Constants.SaveUnfinishedWorkoutsPref, true);
 
-            if (data.GetType() == typeof(bool) && (bool)data && !AskedAboutUnfinishedWorkout)
+            if (data.GetType() == typeof(bool) && (bool)data && !AskedAboutUnfinishedWorkout && _saveUnfinishedWorkouts)
             {
                 var workout = await _workoutService.RestoreLastWorkout();
                 if (workout != null)

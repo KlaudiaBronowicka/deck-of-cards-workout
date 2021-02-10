@@ -16,11 +16,11 @@ namespace DeckOfCards.Services.Data
             throw new NotImplementedException();
         }
 
-        public async Task<bool> GetPreference(string name)
+        public async Task<bool> GetPreference(string name, bool defaultValue = false)
         {
             var preference = await _db.GetPreference(name);
 
-            return preference?.Value ?? false;
+            return preference?.Value ?? defaultValue;
         }
 
         public async Task UpdatePreference(string name, bool value)

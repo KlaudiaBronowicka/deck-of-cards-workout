@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using DeckOfCards.Constants;
+using DeckOfCards.Contracts.Services;
 
 namespace DeckOfCards.ViewModels
 {
@@ -45,8 +46,12 @@ namespace DeckOfCards.ViewModels
 
         public ICommand SaveButtonClicked => new Command(SaveChanges);
 
-        public EditDeckViewModel()
+        private readonly IDeckDataService _deckDataService;
+
+        public EditDeckViewModel(IDeckDataService deckDataService)
         {
+            _deckDataService = deckDataService;
+
             Task.Run(() => InitializeAsync(null));
         }
 

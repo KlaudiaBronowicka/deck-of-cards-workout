@@ -68,7 +68,7 @@
                                 <Grid ColumnDefinitions="*, Auto" HeightRequest="54" Padding="16, 8, 16, 8">
                                     <Label
                                         Grid.Column="0"
-                                        Text="Save unfinished workouts"
+                                        Text="Remember unfinished workouts"
                                         VerticalOptions="Center"
                                         FontSize="18"
                                         TextColor="{StaticResource Light}"/>

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using DeckOfCards.Bootstrap;
+using DeckOfCards.Contracts.Services;
 using DeckOfCards.Models;
 using Xamarin.Forms;
 
@@ -34,8 +33,14 @@ namespace DeckOfCards.ViewModels
 
         public ICommand RefreshCommand => new Command(Refresh);
 
-        public HistoryViewModel()
+        private readonly IWorkoutService _workoutService;
+        private readonly INavigationService _navigationService;
+
+        public HistoryViewModel(IWorkoutService workoutService, INavigationService navigationService)
         {
+            _workoutService = workoutService;
+            _navigationService = navigationService;
+
             Task.Run(() => InitializeAsync(null));
         }
 

@@ -74,6 +74,12 @@ namespace DeckOfCards.Views
 
         private async void AnimateToNextCard(View card)
         {
+            if (!_vm.AnimateCardTransitions)
+            {
+                await SwitchToNextCard();
+                return;
+            };
+
             double position = 1.5 * card.Width;
 
             // animate off the screen
@@ -92,6 +98,12 @@ namespace DeckOfCards.Views
             await Task.WhenAll(
                 card.TranslateTo(0, 0, 200, Easing.CubicOut),
                 card.RotateTo(0, 200, Easing.CubicOut));
+        }
+
+        private async Task SwitchToNextCard()
+        {
+            // switch to next card
+            await _vm.OnNextButtonPressed();
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

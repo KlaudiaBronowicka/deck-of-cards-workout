@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using DeckOfCards.Bootstrap;
+using DeckOfCards.Contracts.Services;
 using DeckOfCards.Models;
 using Xamarin.Forms;
 
@@ -35,6 +34,17 @@ namespace DeckOfCards.ViewModels
         }
 
         public ICommand RemoveCommand => new Command(RemoveItem);
+
+        private readonly IPopupService _popupService;
+        private readonly IWorkoutService _workoutService;
+        private readonly INavigationService _navigationService;
+
+        public WorkoutDetailsViewModel(IPopupService popupService, IWorkoutService workoutService, INavigationService navigationService)
+        {
+            _popupService = popupService;
+            _workoutService = workoutService;
+            _navigationService = navigationService;
+        }
 
         public override Task InitializeAsync(object data)
         {

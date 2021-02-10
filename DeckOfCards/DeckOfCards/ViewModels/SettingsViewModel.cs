@@ -52,11 +52,13 @@ namespace DeckOfCards.ViewModels
 
         private readonly IRemindersService _remindersService;
         private readonly IPreferenceService _preferenceService;
+        private readonly INavigationService _navigationService;
 
-        public SettingsViewModel(IRemindersService remindersService, IPreferenceService preferenceService)
+        public SettingsViewModel(IRemindersService remindersService, IPreferenceService preferenceService, INavigationService navigationService)
         {
             _remindersService = remindersService;
             _preferenceService = preferenceService;
+            _navigationService = navigationService;
         }
 
         public override async Task InitializeAsync(object data)
@@ -64,8 +66,8 @@ namespace DeckOfCards.ViewModels
             _reminders = await _remindersService.GetAllReminders();
             ActiveReminders = _reminders.Where(x => x.Active).Count();
 
-            AnimateCardTransitions = await _preferenceService.GetPreference(CacheNameConstants.AnimateCardTransitionsPref);
-            SaveUnfinishedWorkouts = await _preferenceService.GetPreference(CacheNameConstants.SaveUnfinishedWorkoutsPref);
+            AnimateCardTransitions = await _preferenceService.GetPreference(Constants.Constants.AnimateCardTransitionsPref, true);
+            SaveUnfinishedWorkouts = await _preferenceService.GetPreference(Constants.Constants.SaveUnfinishedWorkoutsPref, true);
         }
 
         public async Task OpenWorkoutRemindersPage()
@@ -75,12 +77,12 @@ namespace DeckOfCards.ViewModels
 
         private async void UpdateAnimateCardTransitions()
         {
-            await _preferenceService.UpdatePreference(CacheNameConstants.AnimateCardTransitionsPref, AnimateCardTransitions);
+            await _preferenceService.UpdatePreference(Constants.Constants.AnimateCardTransitionsPref, AnimateCardTransitions);
         }
 
         private async void UpdateSaveUnfinishedWorkouts()
         {
-            await _preferenceService.UpdatePreference(CacheNameConstants.SaveUnfinishedWorkoutsPref, SaveUnfinishedWorkouts);
+            await _preferenceService.UpdatePreference(Constants.Constants.SaveUnfinishedWorkoutsPref, SaveUnfinishedWorkouts);
 
         }
     }

@@ -10,18 +10,9 @@ namespace DeckOfCards.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        //TODO: resolve per VM
-        protected readonly INavigationService _navigationService;
-        protected readonly IDeckDataService _deckDataService;
-        protected readonly IWorkoutService _workoutService;
-        protected readonly IPopupService _popupService;
 
         public BaseViewModel()
         {
-            _navigationService = AppContainer.Resolve<INavigationService>();
-            _deckDataService = AppContainer.Resolve<IDeckDataService>();
-            _popupService = AppContainer.Resolve<IPopupService>();
-            _workoutService = AppContainer.Resolve<IWorkoutService>();
         }
 
         public virtual Task InitializeAsync(object data)
