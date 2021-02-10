@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:rf="clr-namespace:RedCorners.Forms;assembly=RedCorners.Forms"
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.WorkoutPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
@@ -12,7 +11,7 @@
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
              xmlns:controls="clr-namespace:DeckOfCards.Controls;assembly=DeckOfCards"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:sh="http://sharpnado.com"
              >
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -88,102 +87,104 @@
             </Grid>
 
             <!-- Card view -->
-            <rf:Frame2
-                x:Name="CardView"
+            <sh:Shadows
                 Grid.Row="1"
-                HasShadow="True"
-                ShadowRadius="24"
-                ShadowColor="Black"
-                BackgroundColor="{StaticResource Light}"
-                CornerRadius="16"
                 Margin="40, 20, 40, 30"
-                Padding="0"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                >
+                x:Name="CardShadow"
+                CornerRadius="24"
+                Shades="{sh:SingleShade Offset='5, 10', Opacity=0.6, Color=Black}">
+                <Frame
+                    x:Name="CardView"
+                    HasShadow="False"
+                    BackgroundColor="{StaticResource Light}"
+                    CornerRadius="16"
+                    Padding="0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    >
 
-                <rf:Frame2.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="CardTappedEvent"/>
-                    <SwipeGestureRecognizer Direction="Left" Swiped="CardSwipedEvent"/>
-                </rf:Frame2.GestureRecognizers>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CardTappedEvent"/>
+                        <SwipeGestureRecognizer Direction="Left" Swiped="CardSwipedEvent"/>
+                    </Frame.GestureRecognizers>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <Frame
-                        x:Name="cardCoverImage"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.RowSpan="3"
-                        Grid.ColumnSpan="3"
-                        Style="{StaticResource CardSizeStyle}"
-                        BackgroundColor="{StaticResource Light}"
-                        CornerRadius="12"
-                        Margin="10"
-                        Padding="0"
-                        HasShadow="False"
-                        IsVisible="{Binding IsGameRunning, Converter={StaticResource inverseBoolConverter}}">
-                         <Image
-                            Aspect="AspectFill"
-                            Source="card.png"/>
-                    </Frame>
+                        <Frame
+                            x:Name="cardCoverImage"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.RowSpan="3"
+                            Grid.ColumnSpan="3"
+                            Style="{StaticResource CardSizeStyle}"
+                            BackgroundColor="{StaticResource Light}"
+                            CornerRadius="12"
+                            Margin="10"
+                            Padding="0"
+                            HasShadow="False"
+                            IsVisible="{Binding IsGameRunning, Converter={StaticResource inverseBoolConverter}}">
+                             <Image
+                                Aspect="AspectFill"
+                                Source="card.png"/>
+                        </Frame>
 
-                    <Image
-                        x:Name="TopLeftCardSymbol"
-                        Style="{StaticResource CardSymbolImageStyle}"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}"
-                        Margin="20, 20, 0, 0">
-                    </Image>
-                    <Image
-                        x:Name="TopRightCardSymbol"
-                        Style="{StaticResource CardSymbolImageStyle}"
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        Margin="0, 20, 20, 0"
-                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                    </Image>
-                    <Image
-                        x:Name="BottomLeftCardSymbol"
-                        Style="{StaticResource CardSymbolImageStyle}"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="20, 0, 0, 20"
-                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                    </Image>
-                    <Image
-                        x:Name="BottomRightCardSymbol"
-                        Style="{StaticResource CardSymbolImageStyle}"
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        Margin="0, 0, 20, 20"
-                        Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
-                    </Image>
+                        <Image
+                            x:Name="TopLeftCardSymbol"
+                            Style="{StaticResource CardSymbolImageStyle}"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}"
+                            Margin="20, 20, 0, 0">
+                        </Image>
+                        <Image
+                            x:Name="TopRightCardSymbol"
+                            Style="{StaticResource CardSymbolImageStyle}"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Margin="0, 20, 20, 0"
+                            Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                        </Image>
+                        <Image
+                            x:Name="BottomLeftCardSymbol"
+                            Style="{StaticResource CardSymbolImageStyle}"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="20, 0, 0, 20"
+                            Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                        </Image>
+                        <Image
+                            x:Name="BottomRightCardSymbol"
+                            Style="{StaticResource CardSymbolImageStyle}"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Margin="0, 0, 20, 20"
+                            Source="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolImageConvert}}">
+                        </Image>
 
-                    <Label
-                        x:Name="ExerciseLabel"
-                        Text="{Binding CurrentCard.Exercise}"
-                        Style="{StaticResource CardLabelStyle}"/>
+                        <Label
+                            x:Name="ExerciseLabel"
+                            Text="{Binding CurrentCard.Exercise}"
+                            Style="{StaticResource CardLabelStyle}"/>
 
-                    <Label
-                        x:Name="GameResumeLabel"
-                        Text="Press to resume"
-                        Style="{StaticResource CardLabelStyle}"
-                        Opacity="0"/>
+                        <Label
+                            x:Name="GameResumeLabel"
+                            Text="Press to resume"
+                            Style="{StaticResource CardLabelStyle}"
+                            Opacity="0"/>
 
-                </Grid>
-            </rf:Frame2>
-
+                    </Grid>
+                </Frame>
+            </sh:Shadows>
             <Label
                 x:Name="StartGameLabel"
                 Grid.Row="2"

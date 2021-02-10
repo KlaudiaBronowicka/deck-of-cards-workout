@@ -32,7 +32,7 @@ namespace DeckOfCards.iOS
             // Ask the user for permission to show notifications on iOS 10.0+ at startup.
             // If not asked at startup, user will be asked when showing the first notification.
             Plugin.LocalNotification.NotificationCenter.AskPermission();
-
+            Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();
 
             LoadApplication(new App());
 

@@ -22,6 +22,7 @@ namespace DeckOfCards
             // Local Notification tap event listener
             NotificationCenter.Current.NotificationTapped += OnLocalNotificationTapped;
 
+            Sharpnado.Shades.Initializer.Initialize(loggerEnable: false);
 
             LoadStyles();
 
