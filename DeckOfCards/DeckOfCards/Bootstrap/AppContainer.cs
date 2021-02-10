@@ -17,7 +17,6 @@ namespace DeckOfCards.Bootstrap
             var builder = new ContainerBuilder();
 
             //ViewModels
-            builder.RegisterType<MainViewModel>();
             builder.RegisterType<MainTabbedViewModel>();
             builder.RegisterType<WorkoutViewModel>();
             builder.RegisterType<EditDeckViewModel>();

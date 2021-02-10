@@ -152,7 +152,6 @@ namespace DeckOfCards.Services
 
         private void CreatePageViewModelMappings()
         {
-            _mappings.Add(typeof(MainViewModel), typeof(MainPage));
             _mappings.Add(typeof(MainTabbedViewModel), typeof(MainTabbedPage));
             _mappings.Add(typeof(WorkoutViewModel), typeof(WorkoutPage));
             _mappings.Add(typeof(EditDeckViewModel), typeof(EditDeckPage));
