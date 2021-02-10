@@ -34,11 +34,6 @@ namespace DeckOfCards.Bootstrap
             builder.RegisterType<NotificationManager>().As<INotificationManager>();
             builder.RegisterType<PreferenceService>().As<IPreferenceService>();
 
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                builder.RegisterType<IViewLifecycleService>();
-            }
-
             builder.RegisterType<DeckOfCardsDB>();
 
             _container = builder.Build();

@@ -87,7 +87,7 @@
                                             </OnPlatform>
                                         </Switch.OnColor>
                                     </Switch>
-                                    <TimePicker Grid.Column="0" Grid.Row="0" TextColor="{StaticResource Light}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Start" Time="{Binding Time, Mode=TwoWay}" Unfocused="TimePicker_Unfocused">
+                                    <TimePicker Grid.Column="0" Grid.Row="0" TextColor="{StaticResource Light}" BackgroundColor="Transparent" FontSize="24" FontAttributes="Bold" HorizontalOptions="Start" Time="{Binding Time, Mode=TwoWay}" Unfocused="TimePicker_Unfocused">
                                         <TimePicker.Format>HH:mm</TimePicker.Format>
                                         <!--<TimePicker.Triggers>
                                             <DataTrigger TargetType="TimePicker"
