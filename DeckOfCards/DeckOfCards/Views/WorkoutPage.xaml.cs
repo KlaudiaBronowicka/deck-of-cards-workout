@@ -64,12 +64,12 @@ namespace DeckOfCards.Views
 
         private void CardTappedEvent(object sender, EventArgs e)
         {
-            AnimateToNextCard((View)sender);
+            AnimateToNextCard((View)(((View)sender).Parent));
         }
 
         void CardSwipedEvent(object sender, SwipedEventArgs e)
         {
-            AnimateToNextCard((View)sender);
+            AnimateToNextCard((View)(((View)sender).Parent));
         }
 
         private async void AnimateToNextCard(View card)

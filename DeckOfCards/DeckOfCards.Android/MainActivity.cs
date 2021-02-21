@@ -31,8 +31,7 @@ namespace DeckOfCards.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
 
-            var id = "ca-app-pub-9447326003867145~9473946718";
-            Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, id);
+            Android.Gms.Ads.MobileAds.Initialize(this);
             Rg.Plugins.Popup.Popup.Init(this);
 
             NotificationCenter.NotifyNotificationTapped(Intent);
