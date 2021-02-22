@@ -10,7 +10,6 @@
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>

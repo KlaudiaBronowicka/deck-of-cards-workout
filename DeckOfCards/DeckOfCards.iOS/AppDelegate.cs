@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flex;
 using Foundation;
 using Google.MobileAds;
 using UIKit;
@@ -27,7 +26,6 @@ namespace DeckOfCards.iOS
             Rg.Plugins.Popup.Popup.Init();
 
             global::Xamarin.Forms.Forms.Init();
-            FlexButton.Init();
 
             // Ask the user for permission to show notifications on iOS 10.0+ at startup.
             // If not asked at startup, user will be asked when showing the first notification.

@@ -4,7 +4,7 @@
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:controls="clr-namespace:DeckOfCards.Views;assembly=DeckOfCards"
-    xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
+    xmlns:sh="http://sharpnado.com"
     x:Class="DeckOfCards.Views.DayOfTheWeekSelectionPopup">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
@@ -48,22 +48,27 @@
                 <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding Sunday}" />
                 <Label Grid.Row="6" Grid.Column="1" Text="Sunday" VerticalOptions="Center" />
 
-                 <flex:FlexButton
-                    x:Name="PopupButton" Margin="0, 20, 0, 0" Clicked="PopupButton_Clicked" Grid.Row="7" Grid.ColumnSpan="2"
-                    Text="Save"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="Start"
-                    HeightRequest="50"
-                    Style="{StaticResource SaveChangesButtonStyle}"
-                    ClickedCommand="{Binding SaveButtonClicked}"
+                <sh:Shadows
+                    x:Name="PopupButton"
+                    Grid.Row="7"
                     CornerRadius="18"
-                    ForegroundColor="{StaticResource Light}"
-                    BackgroundColor="{StaticResource Secondary}"
-                    HighlightBackgroundColor="#4f6784"
-                    BorderThickness="0,0,0,4"
-                    BorderColor="{StaticResource Primary}"
-                    HighlightBorderColor="#2d3b4c"
-                    FontSize="14"/>
+                    Style="{StaticResource SaveChangesButtonStyle}"
+                    Grid.ColumnSpan="2"
+                    Shades="{sh:SingleShade Offset='0, 5',
+                                    Opacity=1,
+                                    BlurRadius=1,
+                                    Color=#233142}">
+                    <Button
+                        IsEnabled="{Binding AnyChangesToSave}"
+                        CornerRadius="18"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start"
+                        HeightRequest="50"
+                        Text="SAVE"
+                        TextColor="{StaticResource Light}"
+                        BackgroundColor="{StaticResource Secondary}"
+                        Clicked="PopupButton_Clicked"/>
+                </sh:Shadows>
             </Grid>
         </Frame>
 </pages:PopupPage>

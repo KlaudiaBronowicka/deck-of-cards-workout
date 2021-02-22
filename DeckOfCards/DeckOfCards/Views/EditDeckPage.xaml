@@ -10,7 +10,7 @@
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex">
+             xmlns:sh="http://sharpnado.com">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
@@ -133,23 +133,25 @@
 
                     </Switch>
             </Grid>
-            <flex:FlexButton
+                <sh:Shadows
+                    x:Name="PauseButton"
                     Grid.Row="0"
-                    Text="Save changes"
-                    IsEnabled="{Binding AnyChangesToSave}"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="Start"
-                    HeightRequest="50"
-                    Style="{StaticResource SaveChangesButtonStyle}"
-                    ClickedCommand="{Binding SaveButtonClicked}"
                     CornerRadius="18"
-                    ForegroundColor="{StaticResource Light}"
-                    BackgroundColor="{StaticResource Secondary}"
-                    HighlightBackgroundColor="#4f6784"
-                    BorderThickness="0,0,0,4"
-                    BorderColor="{StaticResource Primary}"
-                    HighlightBorderColor="#2d3b4c"
-                    FontSize="14"/>
+                    Style="{StaticResource SaveChangesButtonStyle}"
+                    Shades="{sh:SingleShade Offset='0, 5',
+                                    Opacity=1,
+                                    BlurRadius=1,
+                                    Color=#233142}">
+                    <Button
+                        CornerRadius="18"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start"
+                        HeightRequest="50"
+                        Text="SAVE CHANGES"
+                        TextColor="{StaticResource Light}"
+                        BackgroundColor="{StaticResource Secondary}"
+                        Command="{Binding SaveButtonClicked}"/>
+                </sh:Shadows>
         </StackLayout>
         </ScrollView>
     </Grid>
