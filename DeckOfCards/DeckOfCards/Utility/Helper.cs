@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using DeckOfCards.Models;
 using System.Linq;
 using Xamarin.Essentials;
+using System.Windows.Input;
 
 namespace DeckOfCards.Utility
 {
     public static class Helper
     {
-        
+        public static void Execute(ICommand command)
+        {
+            if (command == null) return;
+
+            if (command.CanExecute(null))
+            {
+                command.Execute(null);
+            }
+        }
 
         public static string SerializeFinishedExercises(Dictionary<CardSymbol, int> exercises)
         {

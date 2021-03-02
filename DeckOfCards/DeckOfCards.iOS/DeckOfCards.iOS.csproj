@@ -47,11 +47,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Distribution: Klaudia Bronowicka (46QXQZ2N89)</CodesignKey>
+    <CodesignKey>Apple Development: Klaudia Bronowicka (DMKCAR3Y2L)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <LangVersion>8.0</LangVersion>
-    <CodesignProvision>Deck of Cards - App Store</CodesignProvision>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <CodesignProvision>Deck of Cards Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -60,11 +61,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Distribution: Klaudia Bronowicka (46QXQZ2N89)</CodesignKey>
+    <CodesignKey>Apple Development: Klaudia Bronowicka (DMKCAR3Y2L)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <LangVersion>8.0</LangVersion>
-    <CodesignProvision>Deck of Cards - App Store</CodesignProvision>
+    <CodesignProvision>Deck of Cards Development</CodesignProvision>
     <MtouchExtraArgs>--optimize=experimental-xforms-product-type</MtouchExtraArgs>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

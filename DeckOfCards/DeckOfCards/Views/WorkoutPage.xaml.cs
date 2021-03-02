@@ -239,7 +239,6 @@ namespace DeckOfCards.Views
             HideTutorial();
         }
         
-
         private async void ShowTutorial()
         {
             TutorialWindow.IsVisible = true;

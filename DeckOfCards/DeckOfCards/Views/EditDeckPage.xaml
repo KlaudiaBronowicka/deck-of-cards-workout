@@ -6,11 +6,11 @@
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.EditDeckPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
+             xmlns:controls="clr-namespace:DeckOfCards.Controls"
              xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             xmlns:sh="http://sharpnado.com">
+             xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:CardSymbolToImageConverter x:Key="cardSymbolImageConvert" />
@@ -133,25 +133,13 @@
 
                     </Switch>
             </Grid>
-                <sh:Shadows
-                    x:Name="PauseButton"
-                    Grid.Row="0"
-                    CornerRadius="18"
+                
+                <controls:DOCButton
+                    x:Name="FinishButton"
                     Style="{StaticResource SaveChangesButtonStyle}"
-                    Shades="{sh:SingleShade Offset='0, 5',
-                                    Opacity=1,
-                                    BlurRadius=1,
-                                    Color=#233142}">
-                    <Button
-                        CornerRadius="18"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start"
-                        HeightRequest="50"
-                        Text="SAVE CHANGES"
-                        TextColor="{StaticResource Light}"
-                        BackgroundColor="{StaticResource Secondary}"
-                        Command="{Binding SaveButtonClicked}"/>
-                </sh:Shadows>
+                    Grid.Row="0"
+                    Text="SAVE CHANGES"
+                    ButtonCommand="{Binding SaveButtonClicked}" />
         </StackLayout>
         </ScrollView>
     </Grid>

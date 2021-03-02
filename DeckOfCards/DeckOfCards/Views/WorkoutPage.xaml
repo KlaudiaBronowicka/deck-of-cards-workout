@@ -10,8 +10,7 @@
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:controls="clr-namespace:DeckOfCards.Controls;assembly=DeckOfCards"
-             xmlns:sh="http://sharpnado.com"
-             >
+             xmlns:sh="http://sharpnado.com">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SecondsToTimeConverter x:Key="timeConvert" />
@@ -207,47 +206,19 @@
                     <RowDefinition Height="140"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <sh:Shadows
+                <controls:DOCButton
                     x:Name="FinishButton"
                     Margin="40, 10, 40, 10"
                     Grid.Row="0"
-                    CornerRadius="18"
-                    Shades="{sh:SingleShade Offset='0, 5',
-                                    Opacity=1,
-                                    BlurRadius=1,
-                                    Color=#233142}">
-                    <Button
-                        CornerRadius="18"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start"
-                        HeightRequest="50"
-                        Text="FINISH WORKOUT"
-                        TextColor="{StaticResource Light}"
-                        BackgroundColor="{StaticResource Secondary}"
-                        Command="{Binding FinishButtonPressedCommand}"
-                                 />
-                </sh:Shadows>
+                    Text="FINISH WORKOUT"
+                    ButtonCommand="{Binding FinishButtonPressedCommand}" />
 
-                <sh:Shadows
+                <controls:DOCButton
                     x:Name="PauseButton"
                     Margin="40, 10, 40, 10"
                     Grid.Row="0"
-                    CornerRadius="18"
-                    Shades="{sh:SingleShade Offset='0, 5',
-                                    Opacity=1,
-                                    BlurRadius=1,
-                                    Color=#233142}">
-                    <Button
-                        CornerRadius="18"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start"
-                        HeightRequest="50"
-                        Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
-                        TextColor="{StaticResource Light}"
-                        BackgroundColor="{StaticResource Secondary}"
-                        Command="{Binding PauseButtonPressedCommand}"
-                                 />
-                </sh:Shadows>
+                    Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
+                    ButtonCommand="{Binding PauseButtonPressedCommand}" />
 
             </Grid>
             <controls:AdControlView Grid.Row="3" Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand"  />
@@ -412,7 +383,7 @@
                         TextColor="{StaticResource Light}"
                         Text="5 of each"/>
                 </StackLayout>
-
+                <!--TODO: replace with DOCButton component, but after this popup gets refactored -->
                 <sh:Shadows
                     x:Name="CloseTutorialButton"
                     Margin="40, 20, 40, 10"

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DeckOfCards.Controls.DOCButton">
+    <sh:Shadows
+        CornerRadius="18"
+        Shades="{sh:SingleShade Offset='0, 5',
+                        Opacity=1,
+                        BlurRadius=1,
+                        Color=#233142}">
+        <Button
+            x:Name="Button"
+            CornerRadius="18"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Start"
+            HeightRequest="50"
+            Text="{Binding Text}"
+            TextColor="{StaticResource Light}"
+            BackgroundColor="{StaticResource Secondary}"
+            Clicked="Button_Clicked"
+                        />
+    </sh:Shadows>
+</ContentView>

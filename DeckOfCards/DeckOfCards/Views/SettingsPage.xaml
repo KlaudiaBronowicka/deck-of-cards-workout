@@ -6,7 +6,6 @@
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.SettingsPage"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
-             xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
