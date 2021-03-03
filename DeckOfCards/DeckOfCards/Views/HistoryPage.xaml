@@ -15,6 +15,7 @@
             <converters:DateToTextConverter x:Key="dateToTextConverter" />
             <converters:SecondsToTimeConverter x:Key="secondsToTimeConverter" />
             <converters:WorkoutToCardsCompletedConverter x:Key="workoutToCardsCompletedConverter" />
+            <converters:DataSourceConverter x:Key="dataSourceConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -27,6 +28,16 @@
                  Grid.Column="0"
                  x:Name="canvasView"
                  PaintSurface="OnCanvasViewPaintSurface" />
+
+            <Label Text="Nothing here. Finish workouts to add them to this list."
+                   TextColor="White"
+                   FontSize="20"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Margin="20, 0"
+                   IsVisible="{Binding Workouts, Converter={StaticResource dataSourceConverter}}"
+                   />
             <StackLayout
                 VerticalOptions="Start">
                 <StackLayout.Padding>
@@ -46,7 +57,9 @@
                 IsRefreshing="{Binding IsRefreshing}"
                 IsPullToRefreshEnabled="True"
                 ItemSelected="WorkoutItemSelected"
-                BackgroundColor="Transparent">
+                BackgroundColor="Transparent"
+                Footer=""
+                >
                 <ListView.ItemTemplate>
                 <DataTemplate>
                     <renderers:ListViewCell>
