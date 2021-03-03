@@ -23,29 +23,29 @@
             Background="#FFF"
             VerticalOptions="Center" 
             HorizontalOptions="FillAndExpand" 
-            Padding="40, 40, 40, 40"
+            Padding="20, 40, 20, 20"
             Margin="20, 0, 20, 0">
             <Grid RowDefinitions="20, 20, 20, 20, 20, 20, 20, Auto" ColumnDefinitions="Auto, *" RowSpacing="16" ColumnSpacing="16">
-                <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding Monday}" />
-                <Label Grid.Row="0" Grid.Column="1" Text="Monday" VerticalOptions="Center" />
+                <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding Monday}" Color="{StaticResource Accent}"  />
+                <Label Grid.Row="0" Grid.Column="1" Text="Monday" VerticalOptions="Center" TextColor="{StaticResource Primary}" />
 
-                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding Tuesday}" />
-                <Label Grid.Row="1" Grid.Column="1" Text="Tuesday" VerticalOptions="Center"  />
+                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding Tuesday}" Color="{StaticResource Accent}" />
+                <Label Grid.Row="1" Grid.Column="1" Text="Tuesday" VerticalOptions="Center" TextColor="{StaticResource Primary}"  />
 
-                <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding Wednesday}" />
-                <Label Grid.Row="2" Grid.Column="1" Text="Wednesday" VerticalOptions="Center"  />
+                <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{Binding Wednesday}" Color="{StaticResource Accent}" />
+                <Label Grid.Row="2" Grid.Column="1" Text="Wednesday" VerticalOptions="Center" TextColor="{StaticResource Primary}"  />
 
-                <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{Binding Thursday}" />
-                <Label Grid.Row="3" Grid.Column="1" Text="Thursday" VerticalOptions="Center"  />
+                <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{Binding Thursday}" Color="{StaticResource Accent}" />
+                <Label Grid.Row="3" Grid.Column="1" Text="Thursday" VerticalOptions="Center" TextColor="{StaticResource Primary}"  />
 
-                <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{Binding Friday}" />
-                <Label Grid.Row="4" Grid.Column="1" Text="Friday" VerticalOptions="Center"  />
+                <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{Binding Friday}" Color="{StaticResource Accent}" />
+                <Label Grid.Row="4" Grid.Column="1" Text="Friday" VerticalOptions="Center" TextColor="{StaticResource Primary}"  />
 
-                <CheckBox Grid.Row="5" Grid.Column="0" IsChecked="{Binding Saturday}" />
-                <Label Grid.Row="5" Grid.Column="1" Text="Saturday" VerticalOptions="Center"  />
+                <CheckBox Grid.Row="5" Grid.Column="0" IsChecked="{Binding Saturday}" Color="{StaticResource Accent}" />
+                <Label Grid.Row="5" Grid.Column="1" Text="Saturday" VerticalOptions="Center" TextColor="{StaticResource Primary}"  />
 
-                <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding Sunday}" />
-                <Label Grid.Row="6" Grid.Column="1" Text="Sunday" VerticalOptions="Center" />
+                <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding Sunday}" Color="{StaticResource Accent}" />
+                <Label Grid.Row="6" Grid.Column="1" Text="Sunday" VerticalOptions="Center" TextColor="{StaticResource Primary}" />
 
                 <controls:DOCButton
                     x:Name="PopupButton"
