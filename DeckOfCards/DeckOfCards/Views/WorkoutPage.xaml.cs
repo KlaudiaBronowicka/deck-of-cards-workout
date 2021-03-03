@@ -242,6 +242,9 @@ namespace DeckOfCards.Views
             _tutorialPopup ??= new TutorialPopup();
 
             await PopupNavigation.Instance.PushAsync(_tutorialPopup);
+
+            Xamarin.Essentials.Preferences.Set("SeenTutorial", true);
+
         }
     }
 }

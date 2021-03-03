@@ -137,6 +137,7 @@
                 <controls:DOCButton
                     x:Name="FinishButton"
                     Style="{StaticResource SaveChangesButtonStyle}"
+                    HorizontalOptions="FillAndExpand"
                     Grid.Row="0"
                     Text="SAVE CHANGES"
                     ButtonCommand="{Binding SaveButtonClicked}" />

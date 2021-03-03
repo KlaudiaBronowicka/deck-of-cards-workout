@@ -8,7 +8,7 @@
         CornerRadius="18"
         Shades="{sh:SingleShade Offset='0, 5',
                         Opacity=1,
-                        BlurRadius=1,
+                        BlurRadius=0.5,
                         Color=#233142}">
         <Button
             x:Name="Button"

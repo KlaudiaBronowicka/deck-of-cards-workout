@@ -31,8 +31,8 @@ namespace DeckOfCards.Views
             SKRect rect = new SKRect(0, 0, width, height);
 
             paint.Shader = SKShader.CreateLinearGradient(
+                                new SKPoint(width * 0.5f, height),
                                 new SKPoint(width * 0.5f, 0),
-                                new SKPoint(width * 0.5f, 1),
                                 new SKColor[] { new SKColor(69, 93, 122), new SKColor(35, 49, 66) },
                                 new float[] { 0, 1 },
                                 SKShaderTileMode.Mirror);

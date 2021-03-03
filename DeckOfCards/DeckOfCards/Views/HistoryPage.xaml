@@ -20,12 +20,10 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid
-            VerticalOptions="Fill"
+            VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
-            BackgroundColor="{StaticResource Primary}">
+            >
          <skiaforms:SKCanvasView
-                 Grid.Row="0"
-                 Grid.Column="0"
                  x:Name="canvasView"
                  PaintSurface="OnCanvasViewPaintSurface" />
 
