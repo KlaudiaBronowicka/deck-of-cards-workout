@@ -45,6 +45,7 @@
     </Style>
     <Style x:Key="SaveChangesButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="40, 20, 40, 10" />
+        <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
     </Style>
     <Style x:Key="HistoryPageCellSizeStyle" TargetType="StackLayout">
         <Setter Property="HeightRequest" Value="70" />

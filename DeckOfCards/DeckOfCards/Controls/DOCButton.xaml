@@ -19,7 +19,6 @@
             Text="{Binding Text}"
             TextColor="{StaticResource Light}"
             BackgroundColor="{StaticResource Secondary}"
-            Clicked="Button_Clicked"
-                        />
+            Clicked="Button_Clicked"/>
     </sh:Shadows>
 </ContentView>

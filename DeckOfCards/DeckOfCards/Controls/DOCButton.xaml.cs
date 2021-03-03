@@ -9,6 +9,8 @@ namespace DeckOfCards.Controls
 {
     public partial class DOCButton : ContentView
     {
+        public event EventHandler<EventArgs> ButtonClicked;
+
         public ICommand ButtonCommand
         {
             get { return (ICommand)GetValue(ButtonCommandProperty); }
@@ -41,6 +43,8 @@ namespace DeckOfCards.Controls
         public void Button_Clicked(System.Object sender, System.EventArgs e)
         {
             Execute(ButtonCommand);
+
+            ButtonClicked?.Invoke(sender, e);
         }
 
         public DOCButton()

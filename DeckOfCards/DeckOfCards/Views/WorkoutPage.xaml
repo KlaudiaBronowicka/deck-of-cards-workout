@@ -383,27 +383,13 @@
                         TextColor="{StaticResource Light}"
                         Text="5 of each"/>
                 </StackLayout>
-                <!--TODO: replace with DOCButton component, but after this popup gets refactored -->
-                <sh:Shadows
+
+
+                <controls:DOCButton
                     x:Name="CloseTutorialButton"
-                    Margin="40, 20, 40, 10"
-                    Grid.Row="0"
-                    CornerRadius="18"
-                    Shades="{sh:SingleShade Offset='0, 5',
-                                    Opacity=1,
-                                    BlurRadius=1,
-                                    Color=#233142}">
-                    <Button
-                        CornerRadius="18"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start"
-                        HeightRequest="50"
-                        Text="GOT IT!"
-                        TextColor="{StaticResource Light}"
-                        BackgroundColor="{StaticResource Secondary}"
-                        Clicked="CloseTutorialButtonClicked"
-                                 />
-                </sh:Shadows>
+                    Margin="20, 20, 20, 10"
+                    Text="GOT IT!"
+                    ButtonClicked="CloseTutorialButtonClicked"/>
                 
             </StackLayout>
             </ScrollView>
