@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using Rg.Plugins.Popup.Services;
 
 namespace DeckOfCards.Views
 {
@@ -14,6 +15,8 @@ namespace DeckOfCards.Views
     {
         private View[] _fadeOutOnGamePausedElements;
         private WorkoutViewModel _vm;
+
+        private TutorialPopup _tutorialPopup;
 
         public WorkoutPage()
         {
@@ -233,44 +236,12 @@ namespace DeckOfCards.Views
         {
             ShowTutorial();
         }
-
-        private void CloseTutorialButtonClicked(object sender, EventArgs e)
-        {
-            HideTutorial();
-        }
         
         private async void ShowTutorial()
         {
-            TutorialWindow.IsVisible = true;
+            _tutorialPopup ??= new TutorialPopup();
 
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                TutorialWindow.HasShadow = false;
-                await TutorialWindow.ScaleTo(1, 500, Easing.SpringOut);
-                TutorialWindow.HasShadow = true;
-                await TutorialScrollView.ScrollToAsync(CloseTutorialButton, ScrollToPosition.End, true);
-
-            }
-            else
-            {
-                await TutorialWindow.ScaleTo(1, 500, Easing.SpringOut);
-                await TutorialScrollView.ScrollToAsync(CloseTutorialButton, ScrollToPosition.End, true);
-            }
-
-
-        }
-
-        private async void HideTutorial()
-        {
-            if (Device.RuntimePlatform == Device.iOS)
-            {
-                TutorialWindow.HasShadow = false;
-            }
-
-            await TutorialWindow.ScaleTo(0, 400, Easing.SpringIn);
-            TutorialWindow.IsVisible = false;
-
-            Xamarin.Essentials.Preferences.Set("SeenTutorial", true);
+            await PopupNavigation.Instance.PushAsync(_tutorialPopup);
         }
     }
 }

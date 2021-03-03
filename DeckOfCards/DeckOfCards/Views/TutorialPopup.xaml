@@ -1,0 +1,131 @@
+﻿<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:DeckOfCards.Controls;assembly=DeckOfCards"
+    x:Class="DeckOfCards.Views.TutorialPopup"
+    BackgroundColor="#88000000"
+    >
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Top"
+            PositionOut="Top"
+            ScaleIn="0"
+            ScaleOut="0"
+            DurationIn="300"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+        <Frame
+             CornerRadius="20"
+             HorizontalOptions="Center"
+             VerticalOptions="Center"
+             BackgroundColor="White"
+             AnchorY="0"
+             Margin="20, 0"
+             >
+             <ScrollView x:Name="TutorialScrollView" HorizontalOptions="Center" VerticalOptions="Center">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Label
+                    HorizontalOptions="Center"
+                    TextColor="{StaticResource Primary}"
+                    FontSize="Title"
+                    Text="Deck of cards workout"
+                    Margin="0, 0, 0, 8"/>
+                <Label
+                    TextColor="{StaticResource Primary}"
+                    Text="Numbers on cards define repetitions and suits represent exercises. You can change exercises depending on your needs. The default deck is: "/>
+                <Grid ColumnDefinitions="*, *" RowDefinitions="*, *, *">
+                     <StackLayout Grid.Row="0" Grid.Column="0"
+                     HeightRequest="30"
+                     Orientation="Horizontal"
+                     Spacing="30"
+                     Margin="0, 16, 0, 0" 
+                     >
+                    <Image
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Source="heart">
+                    </Image>
+                    <Label
+                        VerticalOptions="Center"
+                        TextColor="{StaticResource Primary}"
+                        Text="Burpees"/>
+                </StackLayout>
+                <StackLayout Grid.Row="0" Grid.Column="1"
+                    HeightRequest="30"
+                    Orientation="Horizontal"
+                    Spacing="30"
+                    Margin="0, 16, 0, 0" >
+                    <Image
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Source="club">
+                    </Image>
+                    <Label
+                        VerticalOptions="Center"
+                        TextColor="{StaticResource Primary}"
+                        Text="Sit ups"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="0"
+                    HeightRequest="30"
+                    Orientation="Horizontal"
+                    Spacing="30"
+                    Margin="0, 16, 0, 0" 
+                    >
+                    <Image
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Source="diamond">
+                    </Image>
+                    <Label
+                        VerticalOptions="Center"
+                        TextColor="{StaticResource Primary}"
+                        Text="Push ups"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="1"
+                    HeightRequest="30"
+                    Orientation="Horizontal"
+                    Spacing="30"
+                    Margin="0, 16, 0, 0" 
+                    >
+                    <Image
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Source="spade">
+                    </Image>
+                    <Label
+                        VerticalOptions="Center"
+                        TextColor="{StaticResource Primary}"
+                        Text="Squats"/>
+                </StackLayout>
+                <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                    HeightRequest="30"
+                    Orientation="Horizontal"
+                    Spacing="30"
+                    Margin="0, 16, 0, 0" >
+                    <Image
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Source="star">
+                    </Image>
+                    <Label
+                        VerticalOptions="Center"
+                        TextColor="{StaticResource Primary}"
+                        Text="5 of each"/>
+                </StackLayout>
+                </Grid>
+               
+
+                <controls:DOCButton
+                    Margin="20, 20, 20, 10"
+                    Text="GOT IT!"
+                    ButtonClicked="Button_Clicked"/>
+                
+            </StackLayout>
+            </ScrollView>
+         </Frame>
+</pages:PopupPage>
