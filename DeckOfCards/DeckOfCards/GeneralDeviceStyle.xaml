@@ -18,13 +18,14 @@
     </Style>
     <Style x:Key="CardNumberLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="28" />
-        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontFamily" Value="Nunito-Bold" />
         <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        <Setter Property="TextColor" Value="{StaticResource Accent}" />
     </Style>
     <Style x:Key="CardLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="28" />
         <Setter Property="Grid.Row" Value="2" />
+        <Setter Property="FontFamily" Value="Nunito-Bold" />
         <Setter Property="Grid.Column" Value="0" />
         <Setter Property="Grid.ColumnSpan" Value="3" />
         <Setter Property="HorizontalOptions" Value="Center" />

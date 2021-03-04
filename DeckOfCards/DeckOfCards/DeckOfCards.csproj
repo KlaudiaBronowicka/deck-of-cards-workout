@@ -17,6 +17,9 @@
     <None Remove="Assets\Images\heart.png" />
     <None Remove="Assets\Images\spade.png" />
     <None Remove="Assets\Images\star.png" />
+    <None Remove="Resources\Nunito-Bold.ttf" />
+    <None Remove="Resources\Nunito-Light.ttf" />
+    <None Remove="Resources\Nunito-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +28,9 @@
     <EmbeddedResource Include="Assets\Images\heart.png" />
     <EmbeddedResource Include="Assets\Images\spade.png" />
     <EmbeddedResource Include="Assets\Images\star.png" />
+    <EmbeddedResource Include="Resources\Nunito-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Nunito-Light.ttf" />
+    <EmbeddedResource Include="Resources\Nunito-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,5 +59,6 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Renderers\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>

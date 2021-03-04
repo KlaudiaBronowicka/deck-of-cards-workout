@@ -147,7 +147,22 @@
                             VerticalOptions="Start"
                             Text="{Binding CurrentCard.Value, Converter={StaticResource cardNumberToLabelConverter}}"
                             Style="{StaticResource CardNumberLabelStyle}"
-                            Margin="20, 15, 0, 0"/>
+                            Margin="20, 15, 0, 0">
+                            <Label.Triggers>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Club">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Spade">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Hearts">
+                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Diamond">
+                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
                         <Image
                             x:Name="TopLeftCardSymbol"
                             Style="{StaticResource CardSymbolImageStyle}"
@@ -172,9 +187,20 @@
                             Style="{StaticResource CardNumberLabelStyle}"
                             Margin="0, 15, 20, 0">
                              <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}"
-                                            Value="Joker">
+                                <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Joker">
                                     <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Club">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Spade">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Hearts">
+                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Diamond">
+                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
@@ -207,6 +233,21 @@
                                             Value="Joker">
                                     <Setter Property="IsVisible" Value="False" />
                                 </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Joker">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Club">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Spade">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Hearts">
+                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Diamond">
+                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
+                                </DataTrigger>
                             </Label.Triggers>
                             </Label>
                         <Image
@@ -234,7 +275,22 @@
                             Text="{Binding CurrentCard.Value, Converter={StaticResource cardNumberToLabelConverter}}"
                             Rotation="180"
                             Margin="0, 0, 20, 15"
-                            Style="{StaticResource CardNumberLabelStyle}"/>
+                            Style="{StaticResource CardNumberLabelStyle}">
+                            <Label.Triggers>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Club">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Spade">
+                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Hearts">
+                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
+                                </DataTrigger>
+                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Diamond">
+                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
                         <Image
                             x:Name="BottomRightCardSymbol"
                             Style="{StaticResource CardSymbolImageStyle}"
