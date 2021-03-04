@@ -160,12 +160,6 @@ namespace DeckOfCards.Views
             switch (_vm.GameState)
             {
                 case GameState.Paused:
-
-                    // show finish button
-                    await Task.WhenAll(
-                        FinishButton.FadeTo(1, 300),
-                        FinishButton.TranslateTo(0, 80, 300, Easing.SpringOut));
-
                     break;
 
                 case GameState.Running:
@@ -186,7 +180,6 @@ namespace DeckOfCards.Views
                     else
                     {
                         // resume game
-                        await FinishButton.TranslateTo(0, 0, 300, Easing.CubicInOut);
                     }
 
                     break;
@@ -198,9 +191,6 @@ namespace DeckOfCards.Views
                     await Task.WhenAll(
                         Buttons.TranslateTo(-Application.Current.MainPage.Width, 0, 500, Easing.SinInOut),
                         Buttons.FadeTo(0, 500));
-
-                    // hide finish button
-                    FinishButton.TranslationY = 0;
 
                     Buttons.IsEnabled = false;
 

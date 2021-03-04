@@ -193,6 +193,7 @@
                 TextColor="{StaticResource Light}"
                 Opacity="0.5"/>
 
+
             <!-- Buttons -->
             <Grid
                 Grid.Row="2"
@@ -201,27 +202,28 @@
                 HeightRequest="200"
                 BackgroundColor="Transparent"
                 IsEnabled="False"
-                Opacity="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="140"></RowDefinition>
-                </Grid.RowDefinitions>
+                Opacity="0"
+                ColumnDefinitions="*, *"
+                >
 
                 <controls:DOCButton
                     x:Name="FinishButton"
-                    Margin="40, 10, 40, 10"
-                    Grid.Row="0"
-                    Text="FINISH WORKOUT"
+                    Margin="40, 20, 10, 40"
+                    Text="QUIT"
                     ButtonCommand="{Binding FinishButtonPressedCommand}" />
 
                 <controls:DOCButton
+                    Grid.Column="1"
                     x:Name="PauseButton"
-                    Margin="40, 10, 40, 10"
-                    Grid.Row="0"
+                    Margin="10, 20, 40, 40"
                     Text="{Binding IsGamePaused, Converter={StaticResource gamePausedTextConvert}}"
                     ButtonCommand="{Binding PauseButtonPressedCommand}" />
 
             </Grid>
+
             <controls:AdControlView Grid.Row="3" Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand"  />
+
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>
