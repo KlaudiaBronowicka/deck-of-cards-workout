@@ -16,9 +16,15 @@
         <Setter Property="FontSize" Value="28" />
         <Setter Property="TextColor" Value="{StaticResource Light}" />
     </Style>
+    <Style x:Key="CardNumberLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+    </Style>
     <Style x:Key="CardLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="28" />
-        <Setter Property="Grid.Row" Value="1" />
+        <Setter Property="Grid.Row" Value="2" />
         <Setter Property="Grid.Column" Value="0" />
         <Setter Property="Grid.ColumnSpan" Value="3" />
         <Setter Property="HorizontalOptions" Value="Center" />
@@ -37,8 +43,8 @@
         <Setter Property="HeightRequest" Value="50" />
     </Style>
     <Style x:Key="CardSymbolImageStyle" TargetType="Image">
-        <Setter Property="HeightRequest" Value="50" />
-        <Setter Property="WidthRequest" Value="50" />
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="WidthRequest" Value="30" />
     </Style>
     <Style x:Key="SaveChangesButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="40, 80, 40, 10" />
