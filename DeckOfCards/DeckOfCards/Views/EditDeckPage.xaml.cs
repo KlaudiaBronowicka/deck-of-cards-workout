@@ -8,11 +8,12 @@ using DeckOfCards.ViewModels;
 namespace DeckOfCards.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditDeckPage : ContentPage
+    public partial class EditDeckPage : BaseContentPage
     {
         public EditDeckPage()
         {
             InitializeComponent();
+
         }
 
         public void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)

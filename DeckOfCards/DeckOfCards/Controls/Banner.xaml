@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Frame
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DeckOfCards.Controls.Banner"
+    VerticalOptions="End"
+    HorizontalOptions="FillAndExpand"
+    TranslationY="200"
+    Padding="16"
+    Margin="0"
+    BackgroundColor="{StaticResource Light}"
+    >
+    <StackLayout
+        Orientation="Horizontal"
+        Spacing="20">
+        <Image
+            Source="tick"
+            HeightRequest="30"
+            WidthRequest="30" />
+        <Label
+            x:Name="BannerLabel"
+            TextColor="{StaticResource Primary}"
+            FontSize="16"
+            VerticalOptions="Center"
+            VerticalTextAlignment="Center"/>
+    </StackLayout >
+</Frame>

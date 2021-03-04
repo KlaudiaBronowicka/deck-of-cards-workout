@@ -62,6 +62,8 @@ namespace DeckOfCards.ViewModels
 
             MessagingCenter.Send(this, MessagingCenterConstants.ExercisesUpdated);
 
+            ShowUIBanner("Changes saved successfully");
+
             AnyChangesToSave = false;
         }
 

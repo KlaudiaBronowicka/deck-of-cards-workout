@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage
+<views:BaseContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="DeckOfCards.Views.HistoryPage"
@@ -7,7 +7,9 @@
     utility:ViewModelLocator.AutoWireViewModel="True"
     xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
     xmlns:converters="clr-namespace:DeckOfCards.Converters"
+    xmlns:controls="clr-namespace:DeckOfCards.Controls"
     xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
+    xmlns:views="clr-namespace:DeckOfCards.Views"
     NavigationPage.HasNavigationBar="False"
     >
     <ContentPage.Resources>
@@ -123,6 +125,8 @@
             </ListView>
         </StackLayout>
 
+        <controls:Banner x:Name="BannerView"  />
+
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</views:BaseContentPage>

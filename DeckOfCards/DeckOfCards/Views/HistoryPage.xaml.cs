@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace DeckOfCards.Views
 {
-    public partial class HistoryPage : ContentPage
+    public partial class HistoryPage : BaseContentPage
     {
         private HistoryViewModel _vm;
 

@@ -126,6 +126,8 @@
     <ImageAsset Include="Assets.xcassets\settings.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\settings.imageset\settings %282%29.png" />
     <ImageAsset Include="Assets.xcassets\settings.imageset\settings %281%29.png" />
+    <ImageAsset Include="Assets.xcassets\tick.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\tick.imageset\tick.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -176,5 +178,6 @@
     <Folder Include="Assets.xcassets\star.imageset\" />
     <Folder Include="Assets.xcassets\spade.imageset\" />
     <Folder Include="Assets.xcassets\settings.imageset\" />
+    <Folder Include="Assets.xcassets\tick.imageset\" />
   </ItemGroup>
 </Project>

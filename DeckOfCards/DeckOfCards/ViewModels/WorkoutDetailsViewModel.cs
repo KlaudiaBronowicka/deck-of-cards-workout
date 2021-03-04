@@ -77,6 +77,8 @@ namespace DeckOfCards.ViewModels
 
                 await _navigationService.NavigateBackAsync();
 
+                MessagingCenter.Send(this, "WorkoutDeleted");
+
                 return;
             }
             

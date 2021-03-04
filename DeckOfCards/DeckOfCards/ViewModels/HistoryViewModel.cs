@@ -41,7 +41,15 @@ namespace DeckOfCards.ViewModels
             _workoutService = workoutService;
             _navigationService = navigationService;
 
+            MessagingCenter.Subscribe<WorkoutDetailsViewModel>(this, "WorkoutDeleted", (s) => OnWorkoutDeleted());
+
             Task.Run(() => InitializeAsync(null));
+        }
+
+        private void OnWorkoutDeleted()
+        {
+            ShowUIBanner("Workout has been removed");
+            Refresh();
         }
 
         public async void Refresh()

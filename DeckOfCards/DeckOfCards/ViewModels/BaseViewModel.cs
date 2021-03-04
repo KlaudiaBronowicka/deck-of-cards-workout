@@ -10,6 +10,12 @@ namespace DeckOfCards.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public event EventHandler<string> UIBannerRequested;
+
+        public void ShowUIBanner(string text)
+        {
+            UIBannerRequested?.Invoke(this, text);
+        }
 
         public BaseViewModel()
         {

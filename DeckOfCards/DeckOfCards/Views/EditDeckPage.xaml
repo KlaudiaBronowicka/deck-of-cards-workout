@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,6 +9,7 @@
              xmlns:controls="clr-namespace:DeckOfCards.Controls"
              xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
+             xmlns:views="clr-namespace:DeckOfCards.Views"
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms">
     <ContentPage.Resources>
@@ -143,6 +144,9 @@
                     ButtonCommand="{Binding SaveButtonClicked}" />
         </StackLayout>
         </ScrollView>
+
+        <controls:Banner x:Name="BannerView"  /> 
+
     </Grid>
     </ContentPage.Content>
-</ContentPage>
+</views:BaseContentPage>
