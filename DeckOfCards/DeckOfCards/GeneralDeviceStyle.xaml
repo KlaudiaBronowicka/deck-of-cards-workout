@@ -5,12 +5,12 @@
     x:Class="DeckOfCards.GeneralDeviceStyle">
     
     <Style TargetType="Label" x:Key="HeaderStyle">
-        <Setter Property="FontSize" Value="44" />
+        <Setter Property="FontSize" Value="40" />
         <Setter Property="TextColor" Value="{StaticResource Light}" />
         <Setter Property="Margin" Value="16, 32, 0, 16" />
     </Style>
     <Style TargetType="Label" x:Key="HistoryPageCellLabelStyle">
-        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontSize" Value="18" />
     </Style>
    <Style TargetType="Label" x:Key="TopBarLabelStyle">
         <Setter Property="FontSize" Value="28" />
@@ -55,14 +55,14 @@
         <Setter Property="HeightRequest" Value="90" />
     </Style>
     <Style TargetType="Label" x:Key="DetailsPageLabelStyle">
-        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontSize" Value="20" />
     </Style>
     <Style TargetType="Label" x:Key="DetailsPageCellLabelStyle" BasedOn="{StaticResource DetailsPageLabelStyle}">
         <Setter Property="Margin" Value="12, 5, 0, 0" />
     </Style> 
     <Style TargetType="Grid" x:Key="DetailsPageCellSizeStyle">
-        <Setter Property="HeightRequest" Value="50" />
-        <Setter Property="Padding" Value="16, 20, 0, 10"/>
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="Padding" Value="16, 10, 16, 10"/>
     </Style>
     <Style TargetType="ImageButton" x:Key="HelpIconStyle">
         <Setter Property="Margin" Value="0, 22, 0, 0"/>

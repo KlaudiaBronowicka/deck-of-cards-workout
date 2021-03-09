@@ -40,7 +40,6 @@
             <StackLayout
                 Grid.Column="0"
                 Grid.Row="0"
-                Margin="0, 10, 8, 10"
                 Spacing="0">
                 <Label
                     Margin="20, 20, 0, 0"
@@ -58,7 +57,7 @@
                         </Label.FormattedText>
                     </Label>
                 <Label
-                    Margin="20, 20, 0, 0"
+                    Margin="20, 10, 0, 0"
                     VerticalOptions="Center"
                     Style="{StaticResource DetailsPageLabelStyle}"
                     HorizontalTextAlignment="Start"
@@ -72,7 +71,7 @@
                         </Label.FormattedText>
                     </Label>
             <Label
-                Margin="20, 20, 0, 0"
+                Margin="20, 10, 0, 0"
                 VerticalOptions="Center"
                 HorizontalTextAlignment="Start"
                 Style="{StaticResource DetailsPageLabelStyle}"
@@ -88,7 +87,7 @@
                 ItemsSource="{Binding FinishedExercises, Mode=TwoWay}"
                 HasUnevenRows="true"
                 HeightRequest="300"
-                Margin="0, 30, 0, 0"
+                Margin="0, 20, 0, 0"
                 SeparatorColor="{StaticResource Secondary}"
                 BackgroundColor="Transparent"
                 SelectionMode="None"
@@ -98,25 +97,19 @@
                     <renderers:NotSelectableListViewCell>
                         <ContentView>
                             <Grid
-                                Style="{StaticResource DetailsPageCellSizeStyle}">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+                                Style="{StaticResource DetailsPageCellSizeStyle}"
+                                RowDefinitions="auto"
+                                ColumnDefinitions="auto, *">
                                 <Image
-                                WidthRequest="30"
-                                HeightRequest="30"
-                                VerticalOptions="Center"
-                                Margin="8, 0, 0, 0"
-                                Source="{Binding Key.CardSymbol, Converter={StaticResource cardSymbolImageConvert}}">
+                                    WidthRequest="24"
+                                    HeightRequest="24"
+                                    VerticalOptions="Center"
+                                    Margin="8, 0, 0, 0"
+                                    Source="{Binding Key.CardSymbol, Converter={StaticResource cardSymbolImageConvert}}">
                                 </Image>
                                  <Label
                                     Grid.Column="1"
-                                    HorizontalTextAlignment="End"
+                                    HorizontalTextAlignment="Start"
                                     Style="{StaticResource DetailsPageCellLabelStyle}"
                                     TextColor="{StaticResource Light}">
                                     <Label.FormattedText>
