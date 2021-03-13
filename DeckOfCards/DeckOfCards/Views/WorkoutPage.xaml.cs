@@ -24,6 +24,8 @@ namespace DeckOfCards.Views
 
             _vm = (WorkoutViewModel)BindingContext;
 
+            _vm.WorkoutFinished += (s, e) => OnWorkoutFinished(e);
+
             _vm.PropertyChanged += OnViewModelPropertyChanged;
 
             _fadeOutOnGamePausedElements = new[]
@@ -141,16 +143,25 @@ namespace DeckOfCards.Views
                 case GameState.Paused:
                     ExerciseLabel.FadeTo(0, 300);
                     GameResumeLabel.FadeTo(1, 300);
+                    ResultsLabel.FadeTo(0, 300);
                     break;
                 case GameState.Running:
                     ExerciseLabel.FadeTo(1, 300);
                     GameResumeLabel.FadeTo(0, 300);
                     StartGameLabel.FadeTo(0, 300);
+                    ResultsLabel.FadeTo(0, 300);
                     break;
                 case GameState.Default:
                     ExerciseLabel.FadeTo(0, 300);
                     GameResumeLabel.FadeTo(0, 300);
                     StartGameLabel.FadeTo(0.5, 300);
+                    ResultsLabel.FadeTo(0, 300);
+                    break;
+                case GameState.Finished:
+                    ExerciseLabel.FadeTo(0, 300);
+                    GameResumeLabel.FadeTo(0, 300);
+                    StartGameLabel.FadeTo(0, 300);
+                    ResultsLabel.FadeTo(1, 300);
                     break;
             }
         }
@@ -234,6 +245,12 @@ namespace DeckOfCards.Views
             await PopupNavigation.Instance.PushAsync(_tutorialPopup);
 
             Xamarin.Essentials.Preferences.Set("SeenTutorial", true);
+
+        }
+
+        private void OnWorkoutFinished(string time)
+        {
+            ResultsLabelTimeSpan.Text = time;
 
         }
     }

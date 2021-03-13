@@ -66,7 +66,7 @@ namespace DeckOfCards.ViewModels
         private async void RemoveItem()
         {
             var result = await _popupService.ShowDialog(
-                       "Remove workout?",
+                       "Remove workout",
                        "Are you sure you want to remove this workout?",
                        "No",
                        "Yes");

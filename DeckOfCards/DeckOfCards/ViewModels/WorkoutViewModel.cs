@@ -12,7 +12,7 @@ using DeckOfCards.Contracts.Services;
 
 namespace DeckOfCards.ViewModels
 {
-    public enum GameState { Default, Running, Paused };
+    public enum GameState { Default, Running, Paused, Finished };
 
     public class WorkoutViewModel : BaseViewModel
     {
@@ -92,7 +92,7 @@ namespace DeckOfCards.ViewModels
 
         public bool IsGameRunning
         {
-            get => GameState == GameState.Running || GameState == GameState.Paused;
+            get => GameState == GameState.Running || GameState == GameState.Paused || GameState == GameState.Finished;
         }
 
         private Random _random;
@@ -113,6 +113,7 @@ namespace DeckOfCards.ViewModels
         public bool AnimateCardTransitions { get; set; }
         private bool _saveUnfinishedWorkouts;
 
+        public event EventHandler<string> WorkoutFinished;
 
         public WorkoutViewModel(IWorkoutService workoutService, IDeckDataService deckDataService, IPopupService popupService, IPreferenceService preferencesService)
         {
@@ -272,6 +273,9 @@ namespace DeckOfCards.ViewModels
                 case GameState.Default:
                     await StartGame();
                     break;
+                case GameState.Finished:
+                    await ResultCardDismissed();
+                    break;
             }
         }
 
@@ -366,20 +370,26 @@ namespace DeckOfCards.ViewModels
 
         private async void FinishGame()
         {
-            GameState = GameState.Default;
+            GameState = GameState.Finished;
 
             await SaveWorkout();
 
             var converter = new Converters.SecondsToTimeConverter();
             var time = converter.Convert(Seconds, typeof(string), null, System.Globalization.CultureInfo.InvariantCulture);
-            
-            await _popupService.ShowDialog("Congratulations!", $"You finished your workout in {time}!", "OK");
+
+            WorkoutFinished?.Invoke(this, time.ToString());
 
             Seconds = 0;
             CurrentCardIndex = 0;
             CurrentCard = null;
             _currentWorkout = null;
 
+            
+        }
+
+        public async Task ResultCardDismissed()
+        {
+            GameState = GameState.Default;
             await InitializeAsync(false);
         }
 
