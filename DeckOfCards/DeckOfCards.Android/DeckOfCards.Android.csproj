@@ -86,6 +86,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Renderers\AdViewRenderer.cs" />
     <Compile Include="SplashActivity.cs" />
+    <Compile Include="AdMobConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

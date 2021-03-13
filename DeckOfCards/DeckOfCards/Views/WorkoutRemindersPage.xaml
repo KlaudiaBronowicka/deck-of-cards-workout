@@ -6,6 +6,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.WorkoutRemindersPage"
+             xmlns:controls="clr-namespace:DeckOfCards.Controls"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
              xmlns:renderers="clr-namespace:DeckOfCards.Renderers"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
@@ -30,13 +31,16 @@
         <Grid
             VerticalOptions="Fill"
             HorizontalOptions="FillAndExpand"
-            BackgroundColor="{StaticResource Primary}">
+            BackgroundColor="{StaticResource Primary}"
+            RowDefinitions="*, auto">
          <skiaforms:SKCanvasView
                  Grid.Row="0"
+                Grid.RowSpan="2"
                  Grid.Column="0"
                  x:Name="canvasView"
                  PaintSurface="OnCanvasViewPaintSurface" />
              <ListView
+                Grid.Row="0"
                 ItemsSource="{Binding Reminders, Mode=TwoWay}"
                 HasUnevenRows="true"
                 Margin="0, 0, 0, 0"
@@ -125,6 +129,8 @@
                 </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+        <controls:AdControlView Grid.Row="1" Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand" AdUnit="RemindersPageBanner"  />
+
     </Grid>
     </ContentPage.Content>
 </ContentPage>

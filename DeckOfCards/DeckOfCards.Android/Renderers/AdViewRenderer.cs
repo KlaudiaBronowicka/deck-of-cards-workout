@@ -12,7 +12,6 @@ namespace DeckOfCards.Droid.Renderers
     {
         public AdViewRenderer(Context context) : base(context) { }
 
-        const string AdUnitId = "ca-app-pub-9447326003867145/6404644839";
         const string TestAdUnitId = "ca-app-pub-3940256099942544/6300978111";
 
         AdView _adView;
@@ -22,6 +21,7 @@ namespace DeckOfCards.Droid.Renderers
             if (_adView != null)
                 return _adView;
 
+            var adUnitId = GetAdUnitId();
             // This is a string in the Resources/values/strings.xml that I added or you can modify it here. This comes from admob and contains a / in it
 
             var adParams = new LinearLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
@@ -29,7 +29,7 @@ namespace DeckOfCards.Droid.Renderers
             _adView = new AdView(Context)
             {
                 AdSize = AdSize.SmartBanner,
-                AdUnitId = AdUnitId,
+                AdUnitId = adUnitId,
                 LayoutParameters = adParams
             };
 
@@ -49,6 +49,18 @@ namespace DeckOfCards.Droid.Renderers
             if (Control == null)
             {
                 SetNativeControl(CreateNativeAdControl());
+            }
+        }
+
+        private string GetAdUnitId()
+        {
+            switch (Element.AdUnit)
+            {
+                case "WorkoutPageBanner": return AdMobConfig.WorkoutPageBannerId;
+                case "HistoryPageBanner": return AdMobConfig.HistoryPageBannerId;
+                case "SettingsPageBanner": return AdMobConfig.SettingsPageBannerId;
+                case "RemindersPageBanner": return AdMobConfig.RemindersPageBannerId;
+                default: return AdMobConfig.WorkoutPageBannerId;
             }
         }
     }

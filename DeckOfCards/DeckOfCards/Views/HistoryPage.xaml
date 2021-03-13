@@ -121,7 +121,9 @@
                 </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <controls:AdControlView Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand" AdUnit="HistoryPageBanner"  />
         </StackLayout>
+
 
         <controls:Banner x:Name="BannerView"  />
 

@@ -12,7 +12,6 @@ namespace DeckOfCards.iOS.Renderers
 {
     public class AdViewRenderer : ViewRenderer<AdControlView, BannerView>
     {
-        private const string BannerId = "ca-app-pub-9447326003867145/2985781178";
         private const string TestBannerId = "ca-app-pub-3940256099942544/2934735716";
 
         private BannerView _adView;
@@ -26,11 +25,13 @@ namespace DeckOfCards.iOS.Renderers
 
             if (rootViewController == null) return null;
 
+            var bannerId = GetAdUnitId();
+
             // Setup your BannerView, review AdSizeCons class for more Ad sizes. 
             _adView = new BannerView(size: AdSizeCons.SmartBannerPortrait,
                                            origin: new CGPoint(0, UIScreen.MainScreen.Bounds.Size.Height - AdSizeCons.Banner.Size.Height))
             {
-                AdUnitId = BannerId,
+                AdUnitId = bannerId,
                 RootViewController = rootViewController
             };
 
@@ -88,6 +89,18 @@ namespace DeckOfCards.iOS.Renderers
                 if (CreateNativeAdControl() == null) return;
 
                 SetNativeControl(_adView);
+            }
+        }
+
+        private string GetAdUnitId()
+        {
+            switch (Element.AdUnit)
+            {
+                case "WorkoutPageBanner": return AdMobConfig.WorkoutPageBannerId;
+                case "HistoryPageBanner": return AdMobConfig.HistoryPageBannerId;
+                case "SettingsPageBanner": return AdMobConfig.SettingsPageBannerId;
+                case "RemindersPageBanner": return AdMobConfig.RemindersPageBannerId;
+                default: return AdMobConfig.WorkoutPageBannerId;
             }
         }
     }

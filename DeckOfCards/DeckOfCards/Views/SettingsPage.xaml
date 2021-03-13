@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DeckOfCards.Views.SettingsPage"
+             xmlns:controls="clr-namespace:DeckOfCards.Controls"
              xmlns:converters="clr-namespace:DeckOfCards.Converters"
              xmlns:utility="clr-namespace:DeckOfCards.Utility;assembly=DeckOfCards"
              utility:ViewModelLocator.AutoWireViewModel="True"
@@ -19,13 +20,16 @@
         <Grid
             VerticalOptions="Fill"
             HorizontalOptions="FillAndExpand"
-            BackgroundColor="{StaticResource Primary}">
+            BackgroundColor="{StaticResource Primary}"
+            RowDefinitions="*, 50"
+            >
          <skiaforms:SKCanvasView
                  Grid.Row="0"
+                 Grid.RowSpan="2"
                  Grid.Column="0"
                  x:Name="canvasView"
                  PaintSurface="OnCanvasViewPaintSurface" />
-            <ScrollView>
+            <ScrollView Grid.Row="0">
                 <StackLayout VerticalOptions="FillAndExpand" Spacing="0">
                     <StackLayout.Padding>
                         <OnPlatform x:TypeArguments="Thickness">
@@ -86,6 +90,8 @@
                 </TableView>    
             </StackLayout>
 </ScrollView>
+    <controls:AdControlView Grid.Row="1" Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand" AdUnit="SettingsPageBanner"  />
+
     </Grid>
     </ContentPage.Content>
 </ContentPage>

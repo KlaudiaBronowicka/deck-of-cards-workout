@@ -317,7 +317,7 @@
 
             </Grid>
 
-            <controls:AdControlView Grid.Row="3" Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand"  />
+            <controls:AdControlView Grid.Row="3" Style="{StaticResource AdBannerStyle}" HorizontalOptions="FillAndExpand" AdUnit="WorkoutPageBanner" />
 
 
         </Grid>
