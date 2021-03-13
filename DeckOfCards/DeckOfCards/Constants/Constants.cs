@@ -8,5 +8,6 @@ namespace DeckOfCards.Constants
     {
         public static string AnimateCardTransitionsPref = "AnimateCardTransitions";
         public static string SaveUnfinishedWorkoutsPref = "SaveUnfinishedWorkouts";
+        public static string SeenRemindersPopup = "SeenRemindersPopup";
     }
 }

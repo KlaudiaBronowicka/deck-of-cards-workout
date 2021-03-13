@@ -10,6 +10,7 @@
              utility:ViewModelLocator.AutoWireViewModel="True"
              xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:controls="clr-namespace:DeckOfCards.Controls;assembly=DeckOfCards"
+             NavigationPage.HasNavigationBar="False"
              xmlns:sh="http://sharpnado.com">
     <ContentPage.Resources>
         <ResourceDictionary>

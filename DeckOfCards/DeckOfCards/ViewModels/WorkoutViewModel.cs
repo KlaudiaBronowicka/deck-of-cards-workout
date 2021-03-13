@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using DeckOfCards.Utility;
 using System.Linq;
 using DeckOfCards.Contracts.Services;
+using Xamarin.Essentials;
+using static DeckOfCards.Constants.Constants;
 
 namespace DeckOfCards.ViewModels
 {
@@ -109,18 +111,21 @@ namespace DeckOfCards.ViewModels
         private readonly IDeckDataService _deckDataService;
         private readonly IPopupService _popupService;
         private readonly IPreferenceService _preferencesService;
+        private readonly INavigationService _navigationService;
 
         public bool AnimateCardTransitions { get; set; }
         private bool _saveUnfinishedWorkouts;
 
         public event EventHandler<string> WorkoutFinished;
 
-        public WorkoutViewModel(IWorkoutService workoutService, IDeckDataService deckDataService, IPopupService popupService, IPreferenceService preferencesService)
+        public WorkoutViewModel(IWorkoutService workoutService, IDeckDataService deckDataService, IPopupService popupService, IPreferenceService preferencesService, INavigationService navigationService)
         {
             _workoutService = workoutService;
             _deckDataService = deckDataService;
             _popupService = popupService;
             _preferencesService = preferencesService;
+
+            _navigationService = navigationService;
 
             SetupMessageListeners();
         }
@@ -384,6 +389,26 @@ namespace DeckOfCards.ViewModels
             CurrentCard = null;
             _currentWorkout = null;
 
+
+            await Task.Delay(1000);
+
+            if (!Preferences.Get(SeenRemindersPopup, false))
+            {
+                // show 'set reminders popup'
+                var result = await _popupService.ShowDialog(
+                        "Keep it up!", "Do you want to set reminders for your future workouts?", "No", "Yes");
+
+                if (result)
+                {
+                    // go to reminders page
+                    await _navigationService.NavigateToAsync<WorkoutRemindersViewModel>();
+                    return;
+
+                }
+
+                Preferences.Set(SeenRemindersPopup, true);
+
+            }
             
         }
 

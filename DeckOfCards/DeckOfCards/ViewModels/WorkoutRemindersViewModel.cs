@@ -12,6 +12,7 @@ using DeckOfCards.Contracts.Services;
 using DeckOfCards.Services;
 using Xamarin.Essentials;
 using DeckOfCards.Controls;
+using static DeckOfCards.Constants.Constants;
 
 namespace DeckOfCards.ViewModels
 {
@@ -44,11 +45,16 @@ namespace DeckOfCards.ViewModels
             _notificationManager = notificationManager;
         }
 
-        public override Task InitializeAsync(object data)
+        public override async Task InitializeAsync(object data)
         {
+            if (data == null)
+            {
+                data = await _remindersService.GetAllReminders();
+            }
+
             Reminders = new ObservableCollection<WorkoutReminder>(data as List<WorkoutReminder>);
 
-            return Task.CompletedTask;
+            Preferences.Set(SeenRemindersPopup, true);
         }
 
         private async Task OpenDayOfTheWeekSelectionPopup(int id)
