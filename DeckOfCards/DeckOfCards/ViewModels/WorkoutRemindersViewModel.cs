@@ -36,8 +36,9 @@ namespace DeckOfCards.ViewModels
 
         private IRemindersService _remindersService;
         private INotificationManager _notificationManager;
+        private IPopupService _popupService;
 
-        public WorkoutRemindersViewModel(IRemindersService remindersService, INotificationManager notificationManager)
+        public WorkoutRemindersViewModel(IRemindersService remindersService, INotificationManager notificationManager, IPopupService popupService)
         {
             _remindersService = remindersService;
             _notificationManager = notificationManager;
@@ -69,7 +70,10 @@ namespace DeckOfCards.ViewModels
 
             if (reminder == null) return;
 
-            await PopupNavigation.Instance.PushAsync(new ConfirmationPopup("Remove reminder", "Are you sure you want to remove this reminder?", async () => await RemoveReminder(id), null));
+            if ( await _popupService.ShowDialog("Remove reminder", "Are you sure you want to remove this reminder?", "No", "Yes"))
+            {
+                await RemoveReminder(id);
+            }
         }
 
         private async Task ReminderDaysUpdated()
