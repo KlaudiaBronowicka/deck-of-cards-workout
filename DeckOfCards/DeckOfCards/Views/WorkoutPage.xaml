@@ -18,6 +18,7 @@
             <converters:BoolToValueConverter x:Key="gamePausedTextConvert" x:TypeArguments="x:String" TrueValue="RESUME" FalseValue="PAUSE"  />
             <converters:InverseBoolConverter x:Key="inverseBoolConverter" />
             <converters:CardNumberToLabelConverter x:Key="cardNumberToLabelConverter" />
+            <converters:CardSymbolToColorConverter x:Key="cardSymbolToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -134,22 +135,8 @@
                             VerticalOptions="Start"
                             Text="{Binding CurrentCard.Value, Converter={StaticResource cardNumberToLabelConverter}}"
                             Style="{StaticResource CardNumberLabelStyle}"
-                            Margin="20, 15, 0, 0">
-                            <Label.Triggers>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Club">
-                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Spade">
-                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Hearts">
-                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Diamond">
-                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
+                            Margin="20, 15, 0, 0"
+                            TextColor="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolToColorConverter}}"/>
                         <Image
                             x:Name="TopLeftCardSymbol"
                             Style="{StaticResource CardSymbolImageStyle}"
@@ -172,22 +159,11 @@
                             VerticalOptions="Start"
                             Text="{Binding CurrentCard.Value, Converter={StaticResource cardNumberToLabelConverter}}"
                             Style="{StaticResource CardNumberLabelStyle}"
-                            Margin="0, 15, 20, 0">
+                            Margin="0, 15, 20, 0"
+                            TextColor="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolToColorConverter}}">
                              <Label.Triggers>
                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Joker">
                                     <Setter Property="IsVisible" Value="False" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Club">
-                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Spade">
-                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Hearts">
-                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Diamond">
-                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
@@ -214,26 +190,11 @@
                             Text="{Binding CurrentCard.Value, Converter={StaticResource cardNumberToLabelConverter}}"
                             Rotation="180"
                             Style="{StaticResource CardNumberLabelStyle}"
-                            Margin="20, 0, 0, 15">
+                            Margin="20, 0, 0, 15"
+                            TextColor="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolToColorConverter}}">
                             <Label.Triggers>
-                                <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}"
-                                            Value="Joker">
-                                    <Setter Property="IsVisible" Value="False" />
-                                </DataTrigger>
                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Joker">
                                     <Setter Property="IsVisible" Value="False" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Club">
-                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Spade">
-                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Hearts">
-                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Diamond">
-                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
                                 </DataTrigger>
                             </Label.Triggers>
                             </Label>
@@ -262,22 +223,8 @@
                             Text="{Binding CurrentCard.Value, Converter={StaticResource cardNumberToLabelConverter}}"
                             Rotation="180"
                             Margin="0, 0, 20, 15"
-                            Style="{StaticResource CardNumberLabelStyle}">
-                            <Label.Triggers>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Club">
-                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Spade">
-                                    <Setter Property="TextColor" Value="{StaticResource Primary}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Hearts">
-                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
-                                </DataTrigger>
-                                 <DataTrigger TargetType="Label" Binding="{Binding CurrentCard.Symbol}" Value="Diamond">
-                                    <Setter Property="TextColor" Value="{StaticResource Accent}" />
-                                </DataTrigger>
-                            </Label.Triggers>
-                        </Label>
+                            Style="{StaticResource CardNumberLabelStyle}"
+                            TextColor="{Binding CurrentCard.Symbol, Converter={StaticResource cardSymbolToColorConverter}}" />
                         <Image
                             x:Name="BottomRightCardSymbol"
                             Style="{StaticResource CardSymbolImageStyle}"
